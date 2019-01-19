@@ -2,9 +2,11 @@
 
 @font-face {
   font-family: helveticarounded;
-  src: url('HelveticaRounded-BoldCond.ttf') format('truetype'), url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
-  url('webfont.woff') format('woff');
+  src: url('HelveticaRounded-BoldCond.ttf') format('truetype'), url('webfont.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('webfont.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('webfont.woff') format('woff');
   /* Pretty Modern Browsers */
 }
 
@@ -187,7 +189,8 @@ header .navbar-default.scrolled ul.navbar-nav {
 }
 
 .section-heading {
-  margin: 60px 0 80px;
+  /* margin: 60px 0 80px; */
+  margin: 80px 0 80px;
   text-align: center;
 }
 
@@ -576,7 +579,8 @@ footer .social a i {
 }
 
 footer .rights {
-  margin-top: 30px;
+  /* margin-top: 30px; */
+  margin-top: 15px;
 }
 
 footer .rights a {
@@ -743,18 +747,23 @@ form textarea.form-control {
     width: 100px;
     height: auto;
   }
+
   .slick-next {
     right: 0;
   }
+
   .slick-prev {
     left: 0;
   }
+
   .contact-details {
     margin-top: 20px;
   }
+
   header .navbar-default {
     padding: 20px;
   }
+
   header .navbar-default .navbar-toggle {
     margin-top: 0px;
     margin-right: 0px;
@@ -767,18 +776,22 @@ form textarea.form-control {
     -o-border-radius: 5em;
     border-radius: 5em;
   }
+
   header .navbar-default .navbar-toggle:hover,
   header .navbar-default .navbar-toggle:focus {
     background: none;
   }
+
   header .navbar-default ul.navbar-nav {
     padding-top: 0;
     margin: 0;
   }
+
   header .navbar-default ul.navbar-nav li a {
     padding: 10px;
     text-align: center;
   }
+
   header .navbar-default ul.navbar-nav li a.getApp {
     background: none !important;
     -webkit-border-radius: 0em;
@@ -787,16 +800,20 @@ form textarea.form-control {
     -o-border-radius: 0em;
     border-radius: 0em;
   }
+
   header .navbar-default .navbar-collapse {
     border-color: transparent;
   }
+
   header .navbar-default.scrolled .navbar-collapse {
     border-color: transparent;
   }
+
   header .navbar-default.scrolled ul.navbar-nav {
     padding-top: 0;
     margin: 0;
   }
+
   header .navbar-default.scrolled .navbar-toggle {
     margin-top: 11px;
     margin-right: 20px;
@@ -855,23 +872,27 @@ form textarea.form-control {
 }
 
 @-webkit-keyframes bouncedelay {
+
   0%,
   80%,
   100% {
     -webkit-transform: scale(0);
   }
+
   40% {
     -webkit-transform: scale(1);
   }
 }
 
 @keyframes bouncedelay {
+
   0%,
   80%,
   100% {
     transform: scale(0);
     -webkit-transform: scale(0);
   }
+
   40% {
     transform: scale(1);
     -webkit-transform: scale(1);
@@ -1290,32 +1311,41 @@ form .form-control:focus {
 }
 
 @media screen and (max-width: 640px) {
+
   header .navbar-default .navbar-toggle:hover,
   header .navbar-default .navbar-toggle:focus {
     background: none;
   }
+
   header .navbar-default ul.navbar-nav li a {
     color: #ffffff;
     border-bottom: 1px solid #376fa4;
   }
+
   header .navbar-default ul.navbar-nav li a.getApp {
     color: #ffffff;
   }
+
   header .navbar-default ul.navbar-nav li a:after {
     display: none;
   }
+
   header .navbar-default ul.navbar-nav li a:hover {
     color: #66cdcc;
   }
+
   header .navbar-default .navbar-collapse {
     background: #336799;
   }
+
   header .navbar-default.scrolled {
     background: #fff;
   }
+
   header .navbar-default.scrolled ul.navbar-nav li a {
     color: #ffffff;
   }
+
   header .navbar-default.scrolled ul.navbar-nav li a:hover {
     color: #66cdcc;
   }
@@ -1414,3 +1444,13 @@ section#policy .section-heading p {
 }
 
 /*policy page end*/
+
+/**Get it on Google And App store Links*/
+.getAppLinks {
+  width: 100px;
+}
+
+.getAppLinks-ios {
+  width: 100px;
+  padding-top: 1px;
+}
