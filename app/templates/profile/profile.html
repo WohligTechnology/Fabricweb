@@ -1,0 +1,229 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header" side="left">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white">Profile</h1>
+        <!--
+          <button class="button button-icon icon-pencil" ng-click="gridListView('grid')">
+          </button>
+        -->
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div ng-if="user">
+      <!-- <div class="marrl10"> -->
+      <div class="profile-addr supplier-info mt-0 padright">
+        <div class=" item-thumbnail-right no-border pr-0">
+          <div class="upload-camera f-right mt-12" >
+              <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+                  Upload Photos
+            </upload-image>
+            <img ng-src="{{ user.photo | serverimage: 60:60:'cover' }}" alt="" ng-if="user.photo" class="img-responsive" />
+            <i class="ion ion-camera" ng-if="!user.photo"></i>
+          </div>
+          <div class="user-profile pt-0">
+            <!-- <h2>{{ user.companyName }}</h2> -->
+            <div class="item-input item-stacked-label pl-0 wd-100">
+              <div class="wd">
+                <!-- <input class="h-24" type="text" placeholder="Company Name" ng-model="user.companyName" ng-readonly="readonly" /> -->
+                <h2 class="sell-name mb-0">{{user.companyName}}</h2>
+              </div>
+              <input class="h-24 fontBold" type="text" placeholder="Brand Name" ng-model="user.brandName" ng-readonly="readonly" />
+            </div>
+            <div>{{ user.city }}, {{ user.state }}</div>
+          </div>
+        </div>
+        <!--
+            <a class="item item-thumbnail-right">
+               <img ng-src="{{user.photo|serverimage}}">
+              <h2>{{user.companyName}}</h2>
+               <div>{{user.city}} {{user.state}}</div>
+            </a>
+          -->
+      </div>
+
+      <div class="supplier-info">
+        <!-- <p class="padding mb-0 pb-0">Company Description</p> -->
+        <div class="pad-10">
+          <textarea class="supplier-addr" name="" id="" cols="4" rows="4" placeholder="Company Description" ng-readonly="readonly"
+            ng-model="user.companyDescription" value=""></textarea>
+        </div>
+      </div>
+      <!--
+          <textarea class="supplier-addr" name="" id="" id="" cols="4" rows="4" placeholder="Address">Hi! My name is Ankit patel, I’m a creative geek from San Francisco, CA. I enjoy creating eye candy solutions for web and mobile apps. Contact me at john@mail.com</textarea>
+        -->
+      <div class="supplier-info">
+        <!--
+            <a class="item item-thumbnail-left">
+              <img ng-src="img/ben.png">
+              <h2>Ankit Patel</h2>
+              <p class="fashion">Mumbai Maharashtra</p>
+            </a>
+            <div class="supp-email">
+              <div>Email Id</div>
+              <label >samplename@gmail.com</label>
+            </div>
+            <div class="supp-mobile">
+              <div>Mobile Number</div>
+              <label >9876534721</label>
+            </div>
+            <hr>
+          -->
+        <div class="personal-information">
+          <h4>PERSONAL INFORMATION</h4>
+          <div class="list mb-0">
+            <div class="row bor-bot mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">Name</span>
+                  <input type="text" ng-model="user.name" ng-readonly="readonly" />
+                </label>
+              </div>
+              <div class="col-20 change">
+                <!-- <button class="button">Change</button> -->
+              </div>
+            </div>
+            <div class="row bor-bot mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">Mobile Number</span> <br />
+                  <input type="number" maxlength="10" onKeyPress="if(this.value.length==this.maxLength) return false;"
+                    ng-model="user.mobile" readonly />
+                </label>
+              </div>
+              <div class="col-20 change">
+                <!--
+                    <button class="button" ng-click="saveUser()">Change</button>
+                  -->
+
+                <button class="button" ng-click="changeReadonly();">
+                  <i class="icon ion-edit"></i>
+                </button>
+              </div>
+            </div>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <form name="addInfo">
+                  <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email</span>
+                    <!-- ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" -->
+                    <input type="text" ng-model="user.email" name="email" ng-readonly="readonly" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                      required />
+                    <!-- <small class="errors" ng-show="addInfo.email.$touched">Email ID
+                        is required.</small> -->
+                    <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter
+                      Valid Email</small>
+                  </label>
+                </form>
+              </div>
+              <!-- <div class="col-20 change"> -->
+              <!-- <button class="button">Change</button> -->
+              <!-- </div> -->
+            </div>
+          </div>
+          <div class="supplier-info">
+            <h4 class="mt-0">COMPANY INFORMATION</h4>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">GST Number</span>
+                  <input type="text" ng-model="user.gstNumber" readonly />
+                </label>
+              </div>
+            </div>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">GST Registered Name</span>
+                  <input type="text" placeholder="GST Registered Name" ng-model="user.gstCompanyName" readonly />
+                </label>
+              </div>
+            </div>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">GST Registered Address</span>
+                  <!-- <input type="text" ng-model="user.gstAddress" readonly /> -->
+                  <textarea class="mar-top" name="gstAddressAndCompanyName" id="" cols="4" rows="3" readonly ng-model="user.gstAddress"
+                    placeholder="GST Registered Address">
+                  </textarea>
+                </label>
+              </div>
+              <!-- <div class="col-20 change"> -->
+              <!-- <button class="button">Change</button> -->
+              <!-- </div> -->
+            </div>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">Alternate / Dispatch Address</span>
+                  <input type="text" ng-model="user.dispatchAddress" ng-readonly="readonly" />
+                </label>
+              </div>
+              <!-- <div class="col-20 change"> -->
+              <!-- <button class="button">Change</button> -->
+              <!-- </div> -->
+            </div>
+            <div class="row bor-bot width-100 mb-10">
+              <div class="col-80 bg-input-pro">
+                <label class="item item-input item-stacked-label">
+                  <span class="input-label">Contact Number</span> <br />
+                  <input type="text" maxlength="10" onKeyPress="if(this.value.length==this.maxLength) return false;"
+                    ng-model="user.companyNumber" ng-readonly="readonly" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="company-address bg-input">
+          <div class="row pad-lr5">
+            <!-- <div class="col-80">
+                <h4>Company Address</h4>
+              </div> -->
+            <!--
+                <div class="col-20">
+                  <button class="button" ng-click="saveUser()">Change</button>
+                </div>
+              -->
+          </div>
+
+          <div class="list add-product-form bg-input-pro">
+            <label class=" item-input">
+              <span class="input-label">City</span>
+              <input type="text" ng-model="user.city" ng-readonly="readonly" />
+            </label>
+            <label class=" item-input">
+              <span class="input-label">State</span>
+              <input type="text" ng-model="user.state" ng-readonly="readonly" />
+            </label>
+            <label class=" item-input">
+              <span class="input-label">Country</span>
+              <input type="text" ng-model="user.country" ng-readonly="readonly" />
+            </label>
+            <label class=" item-input">
+              <span class="input-label">Pin number</span>
+              <input type="text" pattern="[0-9]{6}" maxlength="6" ng-model="user.pincode" ng-readonly="readonly" />
+            </label>
+            <!-- <label class=" item-input">
+              <span class="input-label">GST number</span>
+              <input type="text" ng-model="user.gstNumber" ng-readonly="readonly" />
+            </label> -->
+          </div>
+        </div>
+      </div>
+      <div class="row" ng-if="changed && !readonly">
+        <div class="col text-center ">
+          <!-- ng-disabled="addInfo.$invalid" ng-click="saveUser()"-->
+          <button type="submit" class="button button-positive button-small padding-horizontal" ng-disabled="addInfo.$invalid"
+            ng-click="saveUser()">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <!-- </div> -->
+    </div>
+  </ion-content>
+</ion-view>

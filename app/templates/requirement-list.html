@@ -1,0 +1,57 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <div class="header-title">
+        <div class="bar bar-header" side="left">
+          <button
+            class="button button-icon icon-Menu"
+            menu-toggle="left"
+          ></button>
+          <h1 class="title white ">Requirement List</h1>
+          <button
+            class="button button-icon "
+            ng-disabled="!showCheckBox"
+            ng-click="delete()"
+          >
+            <ion-icon
+              class="icon ion-trash-b"
+              name="ion-trash-b"
+              ng-class="{'delete-icon-active': showCheckBox }"
+            ></ion-icon>
+          </button>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-search Favourites">
+    <div
+      class="buyers-list-card search-seller req-details"
+      on-hold="onHold()"
+      ng-repeat="requirement in ReqList"
+    >
+      <div class="list card">
+        <div class="row" ng-click="openRequirementDetails(requirement)">
+          <div class="col-20">
+            <div class="item item-thumbnail-left">
+              <img
+                ng-src="{{
+                  requirement.images[0] | serverimage: 50:50:'cover'
+                }}"
+              />
+            </div>
+          </div>
+          <div class="col-80" ng-if="!showCheckBox">
+            <div class="req-description">{{ requirement.name }}</div>
+          </div>
+          <div class="col-70" ng-if="showCheckBox">
+            <div class="req-description">{{ requirement.name }}</div>
+          </div>
+        </div>
+        <ion-checkbox
+          ng-if="showCheckBox"
+          ng-model="requirement.showCheck"
+        ></ion-checkbox>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

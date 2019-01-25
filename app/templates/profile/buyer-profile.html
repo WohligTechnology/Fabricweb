@@ -1,0 +1,250 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon icon-Back1 white" ng-click="goBackHandler()"></button>
+        <h1 class="title white">Profile</h1>
+        <button class="button button-icon white editbutton" ng-click="changeReadonly()">
+          <i class="icon ion-edit"></i>
+        </button>
+      </div>
+
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="profile-addr buyers-detail supplier-info mt-0 web-view">
+      <div class=" item-thumbnail-right pr-0">
+        <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+          Upload Photos
+        </upload-image>
+        <!-- <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive" ng-click="adducimage(1)" /> -->
+        <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive web-img" />
+
+        <!-- <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive" /> -->
+        <div class="item-input item-stacked-label pl-0 wd-100">
+          <!-- <div class="wd">
+            <input class="h-24" type="text" placeholder="Company Name" ng-model="user.companyName" ng-readonly="readonly">
+          </div> -->
+          <h2 class="sell-name">{{user.companyName}}</h2>
+          <!-- <h2>{{user.companyName}}</h2> -->
+          <!-- <p>Brand: Redwine</p> -->
+          <input class="h-24 fontBold" type="text" placeholder="Brand Name" ng-model="user.brandName" ng-readonly="readonly">
+          <div>{{ user.city }}, {{ user.state }}</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="supplier-info">
+      <!-- <p class="padding mb-0 pb-0">Company Description</p> -->
+      <div class="pad-10">
+        <textarea class="supplier-addr" name="" id="" cols="4" rows="4" placeholder="Company Description" ng-readonly="readonly"
+          ng-model="user.companyDescription" value=""></textarea>
+      </div>
+    </div>
+
+    <div class="buyers-detail-final buyer-main">
+      <div class="row no-padding">
+        <div class="col-80">
+          <h5 class="fnt-16 lato-bold mt-20">PERSONAL INFORMATION</h5>
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding">
+          <div class="col-75">
+            <span>First Name</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="First Name" ng-model="user.name" ng-readonly="readonly">
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding">
+          <div class="col-75">
+            <span>Mobile Number</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="Mobile Number" ng-model="user.mobile" readonly maxlength="10" onKeyPress="if(this.value.length==this.maxLength) return false;">
+        </div>
+      </div>
+      <!-- <div class="supp-email"> -->
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding">
+          <div class="col-75">
+            <span>Email ID</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <form name="addInfo">
+            <input type="email" ng-model="user.email" name="email" placeholder="sample@gmail.com" ng-readonly="readonly"
+              ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required />
+            <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter
+              Valid Email</small>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="supplier-info buyers-info">
+
+      <a class="item item-thumbnail-left">
+        <h2>{{user.name}}</h2>
+        <p class="fashion">{{user.city}}, {{user.state}}</p>
+      </a>
+      <div class="supp-email">
+        <div>Email Id</div>
+
+        <div class="col-100">
+          <form name="addInfo">
+            <input type="email" ng-model="user.email" name="email" placeholder="sample@gmail.com" ng-readonly="readonly"
+              ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required />
+            <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter
+              Valid Email</small>
+          </form>
+        </div>
+
+      </div>
+      <div class="supp-mobile">
+        <div>Mobile Number</div>
+        <label >{{user.mobile}}</label>
+      </div>
+
+    </div> -->
+
+    <div class="buyers-detail-final buyer-main">
+      <div class="row no-padding">
+        <div class="col-80">
+          <h5 class="fnt-16 lato-bold mt-20">COMPANY INFORMATION</h5>
+        </div>
+        <!-- <div class="col-20 item-note">
+          <h5 class="fnt-16 lato-bold smallchange" ng-click="changeReadonly();
+            changed=false">Edit
+            <i class="icon ion-edit"></i>
+          </h5>
+        </div> -->
+      </div>
+      <!-- <div> -->
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding mar-top">
+          <div class="col-75">
+            <span>GST Number</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="GST Number" ng-model="user.gstNumber" readonly>
+        </div>
+      </div>
+
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding mar-top">
+          <div class="col-75">
+            <span>GST Registered Name</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="GST Registered Name" ng-model="user.gstCompanyName" readonly>
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding">
+          <div class="col-75">
+            <span>GST Registered Address</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <textarea class="mar-top borbot" name="gstAddressAndCompanyName" id="" cols="4" rows="3" placeholder="GST Registered Address"
+            readonly ng-model="user.gstAddress">
+          </textarea>
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row-no-padding">
+          <div class="col-75">
+            <span>Alternate / Dispatch Address</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="Address" ng-model="user.dispatchAddress" ng-readonly="readonly">
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row no-padding">
+          <div class="col-75">
+            <span>Contact Number</span>
+          </div>
+        </div>
+        <div class="col-100">
+          <input type="text" placeholder="Company Number" ng-model="user.companyNumber" ng-readonly="readonly">
+        </div>
+      </div>
+      <div class="item-input item-stacked-label">
+        <div class="row-no-padding">
+          <div class="col">
+            <input type="text" placeholder="City" ng-model="user.city" ng-readonly="readonly">
+          </div>
+        </div>
+        <div class="row-no-padding">
+          <div class="col">
+            <input type="text" placeholder="State" ng-model="user.state" ng-readonly="readonly">
+          </div>
+        </div>
+        <div class="row-no-padding">
+          <div class="col">
+            <input type="text" placeholder="Country" ng-model="user.country" ng-readonly="readonly">
+          </div>
+        </div>
+        <div class="row-no-padding">
+          <div class="col">
+            <input type="text" placeholder="Pin Number" pattern="[0-9]{6}" maxlength="6" ng-model="user.pincode"
+              ng-readonly="readonly">
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row-no-padding">
+            <div class="col">
+              <input type="text" placeholder="Pin number" ng-model="user.pincode" ng-readonly="readonly" >
+            </div>
+
+          </div> -->
+      <!-- </div> -->
+      <div class="row item-input" ng-if="changed && !readonly">
+        <div class="col text-center">
+          <button class="button button-positive button-small padding-horizontal" ng-disabled="addInfo.$invalid"
+            ng-click="saveUser()">
+            Save
+          </button>
+        </div>
+      </div>
+
+      <div class="col item-input app-color1">
+        <!-- <small>Add Another Shipping Address</small> -->
+      </div>
+      <!-- </div> -->
+
+
+      <h5 class="fnt-16 lato-bold">Add your product photo</h5>
+      <div class=" col-100 text-center buyerAddProduct">
+        <!-- <div class="my-shop-img-center  add-product-div rel" ng-click="addCamera(10)">
+          <i class="ion ion-plus-circled"></i>
+        </div> -->
+        <!-- <div class="text-center"> -->
+        <button class="btn add-end-product" ng-click="openAddEndProduct()" ng-if="user.endProduct.length<10">
+          Add Your Products
+        </button>
+      </div>
+    </div>
+    <div class="buyers-detail-final buyer-main">
+      <div class="row mtb-10" ng-repeat="endproducts in userEndProdChunk">
+        <div class="col-50 " ng-repeat="endproduct in endproducts">
+          <!-- <label class="shirt-design-name">{{endproduct.name}}</label> -->
+          <div class="buyers-detail-img rel">
+            <img ng-src="{{endproduct.image | serverimage}}" ng-click="openModal(endproduct.image)" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

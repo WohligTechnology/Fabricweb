@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 3">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #22386c;
+      }
+    </style>
+  </defs>
+  <g id="Quick_action" data-name="Quick action" transform="translate(-562 -670)">
+    <path id="Union_1" data-name="Union 1" class="cls-1" d="M0,13.5A1.5,1.5,0,1,1,1.5,15,1.5,1.5,0,0,1,0,13.5Zm0-6A1.5,1.5,0,1,1,1.5,9,1.5,1.5,0,0,1,0,7.5Zm0-6A1.5,1.5,0,1,1,1.5,3,1.5,1.5,0,0,1,0,1.5Z" transform="translate(562 673) rotate(-90)"/>
+  </g>
+</svg>

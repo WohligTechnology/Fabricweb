@@ -1,0 +1,74 @@
+<ion-modal-view class="sorting" left-buttons="leftButtons">
+  <ion-header-bar class="bar bar-positive header-title">
+    <div class="header-title">
+      <div class="bar bar-header">
+        <h1 class="title white title-left">Requirement</h1>
+        <button class="button button-icon icon ion-close close-icon close" ng-click="closePostReqDetail()"></button>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header has-footer buyer-profile" padding="true">
+    <div class="buyer-info">
+      <a class="item item-thumbnail-left">
+        <img ng-src="{{ singleNotification.from.photo | serverimage }}" />
+        <p class="fashion">{{ singleNotification.from.companyName }}</p>
+        <h2>{{ singleNotification.from.name }}</h2>
+        <p class="fashion lato-regular">Brand: {{singleNotification.from.brandName}}</p>
+      </a>
+      <div ng-if="singleNotification.notificationType=='Request'">
+        <div class="sample-req">
+          <label >Sample Request for</label>
+          <span>{{ singleNotification.product.name }}.</span>
+          <button class="lato-medium check-details" ui-sref="product-detail({id:singleNotification.to._id,productId:singleNotification.product._id})"
+            ng-click="closeBuyerProfileModal()">
+            Product Page
+          </button>
+        </div>
+        <div>Design no : {{ singleNotification.product.designNumber }}</div>
+      </div>
+
+      <ion-slides class="add-prod-slider" options="options" slider="data.slider">
+        <ion-slide-page ng-repeat="images in imageChunk track by $index" ng-init="outerIndex=$index" class="row">
+          <div class="col image-cancel-div col-33" ng-repeat="image in images track by $index">
+            <div class="upload-img" on-tap="openModal(outerIndex,$index,image)">
+              <div class="upload-bg" style="background:url({{ image | serverimage :150:150:'cover' }}) #ddd no-repeat center center" ng-click="openModal(outerIndex,$index,image)"></div>
+            </div>
+            <!-- <img class="image-cancel" src="img/cross.svg" alt="" ng-click="removeImage($index)" /> -->
+          </div>
+        </ion-slide-page>
+      </ion-slides>
+      <div class="req-description gst-address">
+        <h5>Description:</h5>
+        <p>{{ singleNotification.product.name }}</p>
+      </div>
+      <div class="gst-address">
+        <h5>GST Number</h5>
+        <!-- A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022. -->
+        <p>{{ singleNotification.from.gstNumber }}</p>
+      </div>
+      <div class="gst-address">
+        <h5>GST registered Address</h5>
+        <!-- A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022. -->
+        <p>{{ fullAddress }}</p>
+      </div>
+      <div class="email">
+        <div>Email Id</div>
+        <label >{{ singleNotification.from.email }}</label>
+      </div>
+      <div class="mobile">
+        <div>Mobile Number</div>
+        <label >{{ singleNotification.from.mobile }}</label>
+        <div class="whatsapp-call-icon">
+          <!-- <i class="ion icon-Whatsupp"> -->
+          <a class="ion icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{
+              singleNotification.from.mobile
+            }}&text={{ product.owner.name }}"></a>
+          <!-- </i> -->
+          <!-- <i class="ion icon-Call"> -->
+          <a class="ion icon-Call" href="tel:{{ singleNotification.from.mobile }}"></a>
+          <!-- </i> -->
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

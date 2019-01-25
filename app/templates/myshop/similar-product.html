@@ -1,0 +1,125 @@
+<ion-view hide-nav-bar="true">
+  <div class="similar-prod-header">
+    <ion-header-bar>
+      <div class="all-search ">
+        <div class="item item-input-inset">
+          <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+          <h1 class="title white title-left">Similar Products
+          </h1>
+          <!-- <div class="mark-image">
+            <button class="button icon icon-Mark"></button>
+          </div> -->
+          <!-- <div class="similar-prod-dropdown">
+            <label class="item item-input item-select">
+              <select>
+                <option selected>All</option>
+                <option>Checks</option>
+                <option>Denims</option>
+              </select>
+            </label>
+          </div> -->
+
+        </div>
+      </div>
+
+    </ion-header-bar>
+  </div>
+
+  <ion-content class="has-header-bar Favourites">
+    <div class="mt-10">
+      <div class="row mtb-10" ng-repeat="products in productChunk">
+        <div class=" col-50" ng-repeat="product in products">
+          <product-box ng-product="product" no-action="true"></product-box>
+          <!-- <div class="category-img inner-shop-img rel" ng-click="goToBuyerProductDetail(product._id)" style="background:url({{product.images[0] | serverimage :200:200:'cover'}}) #ddd no-repeat;background-size:cover"> -->
+          <!-- <img  ng-src="{{product.images[0]|serverimage}}" alt="" /> -->
+          <!-- </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">{{ product.name }}</div>
+            <div class="design-no">{{ product.designNumber }}</div> -->
+          <!-- <i class="icon-Quick-action shirt-options" ng-click="showActionsheet()"></i> -->
+          <!-- </div> -->
+        </div>
+      </div>
+      <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+      <!--
+        <div class=" col-50 ">
+          <div class="category-img rel" ui-sref="buyer-product-detail">
+            <img  src="img/products/denim.jpeg" alt="">
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">Excepteur sint</div>
+            <div class="design-no">1339</div>
+            <i class="icon icon-Quick-action app-color1 shirt-options" ng-click="showActionsheet()"></i>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="row mtb-10">
+        <div class=" col-50">
+          <div class="category-img rel" ui-sref="buyer-product-detail">
+            <img  src="img/products/dobby.jpeg" alt="">
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">Excepteur sint</div>
+            <div class="design-no">1339</div>
+            <i class="icon icon-Quick-action app-color1 shirt-options" ng-click="showActionsheet()"></i>
+          </div>
+
+        </div>
+        <div class=" col-50 ">
+          <div class="category-img rel" ui-sref="buyer-product-detail">
+            <img  src="img/products/double-cloth.jpeg" alt="">
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">Excepteur sint</div>
+            <div class="design-no">1339</div>
+            <i class="icon icon-Quick-action app-color1 shirt-options" ng-click="showActionsheet()"></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row mtb-10">
+      <div class=" col-50">
+        <div class="category-img rel" ui-sref="buyer-product-detail">
+          <img  src="img/products/linen.jpeg" alt="">
+        </div>
+        <div class="mar-l10 rel btn-app-color1">
+          <div class="shirt-design-name">Excepteur sint</div>
+          <div class="design-no">1339</div>
+          <i class="icon icon-Quick-action app-color1 shirt-options" ng-click="showActionsheet()"></i>
+        </div>
+      </div>
+      <div class=" col-50 ">
+        <div class="category-img rel" ui-sref="buyer-product-detail">
+          <img  src="img/products/lycra.jpeg" alt="">
+        </div>
+        <div class="mar-l10 rel btn-app-color1">
+          <div class="shirt-design-name">Excepteur sint</div>
+          <div class="design-no">1339</div>
+          <i class="icon icon-Quick-action app-color1 shirt-options" ng-click="showActionsheet()"></i>
+        </div>
+      </div>
+    </div> -->
+  </ion-content>
+  <!-- <ion-footer>
+    <div class="tab-custom">
+      <div class="tabs tabs-icon-top">
+        <a class="tab-item active lato-regular" ui-sref="buyer-notification">
+          <i class="icon icon-Logo1 app-color"></i>
+          Market
+        </a>
+        <a class="tab-item bg-color lato-regular white active" ui-sref="app.collection">
+          <i class="icon icon-Collection"></i>
+          Collection
+        </a>
+        <a class="tab-item lato-regular active" ui-sref="buyer-notification">
+          <i class="icon icon-Notification app-color"></i>
+          Notification
+        </a>
+      </div>
+    </div>
+
+  </ion-footer> -->
+</ion-view>

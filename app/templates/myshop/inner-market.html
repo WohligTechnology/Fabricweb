@@ -1,0 +1,83 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <div class="header-search-title">
+        <div class="bar bar-header search-input " side="left">
+          <button class="button button-icon icon-Menu" menu-toggle="left"></button>
+          <div class="item-input-wrapper bg-drakblue rel">
+            <form ng-submit="searchProduct(search)" class="row search-mt">
+              <input type="search" placeholder="Search" ng-model="search" class="col-80" />
+              <div type="submit" class="search-container col-20" ng-click="searchProduct(search)">
+                <img class="search-icon" src="img/search.png" />
+              </div>
+            </form>
+          </div>
+          <button class="button button-icon icon-Filter1" ng-click="openSortProductModal()"></button>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-bar inner-shops  ion-top" on-scroll="getScrollPosition()">
+    <div ng-if="productChunk || subCategoryChunk">
+      <div class="mtb-20">
+        <div class="text-center">
+          <button class="btn btn-requirement text-center" ng-click="openPostReqModal()">
+            Post Your Requirement
+          </button>
+        </div>
+      </div>
+      <hr class="bor-hr" />
+
+      <ion-slides class="buyer-subcat" options="options" slider="data.slider" ng-if="subCategoryChunk.length>0">
+        <ion-slide-page ng-repeat="subcat in subCategoryChunk" class="row">
+          <div class="{{subCategoryclass}} items text-center" ng-repeat="subcategory in subcat" id="buyer-subcat-strip"
+            ng-class="{'img-active-class': selectedCategory === subcategory._id }">
+            <div class="bg-img-overlay">
+              <img ng-src="{{ subcategory.image | serverimage: 120:93:'cover' }}" alt="" ng-if="subcategory.name != 'All' && subcategory.branch!='Accessory'"
+                ng-click="selectCategories(subcategory._id); getProductsOnFilter(subcategory.category._id, subcategory._id)" />
+              <img ng-src="{{ subcategory.image}}" alt="" ng-if="subcategory.name == 'All'" ng-click="selectCategories(subcategory._id); getProductsOnFilter('', '')" />
+              <img ng-src="{{ subcategory.image | serverimage: 120:93:'cover'}}" alt="" ng-if="subcategory.branch == 'Accessory'"
+                ng-click="selectCategories(subcategory._id); getProductsOnFilter(subcategory._id,'')" />
+              <span ng-if="subcategory.name!='All'">{{
+                subcategory.category.name
+                }}</span>
+              <span ng-if="subcategory.name=='All'">All</span>
+              <span ng-if="subcategory.branch=='Accessory'">Accessory</span>
+              <span class="spanCategory" ng-if="subcategory.name!='All'">{{
+                subcategory.name
+                }}</span>
+            </div>
+          </div>
+        </ion-slide-page>
+      </ion-slides>
+      <div class="list">
+        <div class="item row mtb-10 border-none" ng-repeat-start="products in productChunk track by $index" ng-if="productChunk.length>0">
+          <div class=" col-50" ng-repeat="product in products">
+            <product-box ng-product="product"></product-box>
+          </div>
+        </div>
+        <div class="newly-added-products" ng-if="$index==14 && selectedCategory==='All'" ng-repeat-end>
+          <h4 class="newly-added-heading">Newly Added Products</h4>
+          <ion-slides class="buyer-subcat" options="options" slider="data.slider">
+            <ion-slide-page ng-repeat="categories in allCatChunk" class="row">
+              <div class="col-33 items text-center" ng-repeat="category in categories" ng-class="{'img-active-class': selectedCategory === category._id }">
+                <div class="bg-img-overlay" ui-sref="innermarket-newly-added({categoryId:category._id})">
+                  <img ng-src="{{ category.image | serverimage: 120:93:'cover' }}" alt="" ng-if="category.branch!='Accessory'" />
+                  <img ng-src="{{ category.image | serverimage: 120:93:'cover' }}" alt="" ng-if="category.branch == 'Accessory'" />
+                  <span class="spanCategory" ng-if="category.name!='All'">{{
+                    category.name
+                    }}</span>
+                </div>
+              </div>
+            </ion-slide-page>
+          </ion-slides>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="text-center padding" ng-if="productChunk.length==0">
+      <h4>No products found</h4>
+    </div> -->
+    <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+  </ion-content>
+  <scroll-top></scroll-top>
+</ion-view>

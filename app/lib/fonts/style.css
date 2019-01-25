@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?ls0p1j');
+  src:  url('fonts/icomoon.eot?ls0p1j#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ls0p1j') format('truetype'),
+    url('fonts/icomoon.woff?ls0p1j') format('woff'),
+    url('fonts/icomoon.svg?ls0p1j#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-category:before {
+  content: "\e905";
+  color: #a0a0a0;
+}
+.icon-feedback:before {
+  content: "\e906";
+  color: #a0a0a0;
+}
+.icon-followers:before {
+  content: "\e907";
+  color: #a0a0a0;
+}
+.icon-invite:before {
+  content: "\e908";
+  color: #a0a0a0;
+}
+.icon-Recent:before {
+  content: "\e909";
+  color: #a0a0a0;
+}
+.icon-subscription:before {
+  content: "\e90a";
+  color: #a0a0a0;
+}
+.icon-Down-up:before {
+  content: "\e903";
+  color: #c6c6c6;
+}
+.icon-Tick:before {
+  content: "\e904";
+  color: #c6c6c6;
+}
+.icon-grid:before {
+  content: "\e901";
+  color: #22386c;
+}
+.icon-list:before {
+  content: "\e902";
+  color: #22386c;
+}
+.icon-pencil:before {
+  content: "\e900";
+  color: #22386c;
+}
+.icon-Edit:before {
+  content: "\e926";
+  color: #22386c;
+}
+.icon-Quick-action:before {
+  content: "\e927";
+  color: #22386c;
+}
+.icon-Chat:before {
+  content: "\e928";
+  color: #ff020b;
+}
+.icon-Favorite:before {
+  content: "\e929";
+  color: #ff020b;
+}
+.icon-Intrested:before {
+  content: "\e92a";
+  color: #ff020b;
+}
+.icon-Logo1:before {
+  content: "\e92b";
+  color: #22386c;
+}
+.icon-Mark:before {
+  content: "\e92c";
+  color: #ff020b;
+}
+.icon-Sample:before {
+  content: "\e92d";
+  color: #ff020b;
+}
+.icon-Back1:before {
+  content: "\e92e";
+  color: #22386c;
+}
+.icon-Call:before {
+  content: "\e92f";
+  color: #22386c;
+}
+.icon-Camera:before {
+  content: "\e930";
+  color: #22386c;
+}
+.icon-Collection:before {
+  content: "\e931";
+  color: #22386c;
+}
+.icon-Fcebook:before {
+  content: "\e932";
+  color: #22386c;
+}
+.icon-Filter1:before {
+  content: "\e933";
+  color: #22386c;
+}
+.icon-Intsgram:before {
+  content: "\e934";
+  color: #22386c;
+}
+.icon-Location:before {
+  content: "\e935";
+  color: #22386c;
+}
+.icon-Logo_color .path1:before {
+  content: "\e936";
+  color: rgb(34, 56, 108);
+}
+.icon-Logo_color .path2:before {
+  content: "\e937";
+  margin-left: -1.18359375em;
+  color: rgb(34, 56, 108);
+}
+.icon-Logo_color .path3:before {
+  content: "\e938";
+  margin-left: -1.18359375em;
+  color: rgb(228, 34, 41);
+}
+.icon-Menu:before {
+  content: "\1f316";
+  color: #22386c;
+}
+.icon-Notification:before {
+  content: "\e93a";
+  color: #22386c;
+}
+.icon-Stats:before {
+  content: "\e93b";
+  color: #22386c;
+}
+.icon-Tweeter:before {
+  content: "\e93c";
+  color: #22386c;
+}
+.icon-Upload:before {
+  content: "\e93d";
+  color: #22386c;
+}
+.icon-Whatsupp:before {
+  content: "\e93e";
+  color: #22386c;
+}

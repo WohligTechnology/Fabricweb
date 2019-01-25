@@ -1,0 +1,26 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white title-left">Newly Added Products</h1>
+      </div>
+    </div>
+
+  </ion-header-bar>
+  <ion-content class="has-header-bar Favourites">
+    <div class="mt-10">
+      <div class="newly-added-products">
+        <h2 class="catname-heading">{{catName[0].name}}</h2>
+      </div>
+      <div class="list">
+        <div class="item row mtb-10 border-none" ng-repeat="products in productChunk track by $index" ng-if="productChunk.length>0">
+          <div class=" col-50" ng-repeat="product in products">
+            <product-box ng-product="product"></product-box>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

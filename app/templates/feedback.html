@@ -1,0 +1,26 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <div class="button button-icon icon-Back1" ng-click="goBackHandler()"></div>
+        <h1 class="title white ">Feedback</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="list feedback-form">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Rate</span>
+        <star-rating-comp color="'negative'" on-click="rateUs($event)" size="'large'" ng-model="data.rate" disabled="false"
+          show-half-stars="true"></star-rating-comp>
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label mb-5">Suggesstion / Feedback</span>
+        <textarea name="" id="" id="" cols="4" rows="4" placeholder="Description" ng-model="data.description"></textarea>
+      </label>
+      <div class="feedback-button text-center" ng-click="opensavefeedbackModal(data)">
+        <button class="button button-block text-uppercase">Submit</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

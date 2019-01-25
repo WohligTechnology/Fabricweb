@@ -1,0 +1,26 @@
+<ion-modal-view class="header-title">
+  <ion-header-bar class="bar bar-header">
+    <div>
+      <h1 class="title white">{{ titleName }}</h1>
+      <button class="button button-icon icon ion-close close-icon close" ng-click="closeViewModal()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="photos padding-vertical">
+      <div class="row mb-10" ng-repeat="views in viewDataChunk">
+        <div class="col-33" ng-repeat="view in views" ng-click="closeViewModal();goToProductDetail(view._id)">
+          <div class="category-img rel" style="background:url({{
+              view.images[0] | serverimage: 120:120:'cover'
+            }}) #ddd no-repeat center center;background-size:cover">
+            <!-- <img ng-src="{{ view.images[0] | serverimage }}" alt="" /> -->
+          </div>
+          <label  class="shirt-design-name">{{ view.name }}</label>
+          <label  class="design-no">{{ view.designNumber }}</label>
+          <i class="button button-icon icon ion-eye " ng-if="type=='viewed'"></i>
+          <i class="button button-icon icon icon-Mark fs14" ng-if="type=='interested'"></i>
+          <i class="button button-icon ion icon-Sample" ng-if="type=='sampleRequest'"></i>{{ view.view }}
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

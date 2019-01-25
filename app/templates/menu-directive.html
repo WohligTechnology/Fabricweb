@@ -1,0 +1,147 @@
+<ion-header-bar class="bar-light side-menu-header side-profile">
+  <a class="item item-thumbnail-left" menu-close ng-if="retailorType=='Seller' && user" ui-sref="profile">
+    <img src="{{ user.photo | serverimage: 65:65:'cover' }}" />
+    <h2>{{ user.companyName }}</h2>
+    <p>{{ user.city }}, {{ user.state }}</p>
+  </a>
+  <a class="item item-thumbnail-left" menu-close ng-if="retailorType=='Buyer' && user" ui-sref="buyer-profile">
+    <img src="{{ user.photo | serverimage: 65:65:'cover' }}" />
+    <h2>{{ user.companyName }}</h2>
+    <p>{{ user.city }}, {{ user.state }}</p>
+  </a>
+
+  <!--
+    <a class="item item-thumbnail-right">
+        <div class="profile-img">
+            <img ng-src="{{user.photo|serverimage}}">
+        </div>
+        <div class="menu-city">
+            <h2>{{user.companyName}}</h2>
+            <p>{{user.state}}, {{user.city}}</p>
+        </div>
+
+    </a>
+  -->
+
+  <!--
+    <div class="category-img">
+      <img src="" alt="">
+    </div>
+  -->
+</ion-header-bar>
+<ion-footer-bar class="bar bar-footer bg-color">
+  <div>
+    <div class="fb-icon " ng-click="openSocialLink('fb')">
+      <i class="ion ion-social-facebook"></i>
+    </div>
+    <div class="fb-icon instagram-icon " ng-click="openSocialLink('instagram')">
+      <i class="ion ion-social-instagram"></i>
+    </div>
+    <div class="fb-icon twitter-icon " ng-click="openSocialLink('twitter')">
+      <i class="ion ion-social-twitter"></i>
+    </div>
+  </div>
+</ion-footer-bar>
+<ion-content class="has-tabs-top main-menu menu-list remove-item">
+  <ion-list ng-if="retailorType=='Seller'">
+    <ion-item menu-close ng-click="goToShop()">
+      <i class="ln-user marrl20 icon-Logo1 fnt-20"></i>MYSHOP
+    </ion-item>
+    <ion-item menu-close ng-click="goToCategories()">
+      <i class="ln-magnifier marrl20 icon-category fnt-20"></i> CATEGORIES
+    </ion-item>
+    <ion-item menu-close ng-click="viewNotification()">
+      <i class="ln-lock marrl20 icon-Notification fnt-20"></i> NOTIFICATIONS
+      <span class="notification-count background-app1" ng-if="notificationCount>0">{{ notificationCount }}</span>
+    </ion-item>
+    <ion-item menu-close ui-sref="recently-added" ng-click="recentlyAdded();">
+      <i class="ln-arrow-right marrl20 icon-Recent fnt-20"></i> RECENTLY ADDED
+    </ion-item>
+    <ion-item menu-close ui-sref="search-buyer">
+      <i class="ln-magnifier icon-followers marrl20 fnt-20"></i> LIST OF BUYER
+    </ion-item>
+    <ion-item menu-close ui-sref="followers" ng-click="logout();">
+      <i class="ln-arrow-right marrl20 icon-followers fnt-20"></i> FOLLOWERS
+      <span class="notification-count">{{ user.followUser.length }}</span>
+    </ion-item>
+    <ion-item menu-close ui-sref="block-list" ng-click="logout();">
+      <i class="ln-arrow-right marrl20 icon-followers fnt-20"></i> BLOCK LIST
+      <span class="notification-count">{{ blockedCount }}</span>
+    </ion-item>
+    <ion-item menu-close ng-click="openPaytm();">
+      <img src="img/Paytm-01.svg" class="paytmOpen" /> PAYTM
+    </ion-item>
+    <ion-item menu-close ui-sref="feedback" ng-click="logout();">
+      <i class="ln-arrow-right icon-feedback marrl20 fnt-20"></i> FEEDBACK
+    </ion-item>
+    <ion-item menu-close ng-click="shareAppLink();">
+      <i class="ln-arrow-right marrl20 icon-invite fnt-20"></i> INVITE
+    </ion-item>
+    <ion-item menu-close ui-sref="plan-subscription">
+      <i class="ln-arrow-right marrl20 icon-subscription fnt-20"></i>
+      SUBSCRIPTION
+    </ion-item>
+    <!-- <ion-item menu-close ui-sref="tab.statistics" ng-click="logout();">
+      <i class="ln-arrow-right marrl20 icon-Stats fnt-20"></i> STATISTICS
+    </ion-item> -->
+    <ion-item menu-close ng-click="Logout();">
+      <i class="ln-arrow-right marrl20 ion-power fnt-20"></i> LOGOUT
+    </ion-item>
+  </ion-list>
+
+  <!-- menu for buyer -->
+
+  <ion-list ng-if="retailorType=='Buyer'">
+    <ion-item menu-close ui-sref="tab.market">
+      <i class="ln-user icon-Logo1 marrl20 fnt-20"></i> MARKET
+    </ion-item>
+    <ion-item menu-close ui-sref="search-seller">
+      <i class="ln-magnifier icon-followers marrl20 fnt-20"></i> LIST OF SELLERS
+    </ion-item>
+    <ion-item menu-close ui-sref="app.requirement-list">
+      <i class="ln-magnifier icon-followers marrl20 fnt-20"></i> LIST OF
+      REQUIREMENTS
+    </ion-item>
+    <ion-item menu-close ui-sref="buyer-category">
+      <i class="ln-lock icon-category marrl20 fnt-20"></i> CATEGORIES
+    </ion-item>
+    <ion-item menu-close ng-click="viewNotification()">
+      <i class="ln-arrow-right icon-Notification marrl20 fnt-20"></i>
+      NOTIFICATIONS
+      <span class="notification-count background-app1" ng-if="notificationCount>0">{{ notificationCount }}</span>
+    </ion-item>
+    <ion-item menu-close ui-sref="recently-view">
+      <i class="ln-arrow-right icon ion-eye marrl20 fnt-20"></i> RECENTLY VIEWED
+    </ion-item>
+    <ion-item menu-close ui-sref="newly-added">
+      <i class="ln-arrow-right icon-Recent marrl20 fnt-20"></i> NEWLY ADDED
+      <span class="notification-count">{{ newlyAddedCount }}</span>
+    </ion-item>
+    <ion-item menu-close ui-sref="following">
+      <i class="ln-arrow-right icon-followers marrl20 fnt-20"></i> FOLLOWING
+      <span class="notification-count">{{ user.followingUser.length }}</span>
+    </ion-item>
+    <ion-item menu-close ui-sref="favourites({type:'favourite',id:userInfo._id})">
+      <i class="ln-arrow-right ion-heart marrl20 fnt-20"></i> FAVOURITES
+    </ion-item>
+    <ion-item menu-close ng-click="shareAppLink();">
+      <i class="ln-arrow-right icon-invite marrl20 fnt-20"></i> INVITE
+    </ion-item>
+    <ion-item menu-close ui-sref="plan-subscription">
+      <i class="ln-arrow-right icon-subscription marrl20 fnt-20"></i>
+      SUBSCRIPTION
+    </ion-item>
+    <!-- <ion-item menu-close ui-sref="newly-added">
+      <i class="ln-arrow-right ion-settings marrl20 fnt-20"></i> SETTINGS
+    </ion-item> -->
+    <ion-item menu-close ng-click="openPaytm();">
+      <img src="img/Paytm-01.svg" class="paytmOpen" /> PAYTM
+    </ion-item>
+    <ion-item menu-close ui-sref="feedback" ng-click="logout();">
+      <i class="ln-arrow-right icon-feedback marrl20 fnt-20"></i> FEEDBACK
+    </ion-item>
+    <ion-item menu-close ng-click="Logout();">
+      <i class="ln-arrow-right marrl20 ion-power fnt-20"></i> LOGOUT
+    </ion-item>
+  </ion-list>
+</ion-content>

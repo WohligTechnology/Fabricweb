@@ -1,0 +1,34 @@
+<ion-view>
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon ion-arrow-left-c white" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">Blocked Users</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="not-top-pad">
+      <div class="buyers-list-card search-seller" ng-repeat="blocked in BlockedList">
+        <div class="list card">
+          <a class="item item-thumbnail-left">
+            <img ng-src="{{
+                blocked.blockedTo.photo | serverimage: 50:50:'cover'
+              }}" />
+            <h2 class="txt-up">{{ blocked.blockedTo.companyName }}</h2>
+            <br />
+            <span>{{ blocked.blockedTo.name }}</span><br />
+            <!-- <span class="text-cap">MFG:{{blocked.companyName}}, {{blocked.gstNumber}}</span><br> -->
+            <label>{{ blocked.blockedTo.city }},
+              {{ blocked.blockedTo.state }}</label>
+          </a>
+          <!-- <button class="contact-details" ui-sref="seller-profile">View Profile</button> -->
+          <!-- <button class="contact-details" ui-sref="buyers-detail({buyerId: blocked.blockedTo._id})">View Profile</button> -->
+          <button class="contact-details" ng-click="unBlockUser(blocked.blockedTo._id)">
+            Unblock
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

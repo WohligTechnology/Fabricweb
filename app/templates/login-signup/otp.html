@@ -1,0 +1,36 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="bar bar-header btn-app-color">
+      <!-- <button class="button button-icon icon icon-Back1 app-color" ng-click="goBackHandler()"></button> -->
+    </div>
+  </ion-header-bar>
+  <ion-pane class="mt-60">
+    <div class="otp">
+      <div class="text-center">
+        <h3 class="app-color lato-bold">Sign In</h3>
+      </div>
+      <div class="text-center otp-msg ">
+        Enter the code you have received by SMS in order to verify account.
+      </div>
+      <div class="otp-input">
+        <form name="otp">
+          <input type="password" placeholder="&#8226;&#8226;&#8226;&#8226;" ng-model="userOtp" maxlength="4" />
+          <!-- <input type="password" placeholder="&#8226">
+          <input type="password" placeholder="&#8226">
+          <input type="password" placeholder="&#8226"> -->
+        </form>
+      </div>
+
+      <div class="continue-btn">
+        <button class="button button-block text-uppercase" promise-btn="otpPromise" ng-click="submit()">
+          Continue
+        </button>
+      </div>
+      <div class="continue-btn">
+        <button class="button button-block text-uppercase" promise-btn="otpPromise" ng-click="resendOtpRequest()">
+          Resend OTP
+        </button>
+      </div>
+    </div>
+  </ion-pane>
+</ion-view>

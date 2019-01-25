@@ -1,0 +1,35 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-tabs class="tabs-icon-top tabs-color-active-positive myshop-tabs" ng-if="userInfo.isSeller">
+      <ion-tab title="My shop" icon-off="fabric-logo-off" icon-on="fabric-logo-on" href="#/tab/myshop">
+        <ion-nav-view name="tab-myshop"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Stats" icon-off="icon-Stats app-color" icon-on="white icon-Stats" href="#/tab/statistics">
+        <ion-nav-view name="tab-statistics"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Notification" icon-off="icon-Notification app-color" badge="notificationCount" badge-style="badge-assertive"
+        icon-on="white icon-Notification" ng-click="viewNotification()">
+        <ion-nav-view name="tab-notification"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+    <ion-tabs class="tabs-icon-top tabs-color-active-positive myshop-tabs" ng-if="userInfo.isBuyer">
+      <ion-tab title="Market" icon-off="fabric-logo-off" icon-on="fabric-logo-on" href="#/tab/market">
+        <ion-nav-view name="tab-market"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Collection" icon-off="icon-Collection  app-color" icon-on="white icon-Collection " href="#/tab/collection">
+        <ion-nav-view name="tab-collection"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Notification" icon-off="icon-Notification app-color" badge="notificationCount" badge-style="badge-assertive"
+        ng-click="viewNotification()" icon-on="white icon-Notification">
+        <ion-nav-view name="tab-buyernotification"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <div ng-include="menuDirective"></div>
+
+  </ion-side-menu>
+
+
+</ion-side-menus>

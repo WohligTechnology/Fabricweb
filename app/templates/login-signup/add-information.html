@@ -1,0 +1,171 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="bar bar-header btn-app-color">
+      <!-- <button class="button button-icon icon icon-Back1" ng-click="goBackHandler()"></button> -->
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div>
+      <div class="text-center mb-15">
+        <div class="row">
+          <div class="col-67">
+            <h5 class="app-color lato-bold text-right fnt-15">
+              Upload profile photo
+            </h5>
+          </div>
+          <div class="col-33 " ui-sref="subscription">
+            <!--
+              <h5  class="lato-medium text-right app-color1 fnt-15 skip">Skip</h5>
+            -->
+          </div>
+        </div>
+        <div class="upload-camera" ng-click="adducimage(1)">
+          <img ng-src="{{ formData.photo | serverimage }}" alt="" ng-if="formData.photo" class="img-responsive" />
+          <i class="ion ion-camera" ng-if="!formData.photo"></i>
+        </div>
+      </div>
+      <form name="addInfo">
+        <div class="list">
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Full Name</span>
+            <input type="text" name="name" ng-model="formData.name" required />
+            <small class="errors" ng-show="addInfo.name.$touched && addInfo.name.$invalid">Username is required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">GST Number</span>
+            <div class="row row-no-padding">
+              <div class="col-80">
+                <input type="text" class="text-uppercase" name="gstNumber" ng-model="formData.gstNumber" required
+                  ng-change="validateGst(formData.gstNumber,addInfo.gstNumber.$valid)" minlength="15" maxlength="15" />
+              </div>
+              <div class="col-20">
+                <button class="button button-positive validate-btn" ng-click="validateGst(formData.gstNumber,true)">
+                  Validate
+                </button>
+              </div>
+            </div>
+            <div class="errors" ng-show="addInfo.gstNumber.$touched && addInfo.gstNumber.$invalid && !invalidGst">
+              GST Number is required.
+            </div>
+            <div class="errors" ng-show="addInfo.gstNumber.$touched && invalidGst">
+              GST Number is invalid
+            </div>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Company Name</span>
+            <input type="text" name="companyName" ng-model="formData.companyName" required />
+            <small class="errors" ng-show="addInfo.companyName.$touched && addInfo.companyName.$invalid">Company Name
+              is required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Company Description</span>
+            <textarea name="" id="" id="" cols="4" rows="6" name="streetName" ng-model="formData.companyDescription"></textarea>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Email ID</span>
+            <input type="email" name="email" ng-model="formData.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+              required />
+            <!-- <small class="errors" ng-show="addInfo.email.$touched && addInfo.email.$invalid">Email ID is required.</small> -->
+            <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter Valid
+              Email</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Brand Name</span>
+            <input type="text" name="brandName" ng-model="formData.brandName" />
+            <small class="errors" ng-show="addInfo.brandName.$touched && addInfo.brandName.$invalid">Brand Name is
+              required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <div class="contact-number">
+              <span class="input-label lato-bold inline">Contact number</span>
+              <span class="lato-bold fnt-12">(Whatsapp number to chat with buyer)</span>
+            </div>
+            <input type="text" name="mobile" ng-model="formData.mobile" readonly required />
+          </label>
+
+          <div ng-if="gstValidate">
+            <!-- <div class="gsdt-addr"> -->
+            <label class="login-form item-input item-stacked-label">
+              <span class="input-label lato-bold">GST Registered Name</span>
+              <input type="text" name="gstCompanyName" ng-model="formData.gstCompanyName" readonly />
+            </label>
+            <label class="login-form item-input item-stacked-label">
+              <span class="input-label lato-bold">Registered GST Address</span>
+              <textarea class="bg-white" cols="4" rows="6" name="gstAddress" ng-model="formData.gstAddress" readonly></textarea>
+              <!-- <small class="errors" ng-show="addInfo.gstAddress.$touched && addInfo.gstAddress.$invalid">Registered GST
+          Address is required.
+        </small> -->
+            </label>
+            <!-- </div> -->
+            <!-- <div class="login-form item-input item-stacked-label overflow-auto">
+        <span class="input-label lato-bold">Type your City</span>
+        <input type="text" placeholder="City Name" ng-model="formData.search" ng-change="getPlaceDescription(formData.search)" />
+
+        <div class="search-drop">
+          <div class="list-custom" ng-repeat="cityDesc in getCityDetails" ng-click="selectedCity(cityDesc)">
+            {{ cityDesc.description }}
+          </div>
+        </div>
+      </div> -->
+            <div class="row login-form mt-10">
+              <div class="col  state-city-dropDown">
+                <div class="pb-5 lato-bold app-color fnt-16">City</div>
+                <input type="text" class="country-input mb-0" name="city" ng-model="formData.city" required ng-readonly="!noCity" />
+                <span class="errors" ng-show="cityValid">Please select the city</span>
+              </div>
+              <div class="col  state-city-dropDown">
+                <div class="pb-5 lato-bold app-color fnt-16">State</div>
+                <input type="text" class="country-input mb-0" name="state" ng-model="formData.state" required readonly />
+                <span class="errors" ng-show="stateValid">Please select the state</span>
+              </div>
+            </div>
+            <div class="row login-form mt-10">
+              <div class="col  state-city-dropDown">
+                <div class="pb-5 lato-bold app-color fnt-16">Country</div>
+                <input type="text" class="country-input" name="country" ng-model="formData.country" required readonly />
+              </div>
+            </div>
+            <div class="row login-form mt-10">
+              <div class="col  state-city-dropDown">
+                <div class="pb-5 lato-bold app-color fnt-16">Pin Number</div>
+                <input type="text" class="country-input" pattern="[0-9]{6}" name="pinCode" maxlength="6" ng-model="formData.pincode"
+                  required readonly />
+              </div>
+            </div>
+          </div>
+
+          <!-- <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Pin Number</span>
+            <input type="text" pattern="[0-9]{6}" name="pinCode" maxlength="6" ng-model="formData.pincode" required
+              readonly />
+            <small class="errors" ng-show="addInfo.pinCode.$touched && addInfo.pinCode.$invalid">Pin Number is
+              required.
+            </small>
+          </label> -->
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Alternate / Dispatch Address</span>
+            <textarea id="" cols="4" rows="6" name="streetName" ng-model="formData.dispatchAddress"></textarea>
+            <small class="errors" ng-show="addInfo.streetName.$touched && addInfo.streetName.$invalid">Address is
+              required.
+            </small>
+          </label>
+
+          <label class="login-form item-input item-stacked-label">
+            <div class="contact-number">
+              <span class="input-label lato-bold inline">Company number</span>
+              <span class="lato-bold fnt-12"></span>
+            </div>
+            <input type="text" name="company-mobile" ng-model="formData.companyNumber" />
+          </label>
+          <!-- <h5 class="gsdt-addr">Registered GST Address</h5> -->
+          <div class="continue-btn">
+            <button class=" button button-block text-uppercase" ng-disabled="addInfo.$invalid || !gstValidate || invalidGst"
+              ng-click="submit()" promise-btn="addInfoPromise">
+              Continue
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

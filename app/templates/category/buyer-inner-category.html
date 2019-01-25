@@ -1,0 +1,92 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <!-- <h1 class="title white ">Categories</h1> -->
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div ng-if="categories.length>0 || user.isAccessories">
+      <div class="category-head">
+        Choose minimum one category that represents what products you are
+        Interested
+      </div>
+      <div class="inner-category">
+        <!-- accordion -->
+        <ion-list>
+          <div ng-repeat="category in categories">
+            <ion-item class="item-stable" ng-if="category.branch!='Accessory'" ng-click="toggleGroup(category)"
+              ng-class="{active: isGroupShown(category)}">
+              {{ category.name }} <span>{{ category.activeCount }}</span>
+              <i class="icon" ng-class="isGroupShown(category) ? 'icon-up' : 'icon-down'"></i>
+              &nbsp;
+            </ion-item>
+            <ion-item class="item-accordion" ng-show="isGroupShown(category)">
+              <div class="row mtb-20" ng-repeat="innercategories in category.subCategoriesChunk">
+                <div class=" {{subCategoryclass}} text-center" ng-repeat="category1 in innercategories">
+                  <div class="category-img rel" ng-click="category1.active= !category1.active;checkSubCategoryInUser(category1)">
+                    <div class="bg-color-gradient"></div>
+                    <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
+                    <img ng-src="{{
+                        category1.image | serverimage: 100:100:'cover'
+                      }}"
+                      alt="" ng-class="{'opc':category1.active}" />
+                    <label class="category-name">{{
+                      category1.name
+                      }}</label>
+                  </div>
+                </div>
+              </div>
+            </ion-item>
+          </div>
+          <div ng-if="user.isAccessories">
+            <ion-item class="item-stable" ng-click="toggleGroup('Accessories')" ng-class="{active: isGroupShown('Accessories')}">
+              ACCESSORIES<span>{{ accessoryCount }}</span>
+              <i class="icon" ng-class="isGroupShown('Accessories') ? 'icon-up' : 'icon-down'"></i>
+              &nbsp;
+            </ion-item>
+            <ion-item class="item-accordion" ng-show="isGroupShown('Accessories')">
+              <!-- <div class="row mtb-20" ng-repeat="innercategories in category.subCategoriesChunk">
+                    <div class=" col-33 text-center" ng-repeat="category1 in innercategories">
+                      <div class="category-img rel" ng-click="category1.active= !category1.active;checkSubCategoryInUser(category1)"
+                        ng->
+                        <div class="bg-color-gradient"></div>
+                        <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
+                        <img  ng-src="{{category1.image|serverimage}}" alt="" ng-class="{'opc':category1.active}" />
+                        <label  class="category-name">{{
+                          category1.name
+                          }}</label>
+                      </div>
+                    </div>
+                  </div> -->
+              <div class="row mtb-20" ng-repeat="categories in accessoriesCategoryChunk">
+                <div class=" col-33 text-center" ng-repeat="category1 in categories">
+                  <div class="category-img rel" ng-click="category1.active= !category1.active;selectAccessory(category1)"
+                    ng->
+                    <div class="bg-color-gradient">
+                      <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
+                      <img ng-src="{{
+                          category1.image | serverimage: 400:'cover'
+                        }}"
+                        alt="" ng-class="{'opc':category1.active}" />
+                      <label class="category-name">{{
+                        category1.name
+                        }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ion-item>
+          </div>
+        </ion-list>
+        <div class="explore-btn">
+          <button class="button button-block text-uppercase" ng-click="goBuyerSeller()">
+            Explore
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

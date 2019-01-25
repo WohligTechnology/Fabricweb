@@ -1,0 +1,28 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-assertive">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="getprofile()">
+        </button>
+
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent">
+      <!-- <ion-footer-bar class="bar bar-footer">
+        Footer content here....
+      </ion-footer-bar> -->
+      <!-- <div class="src-btn">
+        <button class="button button-light ln-magnifier"></button>
+      </div> -->
+    </ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <div ng-include="menuDirective"></div>
+
+  </ion-side-menu>
+</ion-side-menus>

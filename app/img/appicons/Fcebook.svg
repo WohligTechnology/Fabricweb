@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #22386c;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Fcebook" transform="translate(-1271 -28)">
+    <rect id="Rectangle_547" data-name="Rectangle 547" class="cls-1" width="16" height="16" transform="translate(1271 28)"/>
+    <path id="Path_1" data-name="Path 1" class="cls-2" d="M86.1,18V9.8h2.8l.4-3.2H86.1v-2c0-.9.3-1.6,1.6-1.6h1.7V.1C89,.1,88,0,86.9,0a3.86,3.86,0,0,0-4.1,4.2V6.6H80V9.8h2.8V18Z" transform="translate(1195 28)"/>
+  </g>
+</svg>

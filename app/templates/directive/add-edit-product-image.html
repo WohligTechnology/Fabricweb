@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col">
+    <div class="upload-photos upload-center">
+      <upload-image multi='true' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+        Upload Photos
+      </upload-image>
+    </div>
+  </div>
+  <!-- <div class="col
+               ">
+    <div class="open-camera">
+      <button class="button button-block icon-left icon-Camera
+               " ng-click="addCamera(1,1)
+               ">
+        Open Camera
+      </button>
+    </div>
+  </div> -->
+</div>
+<div>
+  <div class="
+          bor-bot">
+    <div class="mar-10">
+      <ion-slides class="add-prod-slider" options="options" slider="data.slider">
+        <ion-slide-page ng-repeat="images in imageChunk track by $index" class="row">
+          <div class="col image-cancel-div col-33" ng-repeat="image in images track by $index" ng-init="outerIndex=$index">
+            <div class="upload-img">
+              <div class="upload-bg" style="background:url({{image | serverimage: 150:150:'cover'}})  #ddd no-repeat center center"
+                on-tap="openModal(outerIndex, $index, image)"></div>
+            </div>
+            <img class="image-cancel" src="img/cross.svg" alt="" on-tap="removeImage(outerIndex, $index)" />
+          </div>
+        </ion-slide-page>
+      </ion-slides>
+    </div>
+  </div>
+</div>

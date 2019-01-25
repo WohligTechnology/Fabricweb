@@ -1,0 +1,93 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon ion-arrow-left-c white" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">Recently Added</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="mb-10">
+      <div class="recently-added-title" ng-repeat="product in products">
+        <div class="bgcolor">
+          <h4 class="lato-bold">{{ product.name }}</h4>
+          <i class="ion ion-edit pencil-icon" ng-click="editProduct(product)"></i>
+          <!-- ui-sref="edit-product" -->
+        </div>
+        <div class="recfently-added-list" ng-click="goToProductDetail(product._id)">
+          <div class="recently-added-prod">
+            <div class="img-item-custom text-right">
+              <div class="recently-img rel rib-offer">
+                <img src="{{ product.images[0] | serverimage: 100:100:'cover' }}" />
+                <div class="ribbon-wrap" ng-if="product.offer">
+                  <div class="ribbon"><a>OFFER</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="item-custom padding">
+              <div class="row">
+                <div class="col-40">
+                  <label><strong>Category:</strong></label>
+                </div>
+                <div class="col-60 text-right">
+                  <label>{{ product.category.name }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-40">
+                  <label><strong>Quality:</strong></label>
+                </div>
+                <div class="col-60 text-right">
+                  <label>{{ product.qualityType }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-40">
+                  <label><strong>Design No:</strong></label>
+                </div>
+                <div class="col-60 text-right">
+                  <label>#{{ product.designNumber }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-40">
+                  <label><strong>Rate:</strong></label>
+                </div>
+                <div class="col-60 text-right">
+                  <label ng-if="product.rate && !product.newRate">₹{{ product.rate }}</label>
+                  <label ng-if="product.rate && product.newRate"> <strike>₹{{ product.rate }}</strike> &nbsp;&nbsp;₹{{
+                    product.newRate
+                    }}</label>
+                  <label ng-if="!product.rate">Rate on Request</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <a class="item item-thumbnail-left" href="#">
+                
+                <h2>Pretty Hate Machine</h2>
+                <p>Nine Inch Nails</p>
+              </a> -->
+
+          <div class="mt-10 bgcolor mt-0">
+            <div class="row bgpad">
+              <div class="col-33 product-details-stats text-center">
+                <i class="icon icon-Mark"></i>
+                <div>{{ product.interested.length || 0 }} buyers</div>
+              </div>
+              <div class="col-33 product-details-stats text-center">
+                <i class="ion icon-Sample"></i>
+                <div>{{ product.sampleRequest.length || 0 }} Requests</div>
+              </div>
+              <div class="col-33 product-details-stats text-center">
+                <i class="icon icon-Intrested"></i>
+                <div>{{ product.favourite.length || 0 }} Favourite</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

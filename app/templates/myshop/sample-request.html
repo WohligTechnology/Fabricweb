@@ -1,0 +1,51 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white title-left">Sample Request</h1>
+      </div>
+    </div>
+
+  </ion-header-bar>
+  <ion-content class="has-header-bar Favourites">
+
+    <div class="mt-10">
+      <div class="row mtb-10" ng-repeat="fav in favListChunk">
+        <div class=" col-50" ng-repeat="infav in fav">
+          <div class="category-img rel" ng-click="goToBuyerProductDetail(infav._id)">
+            <img ng-src="{{infav.images[0]|serverimage}}" alt="">
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">{{infav.name}}</div>
+            <div class="design-no">{{infav.designNumber}}</div>
+            <!-- <i class="icon-Quick-action shirt-options" ng-click="showActionsheet()"></i> -->
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+    <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+  </ion-content>
+  <!-- <ion-footer>
+          <div class="tab-custom">
+            <div class="tabs tabs-icon-top">
+              <a class="tab-item active lato-regular" ui-sref="app.inner-market">
+                <i class="icon icon-Logo1 app-color"></i>
+                Market
+              </a>
+              <a class="tab-item bg-color lato-regular white active" ui-sref="app.collection">
+                <i class="icon icon-Collection"></i>
+                Collection
+              </a>
+              <a class="tab-item lato-regular active" ui-sref="notification">
+                <i class="icon icon-Notification app-color"></i>
+                Notification
+              </a>
+            </div>
+          </div>
+      
+        </ion-footer> -->
+</ion-view>

@@ -1,0 +1,357 @@
+<ion-view hide-nav-bar="true">
+  <!-- <div ng-controller="MyShopCtrl"> -->
+  <div class="search-header-top rel">
+    <ion-header-bar class="search-header-top">
+      <div class="header-search-title">
+        <div class="bar bar-header search-input " side="left">
+          <button
+            class="button button-icon icon-Menu"
+            menu-toggle="left"
+          ></button>
+
+          <div class="item-input-wrapper bg-drakblue rel">
+            <form ng-submit="searchProduct(search)" class="row search-mt">
+              <input type="search" placeholder="Search" ng-model="search" class="col-80" />
+              <div type="submit" class="search-container col-20" ng-click="searchProduct(search)">
+                <img class="search-icon" src="img/search.png" />
+              </div>
+            </form>
+            <!-- <a class=" button button-icon icon ion-search text-white " ui-sref="searched-products({keyword:search}) "></a> -->
+            <!-- <div class="search-drop " ng-if="searchProducts.length> 0" ng-click="goToProductDetail(product._id)">
+              <div ng-repeat="product in searchProducts">
+                {{ product.name }}
+              </div>
+              -->
+          </div>
+
+          <button
+            class="button button-icon icon-Filter1"
+            ng-click="openSortProductModal()"
+          ></button>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-bar" on-scroll="getScrollPosition()">
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <div ng-if="user">
+      <div class="supplier-profile myshop-profile">
+        <a class="item item-thumbnail-right">
+          <div
+            class="profile-img"
+            style="background:url( {{
+              user.photo | serverimage: 65:65:'cover'
+            }} ) #ddd no-repeat center center; background-size: cover;"
+          >
+            <!-- <img ng-src="{{ user.photo | serverimage: 100:cover }}" /> -->
+          </div>
+          <h2>{{ user.companyName }}</h2>
+          <p>{{ user.city }}, {{ user.state }}</p>
+        </a>
+
+        <div class="post-product">
+          <!-- ui-sref="add-new-product" -->
+          <button class="button button-block" ng-click="addNewProduct()">
+            Post your product
+          </button>
+        </div>
+      </div>
+      <div ng-if="user.isTextile">
+        <div ng-repeat="category in user.categoryArr">
+          <div class="padding-horizontal mt-25 shirt-types">
+            <div class="mb-15">
+              <label
+                
+                class="shirt-list-category lato-bold text-uppercase"
+                >{{ category.name }}</label
+              >
+            </div>
+          </div>
+          <div ng-repeat="subCategory in category.subCategory">
+            <div ng-if="subCategory.filter">
+              <div class="padding-horizontal mt-25 shirt-types bgcolor">
+                <div class="custom-bullet"></div>
+                <label  class="shirt-list">{{ subCategory.name }}</label>
+                <div class="count">
+                  {{ subCategory.products.length }}
+                  <span ng-if="subCategory.products.length<=1">product</span
+                  ><span ng-if="subCategory.products.length>1">products</span>
+                </div>
+                <div
+                  class="col-50 add-pro"
+                  ng-if="subCategory.products.length>=3"
+                >
+                  <div
+                    class="add-product-button"
+                    ng-click="addNewProduct(category._id,subCategory._id)"
+                  >
+                    <i class="add-ion ion ion-plus-circled"></i>
+                    <div  class="add-product-text">Add Your Product</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mtb-10">
+                <div class=" col-33 " ng-if="subCategory.products.length>0">
+                  <div
+                    class="my-shop-img rel"
+                    ng-click="goToProductDetail(subCategory.products[0]._id)"
+                  >
+                    <!--
+                          <img
+                            
+                            ng-src="{{subCategory.products[0].images[0]|serverimage}}"
+                            alt=""
+                          />
+                        -->
+                    <div
+                      class="upload-bgg rib-offer"
+                      style="background:url({{
+                        subCategory.products[0].images[0] | serverimage: 300:300
+                      }}) #ddd no-repeat center center; background-size:cover;"
+                    >
+                      <div
+                        class="ribbon-wrap"
+                        ng-if="subCategory.products[0].offer"
+                      >
+                        <div class="ribbon"><a>OFFER</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[0].name
+                  }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[0].designNumber }}</label
+                  >
+                </div>
+                <div class=" col-33 " ng-if="subCategory.products.length>1">
+                  <div
+                    class="my-shop-img  rel"
+                    ng-click="goToProductDetail(subCategory.products[1]._id)"
+                  >
+                    <!--
+                          <img
+                            
+                            ng-src="{{subCategory.products[1].images[0]|serverimage}}"
+                            alt=""
+                          />
+                        -->
+                    <div
+                      class="upload-bgg rib-offer"
+                      style="background:url({{
+                        subCategory.products[1].images[0] | serverimage: 300:300
+                      }}) #ddd no-repeat center center; background-size:cover;"
+                    >
+                      <div
+                        class="ribbon-wrap"
+                        ng-if="subCategory.products[1].offer"
+                      >
+                        <div class="ribbon"><a>OFFER</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[1].name
+                  }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[1].designNumber }}</label
+                  >
+                </div>
+                <div class=" col-33 " ng-if="subCategory.products.length>2">
+                  <div
+                    class="my-shop-img  rel"
+                    ng-click="goToProductDetail(subCategory.products[2]._id)"
+                  >
+                    <!--
+                          <img
+                            
+                            ng-src="{{subCategory.products[2].images[0]|serverimage}}"
+                            alt=""
+                          />
+                        -->
+                    <div
+                      class="upload-bgg rib-offer"
+                      style="background:url({{
+                        subCategory.products[2].images[0] | serverimage: 300:300
+                      }}) #ddd no-repeat center center; background-size:cover;"
+                    >
+                      <div
+                        class="ribbon-wrap"
+                        ng-if="subCategory.products[2].offer"
+                      >
+                        <div class="ribbon"><a>OFFER</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[2].name
+                  }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[2].designNumber }}</label
+                  >
+                </div>
+                <div
+                  class=" col-33 text-center"
+                  ng-if="subCategory.products.length<3"
+                >
+                  <div
+                    class="my-shop-img  add-product-div rel"
+                    ng-click="addNewProduct(category._id,subCategory._id)"
+                  >
+                    <i class="ion ion-plus-circled"></i>
+                    <div >Add Your Product</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class=" see-all-pro row text-center" ng-if="subCategory.products.length>=3"> -->
+
+              <div class="col-100" ng-if="subCategory.products.length>3">
+                <button
+                  class="see-all"
+                  ng-click="goToInnerPageOfShop(subCategory)"
+                >
+                  See all
+                </button>
+              </div>
+              <!-- </div> -->
+
+              <!-- ui-sref="app.inner-shop" -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!user.isTextile">
+        <!-- <div ng-repeat="category in user.categoryArr"> -->
+        <!--
+              <div class="padding-horizontal mt-25 shirt-types">
+                <div class="mb-15">
+                  <label  class="shirt-list-category lato-bold  text-uppercase">{{category.name}}</label>
+                  </div>
+                </div>
+                -->
+        <div ng-repeat="category in user.categoryArr">
+          <div ng-if="category.filter">
+            <div class="padding-horizontal mt-25 shirt-types bgcolor">
+              <div class="custom-bullet"></div>
+              <label  class="shirt-list">{{ category.name }}</label>
+              <div class="count">
+                {{ category.products.length }}
+                <span ng-if="category.products.length<=1">product</span
+                ><span ng-if="category.products.length>1">products</span>
+              </div>
+              <div class="col-50 add-pro" ng-if="category.products.length>=3">
+                <div
+                  class="add-product-button"
+                  ng-click="addNewProduct(category._id)"
+                >
+                  <i class="add-ion ion ion-plus-circled"></i>
+                  <div  class="add-product-text">Add Your Product</div>
+                </div>
+              </div>
+            </div>
+            <div class="row mtb-10">
+              <div class=" col-33 " ng-if="category.products.length>0">
+                <div
+                  class="my-shop-img rel rib-offer"
+                  ng-click="goToProductDetail(category.products[0]._id)"
+                >
+                  <img
+                    ng-src="{{ category.products[0].images[0] | serverimage }}"
+                    alt=""
+                  />
+                  <div class="ribbon-wrap" ng-if="category.products[0].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[0].name
+                }}</label>
+                <label  class="design-no">
+                  # {{ category.products[0].designNumber }}</label
+                >
+              </div>
+              <div class="col-33 " ng-if="category.products.length>1">
+                <!-- {{ category.products[1].images[0] }} -->
+                <div
+                  class="my-shop-img  rel rib-offer"
+                  ng-click="goToProductDetail(category.products[1]._id)"
+                >
+                  <img
+                    ng-src="{{ category.products[1].images[0] | serverimage }}"
+                    alt=""
+                  />
+                  <div class="ribbon-wrap" ng-if="category.products[1].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[1].name
+                }}</label>
+                <label  class="design-no">
+                  # {{ category.products[1].designNumber }}</label
+                >
+              </div>
+              <div class="col-33 " ng-if="category.products.length>2">
+                <div
+                  class="my-shop-img  rel rib-offer"
+                  ng-click="goToProductDetail(category.products[2]._id)"
+                >
+                  <img
+                    ng-src="{{ category.products[2].images[0] | serverimage }}"
+                    alt=""
+                  />
+                  <div class="ribbon-wrap" ng-if="category.products[2].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[2].name
+                }}</label>
+                <label  class="design-no">
+                  # {{ category.products[2].designNumber }}</label
+                >
+              </div>
+              <div
+                class="col-33 text-center"
+                ng-if="category.products.length<3"
+              >
+                <div
+                  class="my-shop-img  add-product-div rel"
+                  ng-click="addNewProduct(category._id)"
+                >
+                  <i class="ion ion-plus-circled"></i>
+                  <div >Add Your Product</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class=" see-all-pro row text-center" ng-if="category.products.length>=3"> -->
+            <!-- <div class="col-50">
+                <div class="add-product-button my-shop-img add-product-div " ng-click="addNewProduct(category._id)">
+                  <i class="ion ion-plus-circled"></i>
+                  <div  class="add-product-text">Add Your Product</div>
+                </div>
+              </div> -->
+            <div class="col-100" ng-if="category.products.length>3">
+              <button
+                class="see-all"
+                ng-click="goToInnerPageOfShopAccess(category)"
+              >
+                See all
+              </button>
+            </div>
+            <!-- </div> -->
+            <!-- <button class="see-all" ng-if="category.products.length>3" ng-click="goToInnerPageOfShopAccess(category)">
+                  See all
+                </button> -->
+            <!-- ui-sref="app.inner-shop" -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </ion-content>
+  <scroll-top ng-click="doRefresh()"></scroll-top>
+  <!-- </div> -->
+</ion-view>

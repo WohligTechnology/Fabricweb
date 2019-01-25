@@ -1,0 +1,25 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white title-left">Favourites</h1>
+      </div>
+    </div>
+
+  </ion-header-bar>
+  <ion-content class="has-header-bar Favourites">
+
+    <div class="list mt-10">
+      <div class="row mtb-10" ng-repeat="fav in favListChunk">
+        <div class=" col-50" ng-repeat="infav in fav">
+          <product-box ng-product="infav" action="[{text: 'Un-Favourite'}]"></product-box>
+        </div>
+      </div>
+    </div>
+    <div class="no-prod-rel" ng-if="!favListChunk || favListChunk.length==0">
+      <div class="no-prod">No Favourite Products</div>
+    </div>
+    <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

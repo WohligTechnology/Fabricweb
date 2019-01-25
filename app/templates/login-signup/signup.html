@@ -1,0 +1,52 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="bar bar-header btn-app-color">
+      <button class="button button-icon icon-Back1" ng-click="goBackHandler();"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div>
+      <div class="text-center mb-15">
+        <h3 class="app-color lato-bold">Create an Account</h3>
+      </div>
+      <!-- <div class="text-center otp-msg createacc-msg">
+        Lorem dolor sit amet consectetur adipisicing elit, sed do.
+      </div> -->
+      <form name="signup" ng-submit="submit()">
+        <div class="list">
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Username</span>
+            <input type="text" ng-model="formData.name" name="name" required>
+            <small class="errors" ng-show="signup.name.$touched && signup.name.$invalid">Enter Username</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Phone Number</span>
+            <input type="number" pattern="\d*" min="6666666666" max="9999999999" name="mobile" ng-model="formData.mobile"
+              required>
+            <small class="errors" ng-show="signup.mobile.$touched && signup.mobile.$invalid">Not valid number!</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Password</span>
+            <input type="password" name="password" ng-model="formData.password" required>
+            <small class="errors" ng-show="signup.password.$touched && signup.password.$invalid">Password is required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Confirm Password</span>
+            <input type="password" name="confirmPassword" ng-model="formData.confirmPassword" required>
+            <small class="errors" ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$invalid">Password
+              is required.</small>
+            <small class="errors" ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$invalid">Confirm
+              Password is required.</small>
+          </label>
+          <div class="continue-btn">
+            <button type="submit" class="button button-block text-uppercase" ng-disabled="signup.$invalid" promise-btn="signupPromise">
+              Continue
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+    </div>
+  </ion-content>
+</ion-view>

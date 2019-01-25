@@ -1,0 +1,66 @@
+<div class="buyer-profile">
+  <div class="modal-backdrop active">
+    <div class="modal-backdrop-bg"></div>
+    <div class="modal-wrapper">
+      <ion-modal-view>
+        <ion-content>
+          <div class="buyer-info">
+            <a class="item item-thumbnail-left">
+              <img src="{{product.owner.photo | serverimage}}">
+              <h2 class="fashion col-black">{{product.owner.companyName}}</h2>
+              <p>{{product.owner.name}}</p>
+              <p class="fashion lato-regular fontBold col-black">Brand: {{product.owner.brandName}}</p>
+            </a>
+            <div class="sample-req">
+              <label>Sample Request for</label>
+              <span>{{product.name}} </span>
+              <br>
+              <span> {{product.designNumber}}</span>
+              <button class="lato-medium check-details" ng-click="closeSellerProfileModal();goToBuyerProductDetail(product._id)">Product
+                Page</button>
+            </div>
+            <div class="email">
+              <div>GST Number</div>
+              <label>{{product.owner.gstNumber}}</label>
+            </div>
+            <div class="gst-address">
+              <h5>GST registered Address</h5>
+              <!-- <textarea name="" id="" id="" cols="4" rows="4" placeholder="Address">A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022.</textarea> -->
+              <textarea name="" id="" id="" cols="4" rows="4" placeholder="Address" readonly>{{product.owner.gstAddress +', '+ product.owner.city+', '+product.owner.state+', '+product.owner.country
+              }}
+            </textarea>
+            </div>
+            <div class="email">
+              <div>Email Id</div>
+              <!-- <label >samplename@gmail.com</label> -->
+              <label>{{product.owner.email}}</label>
+            </div>
+            <div class="mobile">
+              <div>Mobile Number</div>
+              <label>{{product.owner.mobile}}</label>
+              <div class="whatsapp-call-icon seller-pro">
+                <a href="https://api.whatsapp.com/send?phone=91{{product.owner.mobile}}&text={{product.owner.name}}"><i
+                    class="ion icon-Whatsupp"></i></a>
+                <a href="tel:{{product.owner.mobile}}"><i class="ion icon-Call"></i></a>
+                <!-- <a class="button button-block icon-left  icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{product.owner.mobile}}&text={{product.owner.name}}">Whatsapp</a> -->
+                <!-- <a class="button button-block icon-left  icon-Call" href="tel:{{product.owner.mobile}}">Call</a> -->
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="send-sample-btn">
+                  <button class="button button-block" ng-click="closeSellerProfileModal();sendSampleRequest('sampleRequest',product); ">
+                    Send Sample Request
+                  </button>
+                  <!-- <span ng-if="sampleRequestSent">Sample Request Sent successfully</span>
+                  <h1 ng-if="sampleRequestSent">Thank You !</h1> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<!-- General -->
+<!-- <div ng-if="selectedTab == 'General'"> -->
+<div>
+  <div class="notification-tab" ng-repeat="notification in notificationList">
+    <div class="row">
+      <!-- <div class="col-20" ng-click="openBuyerProfileModal()"> -->
+      <div class="col-20">
+        <div
+          class="noti-right-img"
+          style="background:url({{
+            notification.from.photo | serverimage: 60:60
+          }}) #ddd no-repeat center center;background-size:cover">
+          <!-- <img src="{{notification.from.photo | serverimage}}" alt=""> -->
+        </div>
+      </div>
+      <div class="col-60">
+        <div class="notification-text">
+          <label> {{ notification.description }}</label>
+        </div>
+        <!-- <span class="time">1h ago</span> -->
+      </div>
+      <div class="col-20" ng-if="notification.notificationType != 'Follow'">
+        <div
+          class="noti-right-img"
+          style="background:url({{
+            notification.product.images[0] | serverimage: 60:60:'cover'
+          }}) #ddd no-repeat center center"
+        >
+          <!-- <img src="{{notification.product.images[0] | serverimage}}" alt=""> -->
+        </div>
+      </div>
+    </div>
+    <div class="check-details">
+      <button
+        ng-click="openBuyerProfileModal(notification)"
+        ng-if="notification.notificationType == 'Request'"
+      >
+        Check details
+      </button>
+      <button
+        ui-sref="seller-profile({sellerId:notification.from._id})"
+        ng-if="notification.notificationType == 'Follow'"
+      >
+        View Profile
+      </button>
+    </div>
+  </div>
+</div>
+<ion-infinite-scroll
+  ng-if="!notificationLoaded"
+  on-infinite="loadMore()"
+  distance="4%"
+  icon="ion-loading-c"
+></ion-infinite-scroll>
+<!-- end of General -->

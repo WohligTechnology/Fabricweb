@@ -1,0 +1,63 @@
+<ion-view hide-nav-bar="true">
+  <form ng-submit="login()" name="loginData">
+    <ion-content has-header="false">
+      <div class="login-signup">
+        <div class="app-logo"><img ng-src="img/appLogo/Logo.svg" alt="" /></div>
+        <div class="list">
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Mobile Number</span>
+            <input
+              type="number"
+              pattern="\d*"
+              id="f_1"
+              min="6666666666"
+              max="9999999999"
+              ng-model="formData.mobile"
+              name="mobile"
+              required
+            />
+            <small
+              class="errors"
+              ng-show="loginData.mobile.$touched && loginData.mobile.$invalid"
+              >Mobile Number is required.</small
+            >
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Password</span>
+            <input
+              type="password"
+              ng-model="formData.password"
+              id="f_2"
+              required
+              name="password"
+            />
+            <small
+              class="errors"
+              ng-show="loginData.password.$touched && loginData.password.$invalid"
+              >Password is required.</small
+            >
+
+            <!-- <span class="forgot-pass-username">Forgot Password?</span> -->
+          </label>
+          <div class="dont-acc">
+            <label>Don't have an account?</label>
+            <span ui-sref="signup">Sign up</span>
+          </div>
+          <div class="dont-acc">
+            <span ui-sref="forgot-mobile">Forgot Password</span>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+    <div class="bar bar-footer login-btn">
+      <button
+        class="button button-full"
+        promise-btn="loginPromise"
+        type="submit"
+        ng-disabled="loginData.$invalid"
+      >
+        LOGIN
+      </button>
+    </div>
+  </form>
+</ion-view>

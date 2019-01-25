@@ -1,0 +1,49 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="bar bar-header btn-app-color">
+      <button
+        class="button button-icon icon icon-Back1 app-color"
+        ng-click="goBackHandler()"
+      ></button>
+    </div>
+  </ion-header-bar>
+  <ion-pane class="mt-60">
+    <div class="otp">
+      <div class="app-logo"><img ng-src="img/appLogo/Logo.svg" alt="" /></div>
+      <div class="text-center otp-msg ">
+        Enter the code you have received by SMS in order to reset your password.
+      </div>
+      <form name="otp">
+        <div class="otp-input">
+          <input
+            type="password"
+            placeholder="&#8226;&#8226;&#8226;&#8226;"
+            ng-model="userOtp"
+            name="otp.name"
+            maxlength="4"
+            required
+          />
+        </div>
+        <div class="continue-btn">
+          <button
+            class="button button-block text-uppercase"
+            ng-disabled="otp.$invalid"
+            promise-btn="otpPromise"
+            ng-click="userOtpSubmit(userOtp)"
+          >
+            Continue
+          </button>
+        </div>
+        <div class="continue-btn">
+          <button
+            class="button button-block text-uppercase"
+            promise-btn="otpPromise"
+            ng-click="resendOtpRequest()"
+          >
+            Resend OTP
+          </button>
+        </div>
+      </form>
+    </div>
+  </ion-pane>
+</ion-view>

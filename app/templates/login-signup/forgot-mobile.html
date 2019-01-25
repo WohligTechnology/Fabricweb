@@ -1,0 +1,40 @@
+<ion-view hide-nav-bar="true">
+  <ion-content has-header="false">
+    <form name="forgotMobileData">
+      <div class="login-signup">
+        <div class="app-logo"><img ng-src="img/appLogo/Logo.svg" alt="" /></div>
+        <div class="text-center otp-msg ">
+          Please enter the registered mobile number on Fabric Terminal.
+        </div>
+        <div class="list">
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Mobile Number</span>
+            <input
+              type="number"
+              pattern="\d*"
+              id="f_1"
+              ng-model="formData.mobile"
+              name="mobile"
+              required
+            />
+            <small
+              class="errors"
+              ng-show="forgotMobileData.mobile.$touched && forgotMobileData.mobile.$invalid"
+              >Mobile Number is required.</small
+            >
+          </label>
+        </div>
+        <div class="continue-btn">
+          <button
+            class="button button-block text-uppercase"
+            ng-disabled="forgotMobileData.$invalid"
+            promise-btn="otpPromise"
+            ng-click="forgotMobile(formData)"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

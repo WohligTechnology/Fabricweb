@@ -1,0 +1,51 @@
+<ion-modal-view class="sorting" left-buttons="leftButtons">
+  <ion-header-bar class="bar bar-positive header-title">
+    <div class="header-title">
+      <div class="bar bar-header">
+        <h1 class="title white title-left">Requirement Details</h1>
+        <button
+          class="button button-icon icon ion-close close-icon close"
+          ng-click="closeRequirementDetails()"
+        ></button>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header has-footer buyer-profile" padding="true">
+    <div class="buyer-info req-description gst-address">
+      <h5>Images:</h5>
+      <ion-slides
+        class="add-prod-slider"
+        options="options"
+        slider="data.slider"
+      >
+        <ion-slide-page
+          ng-repeat="images in requirementChunk track by $index"
+          ng-init="outerIndex=$index"
+          class="row"
+        >
+          <div
+            class="col image-cancel-div col-33"
+            ng-repeat="image in images track by $index"
+          >
+            <div
+              class="upload-img"
+              on-tap="openModal(outerIndex, $index, image)"
+            >
+              <div
+                class="upload-bg"
+                style="background:url({{
+                  image | serverimage: 150:150:'cover'
+                }}) #ddd no-repeat center center"
+                ng-click="openModal(outerIndex,$index,image)"
+              ></div>
+            </div>
+          </div>
+        </ion-slide-page>
+      </ion-slides>
+      <div class="req-description gst-address">
+        <h5>Description:</h5>
+        <p>{{ reqDetail.name }}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

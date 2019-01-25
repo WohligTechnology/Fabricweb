@@ -1,0 +1,151 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar class="product-delete">
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">Product Details</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div ng-if="product">
+      <div class="row">
+        <div class="col-90">
+          <div class="product-name">
+            <h4 class="mar0">{{ product.name }}</h4>
+            <label >Design # </label>
+            <span> {{ product.designNumber }}</span>
+          </div>
+        </div>
+        <div class="col-10 text-center mar-auto0 ">
+          <i class="ion icon-Edit product-name-settings" ng-click="showActionsheet(product)"></i>
+        </div>
+      </div>
+      <div class="slider-div" ng-if="product.images.length >0">
+        <ion-slides class="ionslide sliderbutton swipperbutton" slider="sliderData.sliderDelegate">
+          <ion-slide-page ng-repeat="image in product.images track by $index">
+            <div class="slider-image" style="background:url({{
+                image | serverimage: 400:'cover'
+              }}) #ddd no-repeat center center;"
+              ng-click="openModal($index,image)">
+              <div class="ribbon-wrap">
+                <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
+              </div>
+              <label  class="manual-quality">{{
+                product.qualityType
+                }}</label>
+              <!--
+                    <ion-scroll zooming="true" direction="xy" overflow-scroll="false" delegate-handle="zoom-pane" class="zoom-pane" min-zoom="1"
+                    scrollbar-x="false" scrollbar-y="false">
+                  -->
+              <!--
+                    <img
+      
+                      class="img-responsive"
+                      ng-src="{{image | serverimage}}"
+                      alt="Checks"
+                    />
+                  -->
+              <!-- </ion-scroll> -->
+            </div>
+          </ion-slide-page>
+        </ion-slides>
+      </div>
+
+      <div class="row mb-10">
+        <div class="col-33 product-details-stats text-center">
+          <i class="icon icon-Mark"></i>
+          <div>
+            {{ product.interested.length || 0 }} Interest{{
+            product.interested.length > 1 ? "s" : ""
+            }}
+          </div>
+        </div>
+        <div class="col-33 product-details-stats text-center">
+          <i class="ion icon-Sample"></i>
+          <div>
+            {{ product.sampleRequest.length || 0 }} Request{{
+            product.sampleRequest.length > 1 ? "s" : ""
+            }}
+          </div>
+        </div>
+        <div class="col-33 product-details-stats text-center">
+          <i class="icon icon-Intrested"></i>
+          <div>
+            {{ product.favourite.length || 0 }} Favourite{{
+            product.favourite.length > 1 ? "s" : ""
+            }}
+          </div>
+        </div>
+      </div>
+      <div  class="product-detail-text marrl10">
+        {{ product.description }}
+      </div>
+      <div class="padlr-5">
+        <div class="row bbgrey">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Name :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.name }}
+          </div>
+        </div>
+        <div class="row bbgrey" ng-if="product.branch=='Textile'">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Subcategory :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.subCategory.name }}
+          </div>
+        </div>
+        <div class="row bbgrey" ng-if="product.branch=='Accessory'">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Accessory :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.category.name }}
+          </div>
+        </div>
+        <div class="row bbgrey">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Quality type :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.qualityType }}
+          </div>
+        </div>
+        <div class="row bbgrey">
+          <div class="col col-50 ptb20 app-color lato-regular">Rate :</div>
+          <div ng-if="product.rate && product.newRate" class="col col-50 ptb20 text-right app-color lato-bold">
+            <!-- <i class="fas fa-rupee-sign"></i> -->
+            <strike>₹{{ product.rate }}</strike> &nbsp;&nbsp;₹{{
+            product.newRate
+            }}
+          </div>
+          <div ng-if="product.rate && !product.newRate" class="col col-50 ptb20 text-right app-color lato-bold">
+            ₹{{ product.rate }}
+          </div>
+          <div ng-if="!product.rate" class="col col-50 ptb20 text-right app-color lato-bold">
+            Rate On Request
+          </div>
+        </div>
+        <div class="row bbgrey">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Width/size :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.size }}"{{ product.unit }}
+          </div>
+        </div>
+        <div class="row bbgrey">
+          <div class="col col-50 ptb20 app-color lato-regular">
+            Minimum Order :
+          </div>
+          <div class="col col-50 ptb20 text-right app-color lato-bold">
+            {{ product.minimumOrder }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,137 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <!-- <div class="header-title">
+      <div class="bar bar-header">
+     
+      </div>
+    </div> -->
+      <div class="header-search-bar-title search-sellers-header ">
+        <div class="bar bar-header search-input " side="left">
+          <button
+            class="button button-icon icon icon-Back1"
+            ng-click="goBackHandler()"
+          ></button>
+          <h1 class="title white ">Sellers</h1>
+          <button class="button button-icon " ng-click="changeDisplay()">
+            <ion-icon
+              ng-if="!listDisplay && gridDisplay"
+              class="icon ion-navicon-round"
+              name="ion-navicon-round"
+            ></ion-icon>
+            <ion-icon
+              ng-if="listDisplay && !gridDisplay"
+              class="icon icon-grid"
+              name="icon-grid"
+            ></ion-icon>
+          </button>
+        </div>
+        <div class="bar bar-subheader search-input search-subheader">
+          <label class="item-input-wrapper">
+            <input
+              type="search"
+              placeholder="Search"
+              ng-model="keyword"
+              ng-change="getSellers(keyword,'input')"
+            />
+          </label>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-search">
+    <!-- List View Display -->
+    <div ng-if="listDisplay">
+      <!-- <pre>
+          {{ userSellers }}
+      </pre>
+      <pre>
+        ////////////////////////////////
+        ////////////
+          {{ userSellerChunk }}
+      </pre> -->
+      <div
+        class="buyers-list-card search-seller "
+        ng-repeat="seller in userSellers"
+      >
+        <div class="list card">
+          <a
+            class="item item-thumbnail-left"
+            ng-click="goToSellerShop(seller._id)"
+          >
+            <img ng-src="{{ seller.photo | serverimage: 50:50:'cover' }}" />
+            <h2 class="txt-up">{{ seller.companyName }}</h2>
+            <span></span><br />
+            <span class="text-cap">{{ seller.name }}</span
+            ><br />
+            <label ng-if="seller.city || seller.state"
+              >{{ seller.city }}, {{ seller.state }}</label
+            >
+          </a>
+          <!-- <button class="contact-details" ui-sref="seller-profile">View Profile</button> -->
+          <button
+            class="contact-details f11"
+            ng-click="getSellerProfile(seller._id)"
+          >
+            View Profile
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- List View Display End -->
+    <!--Grid View start-->
+    <div class="not-top-pad" ng-if="gridDisplay">
+      <div class="row" ng-repeat="sellers in userSellerChunk">
+        <div class="col-50" ng-repeat="seller in sellers">
+          <div
+            class="followers-tab notification-tab"
+            ng-click="goToSellerShop(seller._id)"
+          >
+            <div class="row">
+              <div class="col-33">
+                <div
+                  class="noti-right-img"
+                  style="background:url({{
+                    follower.photo | serverimage: 60:60:'cover'
+                  }}) #ddd no-repeat center center"
+                >
+                  <!-- <img ng-src="{{ follower.photo | serverimage }}" /> -->
+                </div>
+              </div>
+              <div class="col-67">
+                <div class="notification-text">
+                  <div class="text-ellipsis mb-3 txt-up">
+                    <strong>{{ seller.companyName }}</strong> <br />
+                  </div>
+                  <div class="text-ellipsis">
+                    <span class="text-cap fw-400"> {{ seller.name }} </span
+                    ><br />
+                  </div>
+                  <label ng-if="seller.city || seller.state"
+                    >{{ seller.city }}, {{ seller.state }}</label
+                  >
+                </div>
+                <div class="text-right">
+                  <button
+                    class="contact-details f11"
+                    ng-click="getSellerProfile(seller._id)"
+                  >
+                    View Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Grid View End -->
+    <!-- Grid view Display end -->
+    <ion-infinite-scroll
+      ng-if="!usersLoaded"
+      on-infinite="onInfinite()"
+      distance="4%"
+      icon="ion-loading-c"
+    ></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

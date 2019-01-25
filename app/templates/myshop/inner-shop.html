@@ -1,0 +1,91 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <div class="header-search-title">
+        <div class="bar bar-header search-input">
+          <button
+            class="button button-icon icon-Back1"
+            ng-click="goBackHandler()"
+          ></button>
+          <!-- <button class="button button-icon icon-Menu" menu-toggle="left"></button> -->
+          <div class="item-input-wrapper bg-drakblue rel">
+            <form ng-submit="searchProductInner(search)" class="row">
+              <input
+                type="search"
+                placeholder="Search"
+                ng-model="search"
+                class="col-80"
+              />
+              <div
+                type="submit"
+                class="search-container col-20"
+                ng-click="searchProductInner(search)"
+              >
+                <img class="search-icon" src="img/search.png" />
+              </div>
+            </form>
+            <!-- <a class="button button-icon icon ion-search text-white" ui-sref="searched-products({keyword:search})"></a>
+            <div class="search-drop" ng-if="searchProducts.length > 0" ng-click="goToProductDetail(product._id)">
+              <div ng-repeat="product in searchProducts">
+                {{ product.name }}
+              </div>
+
+              <input type="search" placeholder="Search" ng-model="search" ng-change="searchProduct(search)" />
+              <div class="search-drop" ng-if="searchProducts.length > 0">
+                <div ng-repeat="product in searchProducts" ng-click="goToProductDetail(product._id)">
+                  {{ product.name }}
+                </div>
+              </div> -->
+          </div>
+          <button
+            class="button button-icon icon-Filter1"
+            ng-click="openSortProductModal()"
+          ></button>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+
+  <ion-content class="has-header-bar">
+    <div class="mt-10" ng-if="productsChunk">
+      <div class="padding-horizontal shirt-types">
+        <div class="custom-bullet"></div>
+        <label class="shirt-list">{{ name }}</label>
+      </div>
+      <div class="row mtb-10" ng-repeat="products in productsChunk">
+        <div class="col-50" ng-repeat="product in products">
+          <div
+            class="category-img inner-shop-img  rel"
+            ng-click="goToProductDetail(product._id)"
+          >
+            <!--
+              <img
+                
+                src="{{product.images[0] | serverimage}}"
+                alt="Checks"
+              />
+            -->
+            <div
+              class="upload-bggg bggg-rib-offer"
+              style="background:url({{
+                product.images[0] | serverimage: 300:300
+              }}) #ddd no-repeat center center; background-size:cover;"
+            >
+              <div class="ribbon-wrap" ng-if="product.offer">
+                <div class="ribbon"><a>OFFER</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">{{ product.name }}</div>
+            <div class="design-no"># {{ product.designNumber }}</div>
+            <i
+              class="icon-Quick-action shirt-options"
+              ng-click="showActionsheet(product)"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

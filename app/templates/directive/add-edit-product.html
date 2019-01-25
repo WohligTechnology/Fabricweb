@@ -1,0 +1,233 @@
+<form name="addNewProduct">
+  <div class="list add-product-form new-prod">
+    <div class="row mb-15">
+      <div class="col-33 label-col">Name :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.name" required="true">
+            <ui-select-match placeholder="Name">
+              <span>{{ $select.selected.name || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.name as table in (productName | filter: { name: $select.search })" refresh="refreshResults($select,'name')"
+              refresh-delay="0">
+              <span>{{ table.name }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col" ng-if="user.isTextile">Category :</div>
+      <div class="col-33 label-col" ng-if="user.isAccessories">
+        Accessories :
+      </div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.category" required="true" on-select="getSubCategory()" ng-disabled="categoryDisabled">
+            <ui-select-match placeholder="Category">
+              <span>{{ $select.selected.name || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table._id as table in (optionCategoriesName | filter: { name: $select.search })">
+              <span>{{ table.name }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <small class="errors" ng-show="showValidationSelectize && !formData.category">Add Category</small>
+      </div>
+    </div>
+
+    <div class="row mb-15" ng-if="formData.category && user.isTextile">
+      <div class="col-33 label-col" ng-if="user.isTextile">Sub Category:</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.subCategory" required="true" ng-disabled="subCategoryDisabled">
+            <ui-select-match placeholder="Sub Category">
+              <span>{{ $select.selected.name || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table._id as table in (optionSubCategoriesName | filter: { name: $select.search })">
+              <span>{{ table.name }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-15">
+      <div class="col-33 label-col">Design No :</div>
+      <div class="col-66">
+        <input type="text" placeholder="Add Manual Design" name="designNumber" ng-model="formData.designNumber" class="wid-100"
+          required />
+        <small class="errors" ng-show="showValidationSelectize && !formData.designNumber">Add Design No</small>
+      </div>
+    </div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col">Quality type :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.qualityType" required="true">
+            <ui-select-match placeholder="Type of Quality">
+              <span>{{ $select.selected.qualityType || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="q.qualityType as q in (getQualityTypes | filter: { qualityType: $select.search })"
+              refresh="refreshResults($select,'qualityType')" refresh-delay="0">
+              <span>{{ q.qualityType }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <!-- <div class="rel">
+          <ui-select
+            ng-model="formData.qualityType"
+            
+            required="true"
+          >
+            <ui-select-match placeholder="Type of Quality">
+              <span>{{ $select.selected.rate || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices
+              repeat="table.qualityType as table in (getQualityType | filter: { qualityType: $select.search })"
+              refresh="refreshResults($select)"
+              refresh-delay="0"
+            >
+              <span>{{ table.qualityType }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div> -->
+        <small class="errors" ng-show="showValidationSelectize && !formData.qualityType">Add Quality Type</small>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-33 label-col">Rate :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.rate" required="true">
+            <ui-select-match placeholder="Rate">
+              <span>{{ $select.selected.rate || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.rate as table in (optionRate | filter: { rate: $select.search })" refresh="refreshResults($select,'rate')"
+              refresh-delay="0">
+              <span>{{ table.rate }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <small class="errors" ng-show="showValidationSelectize && !formData.rate">Add Rate
+        </small>
+      </div>
+    </div>
+
+    <div class="id-blank mb-15">*If blank rate on request</div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col">Unit :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.unit" required="true">
+            <ui-select-match placeholder="Unit">
+              <span>{{ $select.selected.name || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.name as table in (optionUnit | filter: { name: $select.search })" refresh="refreshResults($select,'name')"
+              refresh-delay="0">
+              <span>{{ table.name }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col">Width/Size :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.size" required="true">
+            <ui-select-match placeholder="Size">
+              <span>{{ $select.selected.size || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.size as table in (optionSize | filter: { size: $select.search })" refresh="refreshResults($select,'size')"
+              refresh-delay="0">
+              <span>{{ table.size }}</span>
+            </ui-select-choices>
+          </ui-select>
+
+          <small class="errors" ng-show="showValidationSelectize && !formData.size">Add Width/Size
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col">Minimum <br />Order :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.minimumOrder" required="true">
+            <ui-select-match placeholder="Minimum Order">
+              <span>{{ $select.selected.minimumOrder || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.minimumOrder as table in (optionMinOrder | filter: { minimumOrder: $select.search })"
+              refresh="refreshResults($select,'minimumOrder')" refresh-delay="0">
+              <span>{{ table.minimumOrder }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <small class="errors" ng-show="showValidationSelectize && !formData.minimumOrder">Add Minimum Order</small>
+      </div>
+    </div>
+
+    <div class="row mb-15">
+      <div class="col-33 label-col">Description :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.description">
+            <ui-select-match placeholder="Description">
+              <span>{{ $select.selected.description || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.description as table in (optionDescription | filter: { description: $select.search })"
+              refresh="refreshResults($select,'description')" refresh-delay="0">
+              <span>{{ table.description }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <!-- <small
+          class="errors"
+          ng-show="showValidationSelectize && !formData.description"
+          >Add Description
+        </small> -->
+      </div>
+    </div>
+
+    <div class="offer-checkbox" ng-if="formData.rate">
+      <ion-checkbox ng-model="formData.offer">Offer</ion-checkbox>
+    </div>
+    <div class="row mb-15" ng-if="formData.offer">
+      <div class="col-33 label-col">New Rate :</div>
+      <div class="col-66">
+        <div class="rel">
+          <ui-select ng-model="formData.newRate" required="true">
+            <ui-select-match placeholder="New Rate">
+              <span>{{ $select.selected.newRate || $select.search }}</span>
+            </ui-select-match>
+            <ui-select-choices repeat="table.newRate as table in (optionNewRate | filter: { newRate: $select.search })"
+              refresh="refreshResults($select,'newRate')" refresh-delay="0">
+              <span>{{ table.newRate }}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+        <small class="errors" ng-show="showValidationSelectize && !formData.newRate">Add New Rate</small>
+      </div>
+    </div>
+    <div class="post-your-prod">
+      <small class="errors" ng-show="showValidationSelectize && !formData.images">Image is needed</small>
+      <button ng-if="user.isTextile" class="button button-block text-uppercase" promise-btn="addNewProductPromise"
+        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.subCategory || !formData.designNumber || !formData.qualityType || !formData.unit || !formData.size || !formData.minimumOrder"
+        ng-click="submit()">
+        Post your product
+      </button>
+      <!-- <pre>{{ formData }}</pre> -->
+      <button ng-if="user.isAccessories" class="button button-block text-uppercase" promise-btn="addNewProductPromise"
+        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.designNumber || !formData.qualityType || !formData.unit || !formData.size || !formData.minimumOrder"
+        ng-click="submit()">
+        Post your product
+      </button>
+    </div>
+  </div>
+</form>

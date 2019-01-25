@@ -1,0 +1,137 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon icon-Back1 white" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">
+          {{ seller.isSeller ? "Sellers Profile" : "Profile" }}
+        </h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="seller" ng-if="seller  ">
+      <div class="supplier-info buyers-info">
+        <div class="profile-addr buyers-detail seller-detail">
+          <div class="item-thumbnail-right">
+            <img ng-src="{{ seller.photo | serverimage }}" />
+            <h2 class="sell-name fs19">{{ seller.companyName }}</h2>
+            <div ng-if="seller.isSeller" class="fs16">
+              <span class="fs16" ng-if="seller.category.length>0">Supplier of
+              </span>
+              <!-- </div> -->
+              <!-- <div> -->
+              <span class="fs16" ng-if="seller.category[0].name">{{ seller.category[0].name }},</span>
+              <span class="fs16" ng-if="seller.category[1].name">{{
+                seller.category[1].name
+                }}</span>
+              <span ng-if="seller.category.length>2">...</span>
+              <!-- </div> -->
+            </div>
+            <!-- <div class="seller-state"> -->
+            <br />
+            <div>
+              <span class="fs16"><strong> Brand: {{ seller.brandName }} </strong>
+              </span>
+            </div>
+            <!-- </div> -->
+          </div>
+          <div class="supplier-info" ng-if="seller.isSeller">
+            <button class="button top-auto" ng-click="followMe(seller._id)" ng-if="!alreadyAdded">
+              Follow
+            </button>
+            <!-- <button class="button" ng-if="alreadyAdded">Following</button> -->
+            <span class="following-text top-auto" ng-click="unFollow(seller._id)" ng-if="alreadyAdded">Following</span>
+          </div>
+          <!-- <div class="top-button" ng-if="seller.isBuyer">
+            <button class="button top-auto" ng-click="blockThisUser(seller._id)" ng-if="!blocked">Block User</button>
+            <button class="button top-auto" ng-if="blocked">Blocked</span>
+          </div> -->
+
+          <br />
+          <br />
+          <!-- <p class="supplier-addr" placeholder="Address" ng-if="seller.companyDescription">{{seller.companyDescription}}</p> -->
+          <textarea class="supplier-addr" name="" id="" cols="4" rows="4" placeholder="Company Description" readonly
+            ng-model="seller.companyDescription" value=""></textarea>
+        </div>
+      </div>
+
+      <div class="supplier-info buyers-info">
+        <div class="buyer-company-info ">
+          <h4 class="company-info mb-0">PERSONAL INFORMATION</h4>
+        </div>
+        <div class="padding-vertical pt-0">
+          <a class="item padleft">
+            <!-- <img ng-src="{{seller.photo | serverimage}}"> -->
+            <h2>{{ seller.name }}</h2>
+            <p class="fashion">{{ seller.city }}, {{ seller.state }}</p>
+            <!-- <div ng-if="seller.isSeller">
+              <button class="button" ng-click="followMe(seller._id)" ng-if="!alreadyAdded">Follow</button> -->
+            <!-- <button class="button" ng-if="alreadyAdded">Following</button> -->
+            <!-- <span class="following-text" ng-click="unFollow(seller._id)" ng-if="alreadyAdded">Following</span>
+            </div> -->
+          </a>
+          <!-- <div class="supp-email">
+            <div>{{seller.name}}</div>
+            <label >{{seller.city}}, {{seller.state}}</label>
+          </div> -->
+          <div class="supp-email">
+            <div>Email Id</div>
+            <label>{{ seller.email }}</label>
+          </div>
+          <div class="supp-mobile">
+            <div>Mobile Number</div>
+            <label>{{ seller.mobile }}</label>
+            <div class="whatsapp-call-icon">
+              <a href="https://api.whatsapp.com/send?phone=91{{
+                  seller.mobile
+                }}&text={{ seller.name }}"><i
+                  class="ion icon-Whatsupp"></i></a>
+              <a href="tel:{{ seller.mobile }}"><i class="ion icon-Call"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- <div style="border-bottom: 1px solid #DEDEDE;"></div> -->
+        <div class="buyer-company-info ">
+          <h4 class="company-info">COMPANY INFORMATION</h4>
+          <div class="gst-address">
+            <h5>GST Number</h5>
+            <!-- A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022. -->
+            <p>{{ seller.gstNumber }}</p>
+          </div>
+          <div class="gst-address">
+            <h5>GST registered Address</h5>
+            <p>{{ fullAddress }}</p>
+          </div>
+          <div class="gst-address">
+            <h5>Alternate / Dispatch Address</h5>
+            <p>{{ seller.dispatchAddress }}</p>
+          </div>
+          <div class="gst-address">
+            <h5>Contact Number</h5>
+            <p>{{ seller.companyNumber }}</p>
+          </div>
+          <div style="border-bottom: 1px solid #DEDEDE;"></div>
+        </div>
+      </div>
+      <div class="buyers-detail-final" ng-if="seller.isBuyer && seller.endProduct.length > 0">
+        <h5 class="fnt-16 lato-bold">Buyers Final Product</h5>
+        <div class="row mtb-10" ng-repeat="product in seller.endProductChunk">
+          <div class=" col-50" ng-repeat="p in product" ng-click="openModal(p.image)">
+            <label class="shirt-design-name">{{ p.name }}</label>
+            <div class="buyers-detail-img rel">
+              <img ng-src="{{ p.image | serverimage }}" alt="" />
+            </div>
+          </div>
+          <!-- <div class=" col-50 " ui-sref="product-detail">
+            <label  class="shirt-design-name">Excepteur sint</label>
+            <div class="buyers-detail-img rel">
+              <img  ng-src="img/products/denim.jpeg" alt="">
+            </div>
+  
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,53 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button
+          class="button button-icon icon-Back1"
+          ng-click="goBackHandler()"
+        ></button>
+        <h1 class="title white title-left">Seller Shop</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="has-header-bar">
+    <div class="mt-10">
+      <div class="padding-horizontal shirt-types">
+        <div class="custom-bullet"></div>
+        <label  class="shirt-list">{{ name }}</label>
+      </div>
+      <div class="row mtb-10" ng-repeat="products in productsChunk">
+        <div class="col-50" ng-repeat="product in products">
+          <div
+            class="category-img inner-shop-img  rel"
+            ng-click="goToBuyerProductDetail(product._id)"
+          >
+            <!--
+                  <img
+                    
+                    src="{{product.images[0] | serverimage}}"
+                    alt="Checks"
+                  />
+                -->
+            <div
+              class="upload-bggg bggg-rib-offer"
+              style="background:url({{
+                product.images[0] | serverimage: 200:200:'cover'
+              }})  #ddd no-repeat center center;"
+            >
+              <div class="ribbon-wrap" ng-if="product.offer">
+                <div class="ribbon"><a>OFFER</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="mar-l10 rel btn-app-color1">
+            <div class="shirt-design-name">{{ product.name }}</div>
+            <div class="design-no"># {{ product.designNumber }}</div>
+            <!-- <i class="icon-Quick-action shirt-options" ng-click="showActionsheet(product)"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

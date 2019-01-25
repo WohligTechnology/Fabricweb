@@ -1,0 +1,27 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon ion-arrow-left-c white" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">Searched Products</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="mb-10">
+      <div class="recently-added-title searched-products">
+        <div class="row mtb-10" ng-repeat="products in productChunk">
+          <div class=" col-50" ng-repeat="product in products">
+            <product-box ng-product="product"></product-box>
+          </div>
+        </div>
+        <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+      </div>
+    </div>
+    <div>
+      <div class="no-prod" ng-if="!productChunk || productChunk.length==0">
+        No product found
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

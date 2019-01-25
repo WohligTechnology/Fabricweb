@@ -1,0 +1,121 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <div class="header-search-title">
+        <div class="bar bar-header search-input " side="left">
+          <button class="button button-icon icon ion-arrow-left-c white" menu-toggle="left"></button>
+          <label class="item-input-wrapper">
+            <input type="search" placeholder="Search">
+          </label>
+          <button class="button button-icon icon ion-android-mixer">
+          </button>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-bar">
+    <div class="supplier-profile">
+      <a class="item item-thumbnail-right">
+        <img src="img/shirt/shirt1.jpg">
+        <h2>A. K. Enterprises</h2>
+        <p>Supplier of Shirtings</p>
+        <p>Mumbai, Maharashtra</p>
+      </a>
+      <div class="post-product" ng-click="openWelcomeBuyerModal()">
+        <button class="button button-block">
+          Post your product
+        </button>
+      </div>
+    </div>
+    <div ng-click="openSortProductModal()">
+      <div  class="all">All</div>
+      <div class="padding-horizontal shirt-types">
+        <div class="custom-bullet"></div>
+        <label  class="shirt-list">Checks</label>
+        <div class="count">
+          2 months ago
+        </div>
+      </div>
+
+
+      <div class="row mtb-10">
+        <div class=" col-33 ">
+          <div class="category-img rel">
+            <img  src="img/shirt/shirt1.jpg" alt="">
+          </div>
+          <label  class="shirt-design-name">Excepteur sint</label>
+          <label  class="design-no">1339</label>
+        </div>
+        <div class=" col-33 ">
+          <div class="category-img rel">
+            <img  src="img/shirt/shirt2.jpg" alt="">
+          </div>
+          <label  class="shirt-design-name">Excepteur sint</label>
+          <label  class="design-no">1339</label>
+        </div>
+        <div class=" col-33 text-center">
+          <div class="category-img add-product-div rel">
+
+            <i class="ion ion-plus-circled"></i>
+            <div >Add Your Product</div>
+          </div>
+        </div>
+
+      </div>
+      <button class="see-all">See all</button>
+    </div>
+    <div ng-click="openSortProductModal()">
+      <div class="padding-horizontal shirt-types">
+        <div class="custom-bullet"></div>
+        <label  class="shirt-list">Denim</label>
+        <div class="count">
+          2 months ago
+        </div>
+      </div>
+
+
+      <div class="row mtb-10">
+        <div class=" col-33 ">
+          <div class="category-img rel">
+            <img  src="img/shirt/shirt1.jpg" alt="">
+          </div>
+          <label  class="shirt-design-name">Excepteur sint</label>
+          <label  class="design-no">1339</label>
+        </div>
+        <div class=" col-33 ">
+          <div class="category-img rel">
+            <img  src="img/shirt/shirt2.jpg" alt="">
+          </div>
+          <label  class="shirt-design-name">Excepteur sint</label>
+          <label  class="design-no">1339</label>
+        </div>
+        <div class=" col-33 text-center">
+          <div class="category-img  rel">
+            <img  src="img/shirt/shirt2.jpg" alt="">
+          </div>
+        </div>
+
+      </div>
+      <button class="see-all">See all</button>
+    </div>
+  </ion-content>
+  <ion-footer>
+    <div class="tab-custom">
+      <div class="tabs tabs-icon-top">
+        <a class="tab-item bg-color active white lato-regular">
+          <i class="icon ion-home"></i>
+          My Shop
+        </a>
+        <a class="tab-item lato-regular active">
+          <i class="icon ion-star app-color"></i>
+          Favorites
+        </a>
+        <a class="tab-item lato-regular active">
+          <i class="icon ion-gear-a app-color"></i>
+          Settings
+        </a>
+      </div>
+    </div>
+
+  </ion-footer>
+</ion-view>

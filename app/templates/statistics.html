@@ -1,0 +1,287 @@
+<ion-view hide-nav-bar="true">
+  <div>
+    <ion-header-bar>
+      <div class="header-title">
+        <div class="bar bar-header">
+          <button class="button button-icon icon-Menu" menu-toggle="left"></button>
+          <h1 class="title white ">Statistics</h1>
+        </div>
+      </div>
+      <div class="custome-stats-tabs">
+        <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+          <div class="tabs">
+            <a class="tab-item" ng-click="statsTabs('Photos')" ng-class="{'active': selectedTab=='Photos'}">
+              Photos
+            </a>
+            <a class="tab-item" ng-click="statsTabs('Statistics')" ng-class="{'active': selectedTab=='Statistics'}">
+              Statistics
+            </a>
+            <!-- <a class="tab-item" ng-click="notiTabs('Following')" ng-class="{'active': selectedTab=='Following'}">
+
+            Following </a>
+          <a class="tab-item" ng-click="notiTabs('Interested')" ng-class="{'active': selectedTab=='Interested'}">
+
+            Interested </a> -->
+          </div>
+        </div>
+      </div>
+    </ion-header-bar>
+    <ion-content class="has-statistics">
+      <div class="statistics" ng-if="selectedTab == 'Statistics'">
+        <div class="row mt-10">
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 font-30" ng-if="statisticsData.photos">
+                {{ statisticsData.photos | numberprice }}
+              </div>
+              <div class="mb-10 font-30" ng-if="!statisticsData.photos">
+                0
+              </div>
+              <div class="card-text">PHOTOS</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 font-30" ng-if="statisticsData.followUser">
+                {{ statisticsData.followUser | numberprice }}
+              </div>
+              <div class="mb-10 font-30" ng-if="!statisticsData.followUser">
+                0
+              </div>
+              <div class="card-text">FOLLOWERS</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 font-30" ng-if="statisticsData.sampleRequest">
+                {{ statisticsData.sampleRequest | numberprice }}
+              </div>
+              <div class="mb-10 font-30" ng-if="!statisticsData.sampleRequest">
+                0
+              </div>
+              <div class="card-text">SAMPLE REQUESTS</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="card" ng-click="alertPopup()">
+            <div class="row padding">
+              <div class="col-80">
+                <div class="card-title">My Products</div>
+                <!-- <div class="card-desc" ng-if="statisticsData.myProduct.category.length > 0">
+                  <span ng-if="statisticsData.myProduct.category[0].name">{{ statisticsData.myProduct.category[0].name
+                    }} and</span>
+                  {{ statisticsData.myProduct.category.length }} other
+                  categories
+                </div>
+                <div class="card-desc" ng-if="statisticsData.myProduct.category.length == ''">
+                  0 other categories
+                </div> -->
+              </div>
+              <div class="col-20">
+                <div class="card-count" ng-if="statisticsData.product">
+                  {{ statisticsData.product | numberprice }}
+                </div>
+                <div class="card-count" ng-if="!statisticsData.product">
+                  0
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="card" ng-click="alertPopup()">
+            <div class="row padding">
+              <div class="col-80">
+                <div class="card-title">Sample Requests</div>
+                <!-- <div class="card-desc">
+                  {{
+                  statisticsData.sampleRequestObject.products | numberprice
+                  }}
+                  products of
+                  {{
+                  statisticsData.sampleRequestObject.categorys | numberprice
+                  }}
+                  categories
+                </div> -->
+              </div>
+              <div class="col-20">
+                <div class="card-count" ng-if="statisticsData.sampleRequestObject.total">
+                  {{ statisticsData.sampleRequestObject.total | numberprice}}
+                </div>
+                <div class="card-count" ng-if="!statisticsData.sampleRequestObject.total">
+                  0
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card" ng-click="alertPopup()">
+            <div class="row padding">
+              <div class="col-80">
+                <div class="card-title">Interested</div>
+                <!-- <div class="card-desc">
+                  {{
+                  statisticsData.interestedObject.products | numberprice
+                  }}
+                  products of
+                  {{
+                  statisticsData.interestedObject.categorys | numberprice
+                  }}
+                  categories
+                </div> -->
+              </div>
+              <div class="col-20">
+                <div class="card-count" ng-if="statisticsData.interestedObject.total">
+                  {{ statisticsData.interestedObject.total | numberprice }}
+                </div>
+                <div class="card-count" ng-if="!statisticsData.interestedObject.total">
+                  0
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card" ng-click="alertPopup()">
+            <div class="row padding">
+              <div class="col-80">
+                <div class="card-title">Favourite</div>
+                <!-- <div class="card-desc">
+                  {{ statisticsData.favObject.oneMonth | numberprice }} added
+                  you as favourite 1 month ago
+                </div> -->
+              </div>
+              <div class="col-20">
+                <div class="card-count" ng-if="statisticsData.favObject.total">
+                  {{ statisticsData.favObject.total | numberprice }}
+                </div>
+                <div class="card-count" ng-if="!statisticsData.favObject.total">
+                  0
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card" ng-click="alertPopup()">
+            <div class="row padding">
+              <div class="col-80">
+                <div class="card-title">Shop Viewed</div>
+                <!-- <div class="card-desc">
+                  From last 6 month
+                  {{ statisticsData.viewObject.sixMonth | numberprice }} views
+                </div> -->
+              </div>
+              <div class="col-20">
+                <div class="card-count"  ng-if="statisticsData.viewObject.total">
+                  {{ statisticsData.viewObject.total | numberprice }}
+                </div>
+                <div class="card-count" ng-if="!statisticsData.viewObject.total">
+                  0
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- photos -->
+      <div class="photos" ng-if="selectedTab == 'Photos'">
+        <div class="mar-10">
+          <div class="padding-horizontal shirt-types statBgColor">
+            <label  class="shirt-list">Highest Viewed Product</label>
+            <!-- <div class="count ptd-2">114 photos</div> -->
+          </div>
+          <div class="padding" ng-if="viewedData.length == 0">
+            <h4>No Product Found </h4>
+          </div>
+          <div class="row mb-10" ng-if="viewedData.length > 0">
+            <div class="col-33" ng-repeat="viewed in viewedData | limitTo : 3" ng-click="goToProductDetail(viewed._id)">
+              <div class="category-img rel" style="background:url({{
+                  viewed.images[0] | serverimage: 150:150:'cover'
+                }}) #ddd no-repeat;background-size:cover">
+                <!-- <img ng-src="{{ viewed.images[0] | serverimage }}" alt="" /> -->
+              </div>
+              <label  class="shirt-design-name">{{ viewed.name }}</label>
+              <label  class="design-no">{{ viewed.designNumber }}</label>
+              <i class="button button-icon icon ion-eye ">{{ viewed.view }}</i>
+            </div>
+          </div>
+          <button class="see-all see-all-btn-mar" ng-if="viewedData.length > 3" ng-click="openViewModal('viewed')">
+            See all
+          </button>
+          <div class="padding-horizontal pt-10 shirt-types statBgColor">
+            <label  class="shirt-list">Highest Interested Product</label>
+            <!-- <div class="count ptd-2">114 photos</div> -->
+          </div>
+          <div class="padding" ng-if="interestedData.length == 0">
+            <h4>No Product Found</h4>
+          </div>
+          <div class="row mb-10" ng-if="interestedData.length > 0">
+            <div class="col-33" ng-repeat="interested in interestedData | limitTo : 3" ng-click="goToProductDetail(interested._id)">
+              <div class="category-img rel" style="background:url({{
+                  interested.images[0] | serverimage: 150:150:'cover'
+                }}) #ddd no-repeat center center;background-size:cover">
+                <!-- <img ng-src="{{ interested.images[0] | serverimage }}" alt="" /> -->
+              </div>
+              <label  class="shirt-design-name">{{
+                interested.name
+                }}</label>
+              <label  class="design-no">{{ interested.designNumber }}</label>
+              <i class="button button-icon icon icon-Mark fs14"></i>{{
+              interested.view
+              }}
+            </div>
+          </div>
+          <button class="see-all see-all-btn-mar" ng-if="interestedData.length>3" ng-click="openViewModal('interested')">
+            See all
+          </button>
+          <div class="padding-horizontal pt-10 shirt-types statBgColor">
+            <label  class="shirt-list">Highest Sample Requests</label>
+            <!-- <div class="count ptd-2">114 photos</div> -->
+          </div>
+          <div class="padding" ng-if="sampleRequestData.length == 0">
+            <h4>No Product Found</h4>
+          </div>
+          <div class="row mb-10" ng-if="sampleRequestData.length > 0">
+            <div class="col-33" ng-repeat="sampleRequest in sampleRequestData | limitTo : 3" ng-click="goToProductDetail(sampleRequest._id)">
+              <div class="category-img rel" style="background:url({{
+                  sampleRequest.images[0] | serverimage: 150:150:'cover'
+                }}) #ddd no-repeat center center;background-size:cover">
+                <!-- <img
+                  ng-src="{{ sampleRequest.images[0] | serverimage }}"
+                  alt=""
+                /> -->
+              </div>
+              <label  class="shirt-design-name">{{
+                sampleRequest.name
+                }}</label>
+              <label  class="design-no">{{ sampleRequest.designNumber }}</label>
+              <i class="button button-icon ion icon-Sample"></i>{{
+              sampleRequest.view
+              }}</i>
+            </div>
+          </div>
+          <button class="see-all see-all-btn-mar" ng-if="sampleRequestData.length>3" ng-click="openViewModal('sampleRequest')">
+            See all
+          </button>
+        </div>
+      </div>
+    </ion-content>
+  </div>
+  <!-- <ion-footer>
+    <div class="tab-custom">
+      <div class="tabs tabs-icon-top">
+        <a class="tab-item active lato-regular app-color" ui-sref="app.myshop">
+          <i class="icon-Logo1 icon"></i>
+          My Shop
+        </a>
+        <a class="tab-item lato-regular bg-color white active" ui-sref="app.statistics">
+          <i class="icon-Stats icon white"></i>
+          Stats
+        </a>
+        <a class="tab-item lato-regular active app-color" ui-sref="notification">
+          <i class="icon icon-Notification "></i>
+          Notification
+        </a>
+      </div>
+    </div>
+
+  </ion-footer>
+ -->
+</ion-view>

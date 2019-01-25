@@ -1,0 +1,84 @@
+<ion-view hide-nav-bar="true">
+  <div class="search-header-top">
+    <ion-header-bar class="search-header-top">
+      <div class="header-search-title">
+        <div class="bar bar-header search-input">
+          <button class="button button-icon icon-Menu" menu-toggle="left"></button>
+          <h1 class="title white top10">Collection</h1>
+        </div>
+      </div>
+    </ion-header-bar>
+  </div>
+  <ion-content class="has-header-bar seller-myshop">
+    <div class="mar-10" ng-if="collection">
+      <!-- favourite start -->
+      <div class="bgcolor">
+        <div class="padding-horizontal shirt-types">
+          <label  class="shirt-list">Favourites</label>
+          <div class="count ptd-2" ng-if="collection.favouriteLength == 0">
+            No Favourite Products
+          </div>
+          <div class="count ptd-2" ng-if="collection.favouriteLength > 0">
+            {{ collection.favouriteLength }} Favourite{{
+            collection.favouriteLength > 1 ? "s" : ""
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="row mb-10">
+        <div class="col-33" ng-repeat="favProduct in collection.favourite">
+          <product-box ng-product="favProduct" img-css="category-img rel" no-action="true"></product-box>
+        </div>
+      </div>
+
+      <button class="see-all see-all-btn-mar" ng-if="collection.favouriteLength>3" ng-click="getAllFavourites('favourite')">
+        See all
+      </button>
+      <!-- favourite end -->
+      <!-- interested start -->
+      <div class="bgcolor mt25">
+        <div class="padding-horizontal pt-10 shirt-types">
+          <label  class="shirt-list">Interested</label>
+          <div class="count ptd-2" ng-if="collection.interestedLength == 0">
+            No Interested Products
+          </div>
+          <div class="count ptd-2" ng-if="collection.interestedLength > 0">
+            {{ collection.interestedLength }} Interested
+          </div>
+        </div>
+      </div>
+      <div class="row mb-10">
+        <div class="col-33" ng-repeat="favProduct in collection.interested">
+          <product-box ng-product="favProduct" img-css="category-img rel" no-action="true"></product-box>
+        </div>
+      </div>
+      <button class="see-all see-all-btn-mar" ng-if="collection.interestedLength>3" ng-click="getAllFavourites('interested')">
+        See all
+      </button>
+      <!-- interested end -->
+      <!-- sample request start -->
+      <div class="bgcolor mt25">
+        <div class="padding-horizontal pt-10 shirt-types">
+          <label  class="shirt-list">Sample Requests</label>
+          <div class="count ptd-2" ng-if="collection.sampleRequestLength == 0">
+            No Sample Request Products
+          </div>
+          <div class="count ptd-2" ng-if="collection.sampleRequestLength > 0">
+            {{ collection.sampleRequestLength }} Sample Request{{
+            collection.sampleRequestLength > 1 ? "s" : ""
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="row mb-10">
+        <div class="col-33" ng-repeat="favProduct in collection.sampleRequest">
+          <product-box ng-product="favProduct" img-css="category-img rel" no-action="true"></product-box>
+        </div>
+      </div>
+      <button class="see-all see-all-btn-mar" ng-if="collection.sampleRequestLength>3" ng-click="getAllFavourites('sampleRequest')">
+        See all
+      </button>
+      <!-- sample request end -->
+    </div>
+  </ion-content>
+</ion-view>

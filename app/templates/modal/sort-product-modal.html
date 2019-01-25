@@ -1,0 +1,131 @@
+<ion-modal-view class="sorting" left-buttons="leftButtons">
+  <ion-header-bar class="bar bar-positive header-title">
+    <div class="header-title">
+      <div class="bar bar-header">
+        <h1 class="title white title-left">Filter</h1>
+        <button class="button button-icon icon ion-close close-icon close" ng-click="clearAllFilter();closeSortProductModal()"></button>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header has-footer" padding="true">
+    <!-- seller filter start -->
+    <div ng-if="innerShop">
+      <div class="sort-top">
+        <div class=" sub-title text-center">SORT PRODUCT BY DAYS</div>
+        <div class="sort-modal">
+          <div class="row">
+            <div class="col">
+              <input type="radio" ng-model="formData.days" value="7" id="7days" />
+              <label for="7days">Last 7 Days</label>
+            </div>
+            <div class="col">
+              <input type="radio" ng-model="formData.days" value="15" id="15days" />
+              <label for="15days">Last 15 Days</label>
+            </div>
+          </div>
+        </div>
+        <div class="sort-modal">
+          <div class="row">
+            <div class="col">
+              <input type="radio" ng-model="formData.days" value="30" id="30days" />
+              <label for="30days">Last 30 Days</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row scrolling-tab" ng-if="myShopPage">
+      <div class="col padding text-center mx-auto " ng-if="user.isTextile" ng-repeat="cat in categories" ng-click="catSelectFun(cat)"
+        ng-class="{'active':seletcedTab._id=== cat._id}">
+        {{ cat.name }}
+      </div>
+      <div class="col-20 padding text-center mx-auto active" ng-if="!user.isTextile">
+        Accessories
+      </div>
+      <!-- <div class="col padding text-center mx-auto " ng-click="catSelectFun('Price')" ng-class="{'active':seletcedTab=== 'Price'}">
+        Range
+      </div> -->
+    </div>
+    <div ng-if="myShopPage">
+      <ion-list>
+        <ion-checkbox ng-model="subcat.applyFilter" ng-if="user.isTextile" ng-repeat="subcat in seletcedTab.subCategory">{{subcat.name}}
+          <span class="float-right checkbox-description">{{subcat.products.length }}
+          </span>
+        </ion-checkbox>
+        <ion-checkbox ng-model="subcat.applyFilter" ng-if="!user.isTextile" ng-repeat="subcat in categories">{{subcat.name}}
+          <span class="float-right checkbox-description">{{subcat.products.length }}
+          </span>
+        </ion-checkbox>
+        <!-- <div class="Filteraddtional range" ng-if="seletcedTab=='Price'">
+          <rzslider rz-slider-model="filterObj.minPrice" rz-slider-high="filterObj.maxPrice" rz-slider-options="slider.options"></rzslider>
+        </div> -->
+      </ion-list>
+    </div>
+    <!-- seller filter end -->
+    <!-- buyer filter start -->
+    <div ng-if="buyermyShopPage" class="buyerfilter bgcolor">
+      <div class="login-form">
+        <span class="input-label lato-bold">All categories</span>
+        <ui-select ng-model="filterObj.category" class="bg-white" theme="bootstrap" required>
+          <ui-select-match placeholder="Select categories">
+            <span ng-if="$select.selected.name">{{$select.selected.name}}</span>
+          </ui-select-match>
+          <ui-select-choices repeat="subcat in filterCategory | filter: $select.search" ng-click="getSubCategory(filterObj.category); filterObj.subCategory=''">
+            <span ng-bind="subcat.name"></span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="login-form subcategory">
+        <span class="input-label lato-bold">Sub categories</span>
+        <ui-select ng-model="filterObj.subCategory" class="bg-white" theme="bootstrap" required>
+          <ui-select-match placeholder="Select categories">
+            <span ng-if="$select.selected.name">{{$select.selected.name}}</span>
+          </ui-select-match>
+          <ui-select-choices repeat="subcat in subCategories | filter: $select.search">
+            <span ng-bind="subcat.name"></span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="login-form location">
+        <span class="input-label lato-bold">Location</span>
+        <div class="row">
+          <div class="col-10">
+            <i class="icon ion-location"></i>
+          </div>
+          <div class="col-90">
+            <ui-select multiple ng-model="filterObj.city" theme="bootstrap" title="Choose a medium">
+              <ui-select-choices repeat="subcat in city | filter: $select.search">
+                {{subcat}}
+              </ui-select-choices>
+              <ui-select-match placeholder="Location">{{$item}}</ui-select-match>
+            </ui-select>
+          </div>
+        </div>
+      </div>
+      <div class="login-form Filteraddtional">
+        <span class="input-label lato-bold">Additional</span>
+        <ion-list class="additional-offer-filter">
+          <ion-checkbox ng-model="filterObj.offer">Offers</ion-checkbox>
+        </ion-list>
+      </div>
+      <div class="login-form">
+        <span class="input-label lato-bold">Range</span>
+      </div>
+      <div class="Filteraddtional range">
+        <rzslider rz-slider-model="filterObj.minPrice" rz-slider-high="filterObj.maxPrice" rz-slider-options="slider.options"></rzslider>
+      </div>
+    </div>
+    </div>
+    <!-- buyer filter end -->
+  </ion-content>
+  <div class="bar bar-footer">
+    <div class="row">
+      <div class="col-33 full-width padding-right">
+        <button class="button button-dark" ng-click="clearAllFilter()">Clear All</button>
+      </div>
+      <div class="col-67 full-width">
+        <button class="button button-positive" ng-click="applyFilter();closeSortProductModal()">Apply</button>
+      </div>
+    </div>
+  </div>
+</ion-modal-view>

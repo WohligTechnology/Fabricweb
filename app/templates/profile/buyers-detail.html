@@ -1,0 +1,123 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header ">
+        <button class="button button-icon icon icon-Back1 white" ng-click="goBackHandler()"></button>
+        <h1 class="title white ">Profile</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="supplier-info buyers-info">
+      <div class="profile-addr buyers-detail">
+        <div class="item-thumbnail-right">
+          <img ng-src="{{buyer.photo | serverimage}}">
+          <h2 class="sell-name">{{buyer.companyName}}</h2>
+          <p><span>{{buyer.city}}, {{buyer.state}}</span></p><br />
+          <p><strong>Brand: {{buyer.brandName}}</strong></p>
+        </div>
+        <br><br />
+        <br />
+        <!-- <p class="supplier-addr">{{buyer.companyDescription}}</p> -->
+
+      </div>
+
+      <div class="top-button">
+        <button class="button top-auto" ng-click="blockThisUser(buyer._id)" ng-if="!blocked">Block User</button>
+        <button class="button top-auto" ng-if="blocked">Blocked</span>
+      </div>
+      <textarea class="supplier-addr" name="" id="" cols="4" rows="4" placeholder="Company Description" readonly
+        ng-model="buyer.companyDescription" value=""></textarea>
+    </div>
+
+    <div class="supplier-info buyers-info">
+      <div class="buyer-company-info ">
+        <h4 class="company-info mb-0">PERSONAL INFORMATION</h4>
+      </div>
+      <a class="item padleft">
+        <!-- <img ng-src="{{buyer.photo | serverimage}}"> -->
+        <h2>{{buyer.name}}</h2>
+        <p class="fashion">{{buyer.city}} {{buyer.state}}</p>
+        <!-- <div class="top-btn">
+          <button class="button" ng-if="!alreadyAdded" ng-click="followMe(buyer._id)">Follow</button>
+          <button class="button" ng-if="alreadyAdded" ng-click="unFollow(buyer._id)">Following</button>
+        </div> -->
+        <!-- <div class="top-button">
+          <button class="button" ng-click="blockThisUser(buyer._id)" ng-if="!blocked">Block User</button>
+          <button class="button" ng-if="blocked">Blocked</span>
+        </div> -->
+
+        <!-- <button class="button" ng-if="Blocked">Un-Block User</button> -->
+      </a>
+
+      <!--New UI <div class="row">
+        <div class="col"></div>
+        <div class="col-75 text-color">
+
+          <button class="button button-full button-positive" ng-click="followMe(buyer._id)">
+            <span ng-if="!alreadyAdded">Follow</span>
+            <span ng-if="alreadyAdded">Following </span>
+          </button>
+        </div>
+        <div class="col"></div>
+      </div> -->
+      <div class="supp-email">
+        <div>Email Id</div>
+        <label>{{buyer.email}}</label>
+      </div>
+      <div class="supp-mobile">
+        <div>Mobile Number</div>
+        <label>{{buyer.mobile}}</label>
+        <div class="whatsapp-call-icon">
+          <a href="https://api.whatsapp.com/send?phone=91{{buyer.mobile}}&text={{buyer.name}}">
+            <i class="ion icon-Whatsupp"></i></a>
+          <a href="tel:{{buyer.mobile}}">
+            <i class="ion icon-Call"></i>
+          </a>
+        </div>
+      </div>
+      <div class="buyer-company-info ">
+        <h4 class="company-info">COMPANY INFORMATION</h4>
+        <div class="gst-address">
+          <h5>GST Number</h5>
+          <!-- A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022. -->
+          <p>{{ buyer.gstNumber }}</p>
+        </div>
+        <div class="gst-address">
+          <h5>GST registered Address</h5>
+          <p>{{fullAddress}}</p>
+        </div>
+        <div class="gst-address">
+          <h5>Alternate / Dispatch Address</h5>
+          <p>{{buyer.dispatchAddress}}</p>
+        </div>
+        <div class="gst-address">
+          <h5>Contact Number</h5>
+          <p>{{buyer.companyNumber}}</p>
+        </div>
+        <div style="border-bottom: 1px solid #DEDEDE;"></div>
+        <!-- <div class="gst-address">
+          <h5>Dispatch Address</h5>
+          <textarea name="" id="" id="" cols="4" rows="2" placeholder="Address">A wing, Flat No. 30, Laxmi Nivas, 3rd Floor,​ ​ Plot no. 3, Next to Sadhana School, Sion (W), Mumbai - 400022.</textarea>
+        </div> -->
+        <!-- <div style="border-bottom: 1px solid #DEDEDE;"></div> -->
+        <!-- <div class="gst-address">
+          <h5>Dispatch Address</h5>
+          <input type="number" placeholder="0221234567">
+        </div> -->
+
+      </div>
+    </div>
+    <div class="buyers-detail-final">
+      <h5 class="fnt-16 lato-bold">Buyers Final Product</h5>
+      <div class="row mtb-10" ng-repeat="endproducts in userEndProdChunk">
+        <div class="col-50 " ng-repeat="endproduct in endproducts">
+          <label class="shirt-design-name">{{endproduct.name}}</label>
+          <div class="buyers-detail-img rel">
+            <img ng-src="{{endproduct.image | serverimage}}" alt="" ng-click="openModal(endproduct.image)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

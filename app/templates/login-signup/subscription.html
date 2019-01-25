@@ -1,0 +1,35 @@
+<ion-view hide-nav-bar="true">
+  <ion-content class="has-header">
+    <div class="subscription-card">
+      <div class="text-center mb-15">
+        <h3 class="app-color lato-bold">Subscription Fees</h3>
+      </div>
+      <div class="text-center otp-msg createacc-msg mt-56 lato-medium">
+        <p> {{plan.description}}</p>
+      </div>
+      <div class="sub-price">
+        <div>₹{{plan.amount}}</div>
+      </div>
+      <div class="terms text-center mt-60 mb-30">
+        <input type="checkbox" name="termsAndPolicy" id="" ng-model="terms">
+        <div class="text-terms">
+          <label for="termsAndPolicy" class="terms-button">By Subscribing, you agree to the </label>
+          <button class="button button-clear button-positive " ng-click="openLink('termsPolicy')">Terms
+            & Privacy Policy</button>
+          <span class="left-text">of the app</span>
+        </div>
+      </div>
+      <div class="buynow-btn">
+        <a class="button button-block text-uppercase" ui-sref="subscription-invoice({firstVisit:true})">
+          Buy Now
+        </a>
+      </div>
+      <div class="trial-btn">
+        <button class="button button-block " ng-disabled="!terms" ng-click="goTo()">
+          TRIAL 15 DAYS
+        </button>
+      </div>
+    </div>
+    </div>
+  </ion-content>
+</ion-view>

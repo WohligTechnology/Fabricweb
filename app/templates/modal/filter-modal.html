@@ -1,0 +1,99 @@
+<div class="filter-modal">
+  <div class="modal-bg ">
+    <div class="modal-backdrop active">
+      <div class="modal-backdrop-bg"></div>
+      <div class="modal-wrapper">
+        <ion-modal-view >
+          <ion-header-bar >
+            <button class="ion ion-arrow-left-c sort-products" ng-click="closeFilterModal()"></button>
+            <div class="h1 title">Filter</div>
+          </ion-header-bar>
+          <ion-content class="has-header-bar">
+            <div class="filter">
+              <div class="select-allCategory">
+                <div class="list item item-input item-select ">
+                  <select required selected>
+                    <option value="Select Category" class="lato-regular">All Category</option>
+                  </select>
+                </div>
+              </div>
+              <div class="list sub-category ">
+                <label class="item item-input item-icon-right">
+                  <i class="icon ion-search placeholder-icon"></i>
+                  <input type="text" class="lato-regular" placeholder="Sub Categories" disabled>
+                </label>
+              </div>
+              <div class="location">
+                Location
+                <label class="item item-icon-left item-input item-icon-right">
+                  <i class="icon ion-location placeholder-icon"></i>
+                  <input type="text" class="lato-regular" placeholder="Search City, States and Country.">
+                  <i class="icon ion-search placeholder-icon"></i>
+                </label>
+              </div>
+              <ion-scroll direction="x" class="wide-as-needed location-btn"> <a class="button icon-right ion-close button-calm">Mumbai</a>
+                <a class="button icon-right ion-close button-calm">kolkata</a>
+              </ion-scroll>
+              <div >
+                <div >
+                  <div class="additional-offers">
+                    <br>
+                    <span>Additional</span>
+                    <br>
+                    <div class="checkbox">
+                      <div class="selected">
+                        <span>
+                          <ion-list>
+                            <ion-checkbox ng-model="filter.red">OFFER</ion-checkbox>
+                            <ion-checkbox ng-model="filter.yellow">ASSURED</ion-checkbox>
+                          </ion-list>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="reset-filters">
+                    <button class="button button-block">
+                      Reset Filters
+                    </button>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="apply-filters">
+                    <button class="button button-block">
+                      Apply Filters
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="sort-modal">
+                  <div class="custom-bullet"></div>
+                  <label  class="shirt-list">All</label>
+                </div>
+                <div class="sort-modal">
+                  <div class="custom-bullet1"></div>
+                  <label  class="shirt-list1">Lorem Ipsum Lorem Ipsum</label>
+                </div>
+                <div class="sort-modal">
+                  <div class="custom-bullet1"></div>
+                  <label  class="shirt-list1">Lorem Ipsum Lorem Ipsum</label>
+                </div>
+                <div class="sort-modal">
+                  <div class="custom-bullet1"></div>
+                  <label  class="shirt-list1">Lorem Ipsum Lorem Ipsum</label>
+                </div>
+                <div class="sort-modal">
+                  <div class="custom-bullet1"></div>
+                  <label  class="shirt-list1">Lorem Ipsum Lorem Ipsum</label>
+                </div> -->
+          </ion-content>
+        </ion-modal-view>
+      </div>
+    </div>
+  </div>
+
+</div>

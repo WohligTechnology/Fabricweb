@@ -1,0 +1,37 @@
+<ion-view hide-nav-bar="true">
+  <ion-content class="has-header">
+    <div class="login-signup">
+      <div class="app-logo">
+        <img ng-src="img/appLogo/Logo.svg" alt="">
+      </div>
+      <div ng-class="{'deactive-seller-buyer': seller.active == false, 'active-seller-buyer': seller.active == true}">
+        <div class="select-checkbox" ng-click="selectSellerBuyer('Seller')">
+          <ion-checkbox type="checkbox" class="item-checkbox" name="selectcategory" id="selectcategory" ng-model="sellerCheck"
+            ng-value="true">Seller</ion-checkbox>
+        </div>
+        <div ng-show="sellerCheck">
+          <div class="seller-type-text" ng-class="{'seller-type-access' : selectedsupplier != 'textile'}" ng-click="supplier('textile')"
+            ng-class="{'border-active'}">
+            Supplier of - Textiles
+          </div>
+          <div class="seller-type-text" ng-class="{'seller-type-access' : selectedsupplier != 'accessories'}" ng-click="supplier('accessories')"
+            ng-class="{'border-active'}">
+            Supplier of - Accessories
+          </div>
+        </div>
+      </div>
+      <div ng-class="{'deactive-seller-buyer': buyer.active == false, 'active-seller-buyer': buyer.active == true}">
+        <div class="select-checkbox" ng-model="buyer.active" ng-click="selectSellerBuyer('Buyer');sellerCheck =false">
+          <ion-checkbox type="checkbox" class="item-checkbox" name="selectcategory1" id="selectcategory" ng-value="false"
+            ng-if="!submenu">Buyer</ion-checkbox>
+        </div>
+      </div>
+
+      <div class="seller-buyer-btn">
+        <button class="button button-block text-uppercase" ng-click="nextPage()" ng-disabled="!buyer.active && !selectedsupplier">
+          Next
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

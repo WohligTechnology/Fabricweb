@@ -1,0 +1,40 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <!-- <h1 class="title white">Categories</h1> -->
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div ng-if="categoryChunk">
+      <div class="category-head">Choose what kind of fabric you sell?</div>
+      <div class="row mtb-20" ng-repeat="categories in categoryChunk">
+        <div class=" col-33 text-center" ng-repeat="category1 in categories">
+          {{ categories.createdAt }}
+          <div class="category-img rel" ng-click="category1.active= !category1.active;selectCategory(category1)" style="background:url({{
+              category1.image | serverimage
+            }}) #ddd  no-repeat center center;background-size:cover"
+            ng-class="{ 'opc':category1.active}">
+            <div class="bg-color-gradient">
+              <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
+              <!-- <img
+                ng-src="{{ category1.image | serverimage }}"
+                alt=""
+                ng-class="{ 'opc':category1.active}"
+              /> -->
+              <label  class="category-name">{{ category1.name }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ui-sref="inner-category" -->
+      <div class="explore-btn">
+        <button class="button button-block text-uppercase" ng-click="goTo()">
+          Next
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

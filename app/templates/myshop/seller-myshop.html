@@ -1,0 +1,268 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header">
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <h1 class="title white title-left">Seller</h1>
+      </div>
+    </div>
+  </ion-header-bar>
+  </div>
+  <ion-content class="has-header-bar seller-myshop has-footer">
+    <div class="supplier-profile" ng-if="sellerProfile">
+      <a class="item item-thumbnail-right">
+        <img ng-src="{{sellerProfile.photo| serverimage :60 :60:'cover'}}">
+        <h2>{{sellerProfile.companyName}}</h2>
+        <p>Supplier of
+          <span>
+            {{sellerProfile.category[0].name}},
+          </span>
+          <span>
+            {{sellerProfile.category[1].name}}
+          </span>
+          <span ng-if="sellerProfile.category.length>2">
+            ...
+          </span>
+        </p>
+
+        <p>{{sellerProfile.city}}, {{sellerProfile.state}}</p>
+      </a>
+      <div class="row">
+        <div class="col-50 padding">
+          <button class="button button-small button-assertive seller-btn" ui-sref="seller-profile({sellerId:sellerProfile._id})">View
+            Profile</button>
+        </div>
+        <div class="col-50 text-right padding">
+          <button class="button button-small button-assertive seller-btn follow" ng-click="followMe(sellerProfile._id)"
+            ng-if="!alreadyAdded">Follow</button>
+          <!-- <button class="button button-small button-assertive seller-btn follow" ng-if="alreadyAdded" disabled="true">Following</button> -->
+          <span class="following-text" ng-if="alreadyAdded" ng-click="unFollow(sellerProfile._id)">Following</span>
+        </div>
+      </div>
+      <div class="statistics market-shop">
+        <div class="row ">
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 count">{{sellerStats.product | numberprice}}</div>
+              <div class="card-text type">Product{{sellerStats.product > 1 ?'s':''}}</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 count">{{sellerStats.followUser | numberprice}}</div>
+              <div class="card-text type">Follower{{sellerStats.followUser > 1 ?'s':''}}</div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card text-center padding">
+              <div class="mb-10 count">{{sellerStats.photos | numberprice}}</div>
+              <div class="card-text type">Photo{{sellerStats.photos > 1 ?'s':''}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div ng-if="user.isTextile">
+        <div ng-repeat="category in user.categoryArr">
+          <div class="padding-horizontal mt-25 shirt-types">
+            <div class="mb-15">
+              <label  class="shirt-list-category lato-bold text-uppercase">{{ category.name }}</label>
+            </div>
+          </div>
+          <div ng-repeat="subCategory in category.subCategory">
+            <div ng-if="subCategory.filter">
+              <div class="padding-horizontal mt-25 shirt-types bgcolor">
+                <div class="custom-bullet"></div>
+                <label  class="shirt-list">{{ subCategory.name }}</label>
+                <div class="count">
+                  {{ subCategory.products.length }}
+                  <span ng-if="subCategory.products.length<=1">product</span><span ng-if="subCategory.products.length>1">products</span>
+                </div>
+              </div>
+              <div class="row mtb-10">
+                <!-- <pre>{{subCategory.products[0]._id | json}}</pre> -->
+                <div class=" col-33 " ng-if="subCategory.products.length>0">
+                  <div class="my-shop-img rel" ng-click="goToBuyerProductDetail(subCategory.products[0]._id)">
+                    <!--
+                      <img
+                        
+                        ng-src="{{subCategory.products[0].images[0]|serverimage}}"
+                        alt=""
+                      />
+                    -->
+                    <div class="upload-bgg rib-offer" style="background:url({{subCategory.products[0].images[0]serverimage: 300:300
+                    }}) #ddd no-repeat center center; background-size:cover;">
+                      <div class="ribbon-wrap" ng-if="subCategory.products[0].offer">
+                        <div class="ribbon">
+                          <a>OFFER</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[0].name
+                    }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[0].designNumber }}</label>
+                </div>
+                <div class=" col-33 " ng-if="subCategory.products.length>1">
+                  <div class="my-shop-img  rel" ng-click="goToBuyerProductDetail(subCategory.products[1]._id)">
+                    <!--
+                      <img
+                        
+                        ng-src="{{subCategory.products[1].images[0]|serverimage}}"
+                        alt=""
+                      />
+                    -->
+                    <div class="upload-bgg rib-offer" style="background:url({{subCategory.products[1].images[0]|serverimage: 300:300
+                    }}) #ddd no-repeat center center; background-size:cover;">
+                      <div class="ribbon-wrap" ng-if="subCategory.products[1].offer">
+                        <div class="ribbon">
+                          <a>OFFER</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[1].name
+                    }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[1].designNumber }}</label>
+                </div>
+                <div class=" col-33 " ng-if="subCategory.products.length>2">
+                  <div class="my-shop-img  rel" ng-click="goToBuyerProductDetail(subCategory.products[2]._id)">
+                    <!--
+                      <img
+                        
+                        ng-src="{{subCategory.products[2].images[0]|serverimage:150:150:'cover'}}"
+                        alt=""
+                      />
+                    -->
+                    <div class="upload-bgg rib-offer" style="background:url({{subCategory.products[2].images[0]|serverimage: 300:300
+                    }}) #ddd no-repeat center center; background-size:cover;">
+                      <div class="ribbon-wrap" ng-if="subCategory.products[2].offer">
+                        <div class="ribbon">
+                          <a>OFFER</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label  class="shirt-design-name">{{
+                    subCategory.products[2].name
+                    }}</label>
+                  <label  class="design-no">
+                    # {{ subCategory.products[2].designNumber }}</label>
+                </div>
+              </div>
+              <!-- <div class="col-50"> -->
+              <!-- ng-if="subCategory.products.length>3" -->
+              <button class="see-all" ng-if="subCategory.products.length>3" ng-click="goToInnerPageOfShop(subCategory)">
+                See all
+              </button>
+              <!-- </div> -->
+
+              <!-- ui-sref="app.inner-shop" -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!user.isTextile">
+        <!-- <div ng-repeat="category in user.categoryArr"> -->
+        <!--
+          <div class="padding-horizontal mt-25 shirt-types">
+            <div class="mb-15">
+              <label  class="shirt-list-category lato-bold  text-uppercase">{{category.name}}</label>
+              </div>
+            </div>
+            -->
+        <div ng-repeat="category in user.categoryArr">
+          <div ng-if="category.filter">
+            <div class="padding-horizontal mt-25 shirt-types bgcolor">
+              <div class="custom-bullet"></div>
+              <label  class="shirt-list">{{ category.name }}</label>
+              <!-- <div class="count">2 months ago</div> -->
+            </div>
+            <div class="row mtb-10">
+              <div class=" col-33 " ng-if="category.products.length>0">
+                <div class="my-shop-img rel rib-offer" ng-click="goToBuyerProductDetail(category.products[0]._id)">
+                  <img ng-src="{{category.products[0].images[0]|serverimage:150:150:'cover'}}" alt="" />
+                  <div class="ribbon-wrap" ng-if="category.products[0].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[0].name
+                  }}</label>
+                <label  class="design-no">
+                  # {{ category.products[0].designNumber }}</label>
+              </div>
+              <div class="col-33 " ng-if="category.products.length>1">
+                <!-- {{ category.products[1].images[0] }} -->
+                <div class="my-shop-img  rel" ng-click="goToBuyerProductDetail(category.products[1]._id)">
+                  <img ng-src="{{category.products[1].images[0]|serverimage:150:150:'cover'}}" alt="" />
+                  <div class="ribbon-wrap" ng-if="category.products[1].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[1].name
+                  }}</label>
+                <label  class="design-no">
+                  # {{ category.products[1].designNumber }}</label>
+              </div>
+              <div class="col-33 " ng-if="category.products.length>2">
+                <div class="my-shop-img  rel rib-offer" ng-click="goToBuyerProductDetail(category.products[2]._id)">
+                  <img ng-src="{{category.products[2].images[0]|serverimage:150:150:'cover'}}" alt="" />
+                  <div class="ribbon-wrap" ng-if="category.products[2].offer">
+                    <div class="ribbon"><a>OFFER</a></div>
+                  </div>
+                </div>
+                <label  class="shirt-design-name">{{
+                  category.products[2].name
+                  }}</label>
+                <label  class="design-no">
+                  # {{ category.products[2].designNumber }}</label>
+              </div>
+              <!-- <div class="col-33 text-center" ng-if="category.products.length<3">
+                <div class="my-shop-img  add-product-div rel" ng-click="addNewProduct(category._id)">
+                  <i class="ion ion-plus-circled"></i>
+                  <div >Add Your Product</div>
+                </div>
+              </div> -->
+            </div>
+            <button class="see-all" ng-if="subCategory.products.length>3" ng-click="goToInnerPageOfShopAccess(category)">
+              See all
+            </button>
+            <!-- ui-sref="app.inner-shop" -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+
+
+
+    </div>
+  </ion-content>
+  <!-- <ion-footer>
+    <div class="tab-custom">
+      <div class="tabs tabs-icon-top">
+        <a class="tab-item bg-color active white lato-regular">
+          <i class="icon icon-Logo1"></i>
+          Market
+        </a>
+        <a class="tab-item lato-regular active" ui-sref="app.categories">
+          <i class="icon icon-Collection app-color"></i>
+          Collection
+        </a>
+        <a class="tab-item lato-regular active" ui-sref="buyer-notification">
+          <i class="icon icon-Notification app-color"></i>
+          Notification
+        </a>
+      </div>
+    </div>
+
+  </ion-footer> -->
+</ion-view>

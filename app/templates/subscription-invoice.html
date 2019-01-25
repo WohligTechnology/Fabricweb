@@ -1,0 +1,125 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="subs-invoice">
+      <div class="header-title">
+        <div class="bar bar-header ">
+          <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+          <!-- <h1 class="title white">Subscription Fees</h1> -->
+          <h1 class="title white">Subscription</h1>
+        </div>
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="subscription-card-invoice my-60">
+      <div class="text-center mb-15">
+        <h3 class="app-color lato-bold">Subscription Fees</h3>
+      </div>
+      <div class="invoice-subs">
+        <div class="list card">
+          <div class="row padding">
+            <div class="col-50">
+              <h4>Start Date</h4>
+            </div>
+            <div class="col-50">
+              <h4>{{startDate}}</h4>
+            </div>
+          </div>
+          <div class="row padding">
+            <div class="col-50">
+              <h4>Expiry</h4>
+            </div>
+            <div class="col-50">
+              <h4>{{endDate}}</h4>
+            </div>
+          </div>
+          <div class="bill">
+            <div class="row invoice-header">
+              <div class="col-25">
+                <h4>Date</h4>
+              </div>
+              <div class="col">
+                <h4>Unit</h4>
+              </div>
+              <div class="col-20">
+                <h4>Rate</h4>
+              </div>
+              <div class="col-20">
+                <h4>Tax</h4>
+              </div>
+              <div class="col">
+                <h4>Amount</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <h4>09/01/2019</h4>
+              </div>
+              <div class="col">
+                <h4>1</h4>
+              </div>
+              <div class="col-20">
+                <h4>{{amount}}</h4>
+              </div>
+              <div class="col-20">
+                <h4>18.0% GST</h4>
+              </div>
+              <div class="col">
+                <h4>{{amount}}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="row subtotal-invoice">
+            <div class="col-75">
+              <h4 class="subtotal"><strong>SUBTOTAL:</strong></h4>
+            </div>
+            <div class="col-25">
+              <h4 class="subtotal-price">{{amount}}</h4>
+            </div>
+          </div>
+          <div class="row subtotal-invoice" ng-if="state == 'Maharashtra'">
+            <div class="col-75">
+              <h4 class="subtotal">CGST @ 9% on {{amount}}
+              </h4>
+            </div>
+            <div class="col-25">
+              <h4 class="subtotal-price">{{amount * 0.09}}</h4>
+            </div>
+          </div>
+          <div class="row subtotal-invoice" ng-if="state == 'Maharashtra'">
+            <div class="col-75">
+              <h4 class="subtotal">SGST @ 9% on {{amount}}
+              </h4>
+            </div>
+            <div class="col-25">
+              <h4 class="subtotal-price">{{amount * 0.09}}</h4>
+            </div>
+          </div>
+          <div class="row subtotal-invoice" ng-if="state != 'Maharashtra'">
+            <div class="col-75">
+              <h4 class="subtotal">IGST @ 18% on {{amount}}
+              </h4>
+            </div>
+            <div class="col-25">
+              <h4 class="subtotal-price">{{amount * 0.18}}</h4>
+            </div>
+          </div>
+          <div class="row subtotal-invoice invoice-total">
+            <div class="col-75">
+              <h4 class="subtotal"><strong>TOTAL:</strong>
+              </h4>
+            </div>
+            <div class="col-25">
+              <h4 class="subtotal-price">{{amount + (amount*0.18)}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="buynow-btn">
+          <button class="button button-block text-uppercase" ng-click="proceedToPayment()">
+            Proceed
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,43 @@
+<ion-view hide-nav-bar="true">
+  <ion-header-bar>
+    <div class="header-title">
+      <div class="bar bar-header" side="left">
+        <button class="button button-icon icon-Back1" menu-toggle="left" ui-sref="tab.myshop"></button>
+        <h1 class="title white">Subscription</h1>
+        <!-- <button class="button button-icon icon ion-android-mixer" ng-click="gridListView('grid')">
+        </button> -->
+      </div>
+    </div>
+  </ion-header-bar>
+  <ion-content class="has-header">
+    <div class="text-center padding bgcolor">
+      <div class="mt-60 mb-10 lato-bold fnt-20 app-color1">{{plan.name}}</div>
+      <div class="fnt-16 line-hght-30 premium-plan-text">{{plan.description}}</div>
+    </div>
+    <div class="text-center">
+      <div class="mt-60 fnt-20">Next renewal {{expiryDate | date}}</div>
+      <div class="fnt-20" ng-if="">Trial Expired</div>
+      <!-- <progress value={{today}} max={{expiryDate}}></progress> -->
+    </div>
+    <div class="text-center padding bgcolor" ng-if="expiryDate == currentDate">
+      <div class="mt-0 mb-10 lato-bold fnt-20  app-color1">Payment Pending</div>
+      <div class="fnt-16 line-hght-30 padding premium-plan-text">Please Renew your Subscription plan to enjoy
+        uninterrupted services</div>
+    </div>
+
+    <div class="text-center">
+      <div class="my-60 font-30">₹{{plan.amount}}</div>
+
+      <div class="terms mt-12 mb-30">
+        <input type="checkbox" name="termsAndPolicy" id="" ng-model="terms">
+        <div class="text-terms">
+          <label for="termsAndPolicy" class="terms-button">By Subscribing, you agree to the </label>
+          <button class="button button-clear button-positive " ng-click="openLink('termsPolicy')">Terms
+            & Privacy Policy</button>
+          <span class="left-text">of the app</span>
+        </div>
+      </div>
+      <div class="sub-con-btn"> <a class="button background-app1 confirm-btn" ng-disabled="!terms" ui-sref="subscription-invoice">Confirm</a></div>
+    </div>
+  </ion-content>
+</ion-view>
