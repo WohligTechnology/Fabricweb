@@ -8,6 +8,8 @@ myApp.controller("MyShopCtrl", function (
   $rootScope
 ) {
   $scope.myShopPage = true;
+  $scope.oldSubCategory = [];
+
   $scope.doRefresh = function () {
     $scope.getMyProduct();
   }
@@ -71,14 +73,26 @@ myApp.controller("MyShopCtrl", function (
                 $scope.$broadcast('scroll.refreshComplete');
                 if (data.data.value) {
                   $scope.user = data.data.data;
-                  console.log("$scope.user", $scope.user);
+                  console.log("$scope.user", $scope.oldSubCategory);
                   $scope.categories = $scope.user.categoryArr;
+
                   if ($scope.user.isTextile) {
                     _.each($scope.categories, function (n) {
                       // n.filter = true;
                       _.each(n.subCategory, function (m) {
-                        m.filter = true;
-                        m.applyFilter = true;
+                        if ($scope.oldSubCategory.length > 0) {
+                          var index = _.findIndex($scope.oldSubCategory, function (old) {
+                            return old._id === m._id;
+                          })
+                          if (index != -1) {
+                            m.filter = $scope.oldSubCategory[index].filter;
+                            m.applyFilter = $scope.oldSubCategory[index].applyFilter;
+                          }
+                        } else {
+                          m.filter = true;
+                          m.applyFilter = true;
+                        }
+
                       });
                       n.subCategoryChunk = _.chunk(n.subCategory, 2);
                     });
@@ -86,8 +100,18 @@ myApp.controller("MyShopCtrl", function (
                     console.log("$scope.categories-->", $scope.categories);
                   } else {
                     _.each($scope.categories, function (n) {
-                      n.filter = true;
-                      n.applyFilter = true;
+                      if ($scope.oldSubCategory.length > 0) {
+                        var index = _.findIndex($scope.oldSubCategory, function (old) {
+                          return old._id === n._id;
+                        })
+                        if (index != -1) {
+                          n.filter = $scope.oldSubCategory[index].filter;
+                          n.applyFilter = $scope.oldSubCategory[index].applyFilter;
+                        }
+                      } else {
+                        n.filter = true;
+                        n.applyFilter = true;
+                      }
                     });
                     $scope.categoriesChunk = _.chunk($scope.categories, 2);
                   }
@@ -104,7 +128,11 @@ myApp.controller("MyShopCtrl", function (
   }
   $scope.getMyProduct();
   $scope.closeSortProductModal = function () {
-    $scope.sortProductModal.hide();
+    if ($scope.oldSubCategory.length > 0) {
+      $scope.sortProductModal.hide();
+    } else {
+      ionicToast.show("Please Select Atleast One Subcategory Or Apply Your Filter", 'middle');
+    }
   };
 
   $scope.clearAllFilter = function () {
@@ -126,12 +154,17 @@ myApp.controller("MyShopCtrl", function (
       });
       $scope.categoriesChunk = _.chunk($scope.categories, 2);
     }
+    $scope.oldSubCategory = [];
   }
   $scope.applyFilter = function () {
+    $scope.oldSubCategory = [];
     if ($scope.user.isTextile) {
       _.each($scope.categories, function (n) {
         // n.filter = true;
         _.each(n.subCategory, function (m) {
+          if (m.applyFilter) {
+            $scope.oldSubCategory.push(m)
+          }
           m.filter = m.applyFilter;
         });
         n.subCategoryChunk = _.chunk(n.subCategory, 2);
@@ -140,9 +173,14 @@ myApp.controller("MyShopCtrl", function (
       console.log("$scope.categories-->", $scope.categories);
     } else {
       _.each($scope.categories, function (n) {
+        if (n.applyFilter) {
+          $scope.oldSubCategory.push(n)
+        }
         n.filter = n.applyFilter;
       });
       $scope.categoriesChunk = _.chunk($scope.categories, 2);
+      console.log($scope.categories);
+      console.log("$scope.categories-->", $scope.categoriesChunk);
     }
     $scope.closeSortProductModal();
   }
@@ -205,7 +243,7 @@ myApp.controller("MyShopCtrl", function (
     fromParams
   ) {
     if (toState.name == 'tab.myshop') {
-      $scope.getMyProduct();
+      // $scope.getMyProduct();
       $scope.applyFilter();
     }
   });

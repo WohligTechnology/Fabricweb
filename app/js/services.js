@@ -21,7 +21,8 @@ angular
     $cordovaFileTransfer,
     $cordovaImagePicker,
     $state,
-    $ionicHistory
+    $ionicHistory,
+    $stateParams
   ) {
     return {
       signUp: function (url, data, callback) {
@@ -99,6 +100,42 @@ angular
           }
         );
       },
+      gstAPICall: function (url, data, callback) {
+        // if (loading == null) {
+        loading = $ionicLoading.show({
+          templateUrl: "templates/loader.html",
+          animation: "fade-in",
+          hideOnStateChange: true
+        });
+        // }
+        data.expiryCheck = $.jStorage.get('UserId');
+        // $http.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+        // $httpProvider.defaults.headers = {'Access-Control-Allow-Origin':'*'}
+        return $http.post("http://payment.fabricterminal.com/api/" + url, data).then(
+          function (data) {
+            if (data.data.error == 'Expired') {
+              $state.go("plan-subscription");
+            }
+            if (data.data.error == 'Inactive') {
+              $state.go('login');
+            }
+            $ionicLoading.hide().then(function () {
+              // loading = null;
+            });
+
+            callback(data);
+          },
+          function errorCallback(response) {
+            // loading = null;
+            $ionicLoading.hide();
+            // $ionicLoading.show({
+            //   template: '<div class="wrong-loading">Something went wrong</div>',
+            //   noBackdrop: true,
+            //   duration: 2000
+            // });
+          }
+        );
+      },
       commonAPIWithoutLoader: function (url, data, callback) {
         data.expiryCheck = $.jStorage.get('UserId');
         return $http.post(adminUrl + url, data).then(function (data) {
@@ -117,29 +154,51 @@ angular
         });
       },
       gobackHandler: function () {
-        var userType =
-          $.jStorage.get("userInfo") && $.jStorage.get("userInfo").isSeller ?
-          "myshop" :
-          "market";
-        if ($ionicHistory.backView()) {
-          var stateName = $ionicHistory.backView().stateName;
-          var stateParams = $ionicHistory.backView().stateParams;
-          var stateArray = [
-            "login",
-            "otp",
-            "signup",
-            "buyer-seller",
-            "add-information",
-            "subscription"
-          ];
+        if (!$stateParams.firstVisit) {
+          var userType =
+            $.jStorage.get("userInfo") && $.jStorage.get("userInfo").isSeller ?
+            "myshop" :
+            "market";
+          if ($ionicHistory.backView()) {
+            var stateName = $ionicHistory.backView().stateName;
+            var stateParams = $ionicHistory.backView().stateParams;
+            var stateArray = [
+              "login",
+              "otp",
+              "signup",
+              "buyer-seller",
+              "add-information",
+              "subscription"
+            ];
 
-          function findRegistrationState() {
-            var index = _.findIndex(stateArray, function (state) {
-              return state === stateName;
-            });
-            return index != -1;
-          }
-          if (findRegistrationState()) {
+            function findRegistrationState() {
+              var index = _.findIndex(stateArray, function (state) {
+                return state === stateName;
+              });
+              return index != -1;
+            }
+            if (findRegistrationState()) {
+              if (_.isEmpty($.jStorage.get("userInfo"))) {
+                if ($state.current.name == 'login') {
+                  navigator.app.exitApp();
+                } else {
+                  window.history.back();
+                }
+              } else {
+                if ($state.current.name == "tab." + userType) {
+                  $state.reload();
+                } else {
+                  $state.go("tab." + userType);
+                }
+              }
+            } else {
+              if ($state.current.name == "tab." + userType) {
+                $state.reload();
+              } else {
+                $state.go(stateName, stateParams);
+              }
+            }
+          } else {
             if (_.isEmpty($.jStorage.get("userInfo"))) {
               if ($state.current.name == 'login') {
                 navigator.app.exitApp();
@@ -152,26 +211,6 @@ angular
               } else {
                 $state.go("tab." + userType);
               }
-            }
-          } else {
-            if ($state.current.name == "tab." + userType) {
-              $state.reload();
-            } else {
-              $state.go(stateName, stateParams);
-            }
-          }
-        } else {
-          if (_.isEmpty($.jStorage.get("userInfo"))) {
-            if ($state.current.name == 'login') {
-              navigator.app.exitApp();
-            } else {
-              window.history.back();
-            }
-          } else {
-            if ($state.current.name == "tab." + userType) {
-              $state.reload();
-            } else {
-              $state.go("tab." + userType);
             }
           }
         }

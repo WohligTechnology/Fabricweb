@@ -2,7 +2,10 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header ">
-        <button class="button button-icon icon ion-arrow-left-c white" ng-click="goBackHandler()"></button>
+        <button
+          class="button button-icon icon ion-arrow-left-c white"
+          ng-click="goBackHandler()"
+        ></button>
         <h1 class="title white ">Recently Added</h1>
       </div>
     </div>
@@ -12,14 +15,22 @@
       <div class="recently-added-title" ng-repeat="product in products">
         <div class="bgcolor">
           <h4 class="lato-bold">{{ product.name }}</h4>
-          <i class="ion ion-edit pencil-icon" ng-click="editProduct(product)"></i>
+          <i
+            class="ion ion-edit pencil-icon"
+            ng-click="editProduct(product)"
+          ></i>
           <!-- ui-sref="edit-product" -->
         </div>
-        <div class="recfently-added-list" ng-click="goToProductDetail(product._id)">
+        <div
+          class="recfently-added-list"
+          ng-click="goToProductDetail(product._id)"
+        >
           <div class="recently-added-prod">
             <div class="img-item-custom text-right">
               <div class="recently-img rel rib-offer">
-                <img src="{{ product.images[0] | serverimage: 100:100:'cover' }}" />
+                <img
+                  src="{{ product.images[0] | serverimage: 300:300:'cover' }}"
+                />
                 <div class="ribbon-wrap" ng-if="product.offer">
                   <div class="ribbon"><a>OFFER</a></div>
                 </div>
@@ -55,10 +66,14 @@
                   <label><strong>Rate:</strong></label>
                 </div>
                 <div class="col-60 text-right">
-                  <label ng-if="product.rate && !product.newRate">₹{{ product.rate }}</label>
-                  <label ng-if="product.rate && product.newRate"> <strike>₹{{ product.rate }}</strike> &nbsp;&nbsp;₹{{
-                    product.newRate
-                    }}</label>
+                  <label ng-if="product.rate && !product.newRate"
+                    >₹{{ product.rate }}</label
+                  >
+                  <label ng-if="product.rate && product.newRate">
+                    <strike>₹{{ product.rate }}</strike> &nbsp;&nbsp;₹{{
+                      product.newRate
+                    }}</label
+                  >
                   <label ng-if="!product.rate">Rate on Request</label>
                 </div>
               </div>

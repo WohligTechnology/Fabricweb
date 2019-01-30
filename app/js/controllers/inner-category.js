@@ -9,6 +9,7 @@ myApp.controller("InnerCategoryCtrl", function (
   $cordovaFileTransfer,
   $cordovaImagePicker
 ) {
+  $scope.firstVisit = $stateParams.firstVisit;
   $scope.categories = [];
   if ($stateParams.id) {
     Navigation.commonAPICall(

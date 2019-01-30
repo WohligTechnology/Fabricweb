@@ -2,10 +2,7 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header ">
-        <button
-          class="button button-icon icon-Back1"
-          ng-click="goTo()"
-        ></button>
+        <button class="button button-icon icon-Back1" ng-click="goTo()" ng-hide="firstVisit"></button>
         <h1 class="title white ">Accessories Categories</h1>
       </div>
     </div>
@@ -17,19 +14,11 @@
       </div>
       <div class="row mtb-20" ng-repeat="categories in categoryChunk">
         <div class=" col-33 text-center" ng-repeat="category1 in categories">
-          <div
-            class="category-img rel"
-            ng-click="selectCategory(category1)"
-            ng-
-          >
+          <div class="category-img rel" ng-click="selectCategory(category1)" ng->
             <div class="bg-color-gradient">
               <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
-              <img
-                ng-src="{{ category1.image | serverimage }}"
-                alt=""
-                ng-class="{'opc':category1.active}"
-              />
-              <label  class="category-name">{{ category1.name }}</label>
+              <img ng-src="{{ category1.image | serverimage }}" alt="" ng-class="{'opc':category1.active}" />
+              <label class="category-name">{{ category1.name }}</label>
             </div>
           </div>
         </div>

@@ -2,10 +2,7 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header ">
-        <button
-          class="button button-icon icon-Back1"
-          ng-click="goBackHandler()"
-        ></button>
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()" ng-hide="firstVisit"></button>
         <!-- <h1 class="title white ">Categories</h1> -->
       </div>
     </div>
@@ -19,44 +16,21 @@
         <!-- accordion -->
         <ion-list>
           <div ng-repeat="category in categories">
-            <ion-item
-              class="item-stable"
-              ng-click="toggleGroup(category)"
-              ng-class="{active: isGroupShown(category)}"
-            >
+            <ion-item class="item-stable" ng-click="toggleGroup(category)" ng-class="{active: isGroupShown(category)}">
               {{ category.name }} <span>{{ category.activeCount }}</span>
-              <i
-                class="icon"
-                ng-class="isGroupShown(category) ? 'icon-up' : 'icon-down'"
-              ></i>
+              <i class="icon" ng-class="isGroupShown(category) ? 'icon-up' : 'icon-down'"></i>
               &nbsp;
             </ion-item>
             <ion-item class="item-accordion" ng-show="isGroupShown(category)">
-              <div
-                class="row mtb-20"
-                ng-repeat="innercategories in category.subCategoriesChunk"
-              >
-                <div
-                  class=" col-33 text-center"
-                  ng-repeat="category1 in innercategories"
-                >
-                  <div
-                    class="category-img rel"
-                    ng-click="category1.active= !category1.active;checkSubCategoryInUser(category1)"
-                  >
+              <div class="row mtb-20" ng-repeat="innercategories in category.subCategoriesChunk">
+                <div class=" col-33 text-center" ng-repeat="category1 in innercategories">
+                  <div class="category-img rel" ng-click="category1.active= !category1.active;checkSubCategoryInUser(category1)">
                     <div class="bg-color-gradient"></div>
-                    <i
-                      class="icon icon-Tick tick-icon"
-                      ng-if="category1.active"
-                    ></i>
-                    <img
-                      ng-src="{{ category1.image | serverimage }}"
-                      alt=""
-                      ng-class="{'opc':category1.active}"
-                    />
-                    <label  class="category-name">{{
+                    <i class="icon icon-Tick tick-icon" ng-if="category1.active"></i>
+                    <img ng-src="{{ category1.image | serverimage }}" alt="" ng-class="{'opc':category1.active}" />
+                    <label class="category-name">{{
                       category1.name
-                    }}</label>
+                      }}</label>
                   </div>
                 </div>
               </div>
@@ -64,15 +38,14 @@
           </div>
         </ion-list>
         <div class="explore-btn">
-          <button
-            class="button button-block text-uppercase"
-            ng-click="goBuyerSeller()"
-          >
+          <button class="button button-block text-uppercase" ng-click="goBuyerSeller()">
             Explore
           </button>
         </div>
       </div>
     </div>
-    <div ng-if="!categories" class="padding"><h5>No category Found</h5></div>
+    <div ng-if="!categories" class="padding">
+      <h5>No category Found</h5>
+    </div>
   </ion-content>
 </ion-view>

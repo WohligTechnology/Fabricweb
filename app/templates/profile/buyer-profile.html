@@ -13,7 +13,7 @@
   </ion-header-bar>
   <ion-content class="has-header">
     <div class="profile-addr buyers-detail supplier-info mt-0 web-view">
-      <div class=" item-thumbnail-right pr-0">
+      <div class=" item-thumbnail-right pr-0 rel">
         <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
           Upload Photos
         </upload-image>
@@ -181,23 +181,23 @@
       <div class="item-input item-stacked-label">
         <div class="row-no-padding">
           <div class="col">
-            <input type="text" placeholder="City" ng-model="user.city" ng-readonly="readonly">
+            <input type="text" placeholder="City" ng-model="user.city" readonly>
           </div>
         </div>
         <div class="row-no-padding">
           <div class="col">
-            <input type="text" placeholder="State" ng-model="user.state" ng-readonly="readonly">
+            <input type="text" placeholder="State" ng-model="user.state" readonly>
           </div>
         </div>
         <div class="row-no-padding">
           <div class="col">
-            <input type="text" placeholder="Country" ng-model="user.country" ng-readonly="readonly">
+            <input type="text" placeholder="Country" ng-model="user.country" readonly>
           </div>
         </div>
         <div class="row-no-padding">
           <div class="col">
             <input type="text" placeholder="Pin Number" pattern="[0-9]{6}" maxlength="6" ng-model="user.pincode"
-              ng-readonly="readonly">
+              readonly>
           </div>
         </div>
       </div>

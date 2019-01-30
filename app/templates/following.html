@@ -3,49 +3,33 @@
     <ion-header-bar class="search-header-top">
       <div class="header-title">
         <div class="bar bar-header" side="left">
-          <button
-            class="button button-icon icon icon-Back1"
-            ng-click="goBackHandler()"
-          ></button>
+          <button class="button button-icon icon icon-Back1" ng-click="goBackHandler()"></button>
           <h1 class="title white ">Following</h1>
           <button class="button button-icon " ng-click="changeDisplay()">
-            <ion-icon
-              ng-if="!listDisplay && gridDisplay"
-              class="icon ion-navicon-round"
-              name="ion-navicon-round"
-            ></ion-icon>
-            <ion-icon
-              ng-if="listDisplay && !gridDisplay"
-              class="icon icon-grid"
-              name="icon-grid"
-            ></ion-icon>
+            <ion-icon ng-if="!listDisplay && gridDisplay" class="icon ion-navicon-round" name="ion-navicon-round"></ion-icon>
+            <ion-icon ng-if="listDisplay && !gridDisplay" class="icon icon-grid" name="icon-grid"></ion-icon>
           </button>
         </div>
       </div>
     </ion-header-bar>
   </div>
-  <ion-content class="has-header-search Favourites">
-    <div ng-if="listDisplay">
-      <div
-        class="buyers-list-card search-seller"
-        ng-repeat="follower in followersList"
-      >
+  <ion-content class="has-header-search Favourites" on-scroll="getScrollPosition()" delegate-handle="mainScroll">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="scrollToTop()">
+    </ion-refresher>
+    <div ng-if="listDisplay" class="list">
+      <div class="buyers-list-card search-seller item" ng-repeat="follower in followersList">
         <div class="list card">
           <a class="item item-thumbnail-left">
             <img ng-src="{{ follower.photo | serverimage: 50:50:'cover' }}" />
             <h2 class="txt-up">{{ follower.companyName }}</h2>
             <br />
-            <span>{{ follower.name }}</span
-            ><br />
+            <span>{{ follower.name }}</span><br />
             <!-- <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, odio reprehenderit repellendus
               aspernatur molestias non assumenda facere, itaque, </span><br>
             <span>MFG:Something_Something</span><br> -->
             <label>{{ follower.city }}, {{ follower.state }}</label>
           </a>
-          <button
-            class="contact-details f11"
-            ng-click="goToSellerShop(follower._id)"
-          >
+          <button class="contact-details f11" ng-click="goToSellerShop(follower._id)">
             View Shop
           </button>
         </div>
@@ -53,18 +37,15 @@
     </div>
 
     <!-- Grid View Start -->
-    <div class="not-top-pad" ng-if="gridDisplay">
-      <div class="row" ng-repeat="followers in followChunk">
+    <div class="list not-top-pad" ng-if="gridDisplay">
+      <div class="row item" ng-repeat="followers in followChunk">
         <div class="col-50" ng-repeat="follower in followers">
           <div class="followers-tab notification-tab">
             <div class="row">
               <div class="col-33" ng-click="openBuyerProfileModal()">
-                <div
-                  class="noti-right-img"
-                  style="background:url({{
+                <div class="noti-right-img" style="background:url({{
                     follower.photo | serverimage: 60:60:'cover'
-                  }}) #ddd no-repeat center center"
-                >
+                  }}) #ddd no-repeat center center">
                   <!-- <img ng-src="{{ follower.photo | serverimage }}" /> -->
                 </div>
               </div>
@@ -79,10 +60,7 @@
                   <label>{{ follower.city }}, {{ follower.state }}</label>
                 </div>
                 <div class="text-right">
-                  <button
-                    class="contact-details f11"
-                    ng-click="goToSellerShop(follower._id)"
-                  >
+                  <button class="contact-details f11" ng-click="goToSellerShop(follower._id)">
                     View Shop
                   </button>
                 </div>
@@ -93,5 +71,8 @@
       </div>
     </div>
     <!-- Grid View End -->
+    <ion-infinite-scroll ng-if="!follwingLoaded && !follwingLoading && !pullToRefreshWorking" on-infinite="onInfinite()"
+      distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
+  <scroll-top ng-click="scrollToTop()"></scroll-top>
 </ion-view>

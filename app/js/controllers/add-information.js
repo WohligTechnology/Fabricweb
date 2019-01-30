@@ -33,19 +33,19 @@ myApp.controller("AddInformationCtrl", function (
     $scope.formData.country = city.terms[2].value;
     console.log("Selected City Is ", city);
   };
-  $scope.getState = function () {
-    // if (!_.isEmpty($scope.formData.country)) {
-    //   Navigation.commonAPIWithoutLoader(
-    //     "User/getState", {
-    //       country: $scope.formData.country
-    //     },
-    //     function (data) {
-    //       $scope.states = data.data.data;
-    //     }
-    //   );
-    // }
-  };
-  $scope.getState();
+  // $scope.getState = function () {
+  //   if (!_.isEmpty($scope.formData.country)) {
+  //     Navigation.commonAPIWithoutLoader(
+  //       "User/getState", {
+  //         country: $scope.formData.country
+  //       },
+  //       function (data) {
+  //         $scope.states = data.data.data;
+  //       }
+  //     );
+  //   }
+  // };
+  // $scope.getState();
   if ($stateParams.id) {
     Navigation.commonAPICall(
       "User/getOne", {
@@ -58,8 +58,8 @@ myApp.controller("AddInformationCtrl", function (
           $scope.formData.country = $scope.formData.country ?
             $scope.formData.country :
             "India";
-          $scope.getState();
-          $scope.getCity();
+          // $scope.getState();
+          // $scope.getCity();
         }
       }
     );
@@ -72,7 +72,7 @@ myApp.controller("AddInformationCtrl", function (
     $scope.invalidGst = false;
     $scope.noCity = false;
     if (valid) {
-      Navigation.commonAPICall(
+      Navigation.gstAPICall(
         "User/getGSTInfo", {
           gstin: gstin,
           checkExpiry: false

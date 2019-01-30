@@ -1,5 +1,8 @@
 <ion-modal-view class="uploadendProductsModal">
-  <a class="button button-icon icon ion-close-round item-note close-size" ng-click="closeAddEndProduct()"></a>
+  <a
+    class="button button-icon icon ion-close-round item-note close-size"
+    ng-click="closeAddEndProduct()"
+  ></a>
   <ion-content class="top35">
     <div class="mt-20 ">
       <!-- <div class="row" ng-if="!endProduct.image || endProduct.image.length == 0">
@@ -20,8 +23,13 @@
       </div> -->
       <div class="row">
         <div class="col">
-          <div class="upload-photos upload-center">
-            <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+          <div class="upload-photos upload-center rel">
+            <upload-image
+              multi="false"
+              ng-callback="uploadedimg(productimage)"
+              ng-model="productimage"
+              type="image"
+            >
               Upload Photos
             </upload-image>
             <!-- <button
@@ -45,13 +53,24 @@
       </div>
       <div class=" ">
         <div class="row mb-15">
-          <div class="col image-cancel-div col-33" ng-if="endProduct.image && endProduct.image[0]">
+          <div
+            class="col image-cancel-div col-33"
+            ng-if="endProduct.image && endProduct.image[0]"
+          >
             <div class="upload-img">
-              <div class="upload-bg" style="background:url({{
+              <div
+                class="upload-bg"
+                style="background:url({{
                   endProduct.image[0] | serverimage: 150:150:'cover'
-                }}) #ddd no-repeat center center;background-size:cover;"></div>
+                }}) #ddd no-repeat center center;background-size:cover;"
+              ></div>
             </div>
-            <img class="image-cancel" src="img/cross.svg" alt="" ng-click="removeEndProductImage(0)" />
+            <img
+              class="image-cancel"
+              src="img/cross.svg"
+              alt=""
+              ng-click="removeEndProductImage(0)"
+            />
           </div>
         </div>
         <div class="post-textarea">
@@ -60,8 +79,12 @@
           </label> -->
         </div>
         <div class="text-center mtb-20">
-          <button class="button btn post-requirement" promise-btn="addInEndProductPromise" ng-click="addInEndProduct(); closeAddEndProduct()"
-            ng-disabled="!endProduct.image">
+          <button
+            class="button btn post-requirement"
+            promise-btn="addInEndProductPromise"
+            ng-click="addInEndProduct(); closeAddEndProduct()"
+            ng-disabled="!endProduct.image"
+          >
             Add My Product
           </button>
         </div>

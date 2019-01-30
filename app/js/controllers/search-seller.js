@@ -1,32 +1,32 @@
-myApp.controller("SearchSellerCtrl", function(
+myApp.controller("SearchSellerCtrl", function (
   $scope,
   $ionicModal,
   Navigation,
   $state,
   $ionicPopup,
-  $timeout
+  $timeout,
+  $rootScope,
+  $ionicScrollDelegate
 ) {
-  $scope.goBackHandler = function() {
+  var dataFetcher = null;
+  $scope.goBackHandler = function () {
     Navigation.gobackHandler(); //This works
   };
 
   Navigation.commonAPIWithoutLoader(
-    "User/getOne",
-    {
+    "User/getOne", {
       _id: $.jStorage.get("userInfo")._id
     },
-    function(data) {
+    function (data) {
       if (data.data.value) {
         $scope.user = data.data.data;
-        // console.log("$scope.user:>", $scope.user);
         $scope.blockedUser = $scope.user.blockedUser;
-        console.log("$scope.user:>", $scope.blockedUser);
       }
     }
   );
 
   $scope.userSellers = [];
-  $scope.getSellers = function(keyword, from) {
+  $scope.getSellers = function (keyword, from) {
     if (!$scope.usersLoading) {
       $scope.page = $scope.page + 1;
       var reqData = {
@@ -37,8 +37,7 @@ myApp.controller("SearchSellerCtrl", function(
       };
       if (!_.isEmpty(keyword)) {
         $scope.keyword = keyword;
-        reqData.filter.$or = [
-          {
+        reqData.filter.$or = [{
             name: {
               $regex: "" + $scope.keyword,
               $options: "im"
@@ -56,7 +55,14 @@ myApp.controller("SearchSellerCtrl", function(
         reqData.page = 1;
         $scope.userSellers = [];
       }
-      Navigation.commonAPICall("User/search", reqData, function(userData) {
+      Navigation.commonAPICall("User/search", reqData, function (userData) {
+        $timeout(function () {
+          $scope.productsLoading = false;
+        }, 3000);
+        if ($scope.isRefreshing) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshing = false;
+        }
         $scope.usersLoading = false;
         if (userData.data.value) {
           if (_.isEmpty(userData.data.data.results)) {
@@ -65,9 +71,8 @@ myApp.controller("SearchSellerCtrl", function(
             if (from == "input") {
               $scope.userSellers = [];
             }
-            // console.log("Users::::", userData.data.data.results);
             $scope.users = userData.data.data.results;
-            _.each($scope.users, function(n) {
+            _.each($scope.users, function (n) {
               if (n.isSeller) {
                 $scope.userSellers = _.concat($scope.userSellers, n);
                 $scope.userSellerChunk = _.chunk($scope.userSellers, 2);
@@ -75,8 +80,9 @@ myApp.controller("SearchSellerCtrl", function(
             });
           }
           $scope.$broadcast("scroll.infiniteScrollComplete");
-          console.log("userSeller", $scope.userSellers);
-          console.log("userSellerChunk", $scope.userSellerChunk);
+          $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+          });
         } else {
           console.log("Some Error ");
         }
@@ -86,21 +92,22 @@ myApp.controller("SearchSellerCtrl", function(
 
   $scope.page = 0;
   $scope.getSellers($scope.keyword, "controller");
-  $scope.onInfinite = function() {
-    console.log("Infinite");
-    $scope.getSellers($scope.keyword, "controller");
+  $scope.onInfinite = function () {
+    if (!$scope.productsLoading) {
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getSellers($scope.keyword, "controller");
+    }
   };
 
-  $scope.getSellerProfile = function(sellerId) {
-    console.log("getSellerProfile called");
+  $scope.getSellerProfile = function (sellerId) {
     $state.go("seller-profile", {
       sellerId: sellerId
     });
   };
 
-  $scope.goToSellerShop = function(sellerId) {
+  $scope.goToSellerShop = function (sellerId) {
     $scope.block = _.cloneDeep($scope.blockedUser);
-    var blockedUser = _.remove($scope.block, function(m) {
+    var blockedUser = _.remove($scope.block, function (m) {
       return m == sellerId;
     });
     if (blockedUser[0] == sellerId) {
@@ -109,10 +116,9 @@ myApp.controller("SearchSellerCtrl", function(
         template: "You Have Been Blocked",
         cssClass: "logoutPopup"
       });
-      $timeout(function() {
+      $timeout(function () {
         alertPopup.close();
       }, 1000);
-      // ionicToast.show("You Have been Blocked by this seller", 'middle');
     } else {
       $state.go("sellermyshop", {
         sellerId: sellerId
@@ -123,7 +129,7 @@ myApp.controller("SearchSellerCtrl", function(
   $scope.listDisplay = true;
   $scope.gridDisplay = false;
 
-  $scope.changeDisplay = function() {
+  $scope.changeDisplay = function () {
     $scope.listDisplay = !$scope.listDisplay;
     $scope.gridDisplay = !$scope.gridDisplay;
   };
@@ -132,14 +138,38 @@ myApp.controller("SearchSellerCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.filterModal = modal;
     });
-  $scope.openFilterModal = function() {
+  $scope.openFilterModal = function () {
     $scope.filterModal.show();
   };
 
-  $scope.closeFilterModal = function() {
+  $scope.closeFilterModal = function () {
     $scope.filterModal.hide();
   };
+
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "app.requirement-list") {
+      $scope.getSellers($scope.keyword, "controller");
+    }
+  });
+  $scope.scrollToTop = function () {
+    $scope.productsLoading = true;
+    $timeout(function () {
+      $scope.page = 0;
+      $scope.userSellers = [];
+      $scope.usersLoaded = false;
+      $scope.usersLoading = false;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.isRefreshing = true;
+      $scope.getSellers($scope.keyword, "controller");
+    }, 500);
+  }
 });

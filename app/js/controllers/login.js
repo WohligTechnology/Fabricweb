@@ -6,6 +6,7 @@ myApp.controller("LoginCtrl", function (
   $timeout,
   $ionicPlatform
 ) {
+  $.jStorage.flush();
   $scope.formData = {};
   $scope.formData.mobile = "";
   $scope.formData.password = "";

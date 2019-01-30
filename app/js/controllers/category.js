@@ -9,6 +9,8 @@ myApp.controller("CategoryCtrl", function (
   $cordovaFileTransfer,
   $cordovaImagePicker
 ) {
+
+  $scope.firstVisit = $stateParams.firstVisit;
   /**
    * Start By Checking $stateParams.id
    * */
@@ -123,10 +125,13 @@ myApp.controller("CategoryCtrl", function (
       }
       Navigation.commonAPICall("User/save", $scope.user, function (data) {
         if (data.data.value) {
-          $state.go("inner-category", {
-            id: $stateParams.id,
-            firstVisit: true
-          });
+          var params = {
+            id: $stateParams.id
+          }
+          if ($stateParams.firstVisit) {
+            params.firstVisit = true;
+          }
+          $state.go("inner-category", params);
         } else {
           ionicToast.show("Please Submit Again", 'middle');
         }

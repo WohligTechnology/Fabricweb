@@ -1,8 +1,14 @@
 myApp.controller("innerMarketNewlyAddedCtrl", function (
   $scope,
   $stateParams,
-  Navigation
+  Navigation,
+  $rootScope,
+  $timeout,
+  $ionicScrollDelegate,
+  $state
 ) {
+  var dataFetcher = null;
+
   $scope.goBackHandler = function () {
     Navigation.gobackHandler(); //This works
   };
@@ -36,9 +42,7 @@ myApp.controller("innerMarketNewlyAddedCtrl", function (
           }
           $scope.formData.blockedUser = $scope.user.blockedUser;
           getProducts();
-          $scope.onInfinite = function () {
-            getProducts();
-          }
+          $scope.allowLoadMore = true;
         }
       })
   }
@@ -46,14 +50,21 @@ myApp.controller("innerMarketNewlyAddedCtrl", function (
   // if ($stateParams.categoryId) {
   $scope.sellerProducts = [];
   var getProducts = function () {
-    if (!$scope.productLoading) {
+    if (!$scope.productsLoading) {
       $scope.formData.page = $scope.formData.page + 1;
-      $scope.productLoading = true;
+      $scope.productsLoading = true;
       Navigation.commonAPICall(
         "product/getProductForSearch",
         $scope.formData,
         function (products) {
-          $scope.productLoading = false;
+          $scope.productsLoading = false;
+          $timeout(function () {
+            $scope.pullToRefreshWorking = false;
+          }, 5000);
+          if ($scope.isRefreshing) {
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.isRefreshing = false;
+          }
           if (products.data.value) {
             if (_.isEmpty(products.data.data)) {
               $scope.productsLoaded = true;
@@ -63,17 +74,12 @@ myApp.controller("innerMarketNewlyAddedCtrl", function (
                 products.data.data
               );
               $scope.productChunk = _.chunk($scope.sellerProducts, 2);
-              // $.jStorage.set("allProducts", {
-              //   sellerProducts: $scope.sellerProducts,
-              //   productChunk: $scope.productChunk,
-              //   page: $scope.formData.page
-              // });
-              // $.jStorage.setTTL("allProducts", 50000);
             }
-            $scope.$broadcast("scroll.infiniteScrollComplete");
-          } else {
-            console.log("out of API");
           }
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+          });
         }
       );
     }
@@ -84,4 +90,37 @@ myApp.controller("innerMarketNewlyAddedCtrl", function (
     category: $stateParams.categoryId,
     type: "category",
   };
+  $scope.onInfinite = function () {
+    if (!$scope.pullToRefreshWorking) {
+      if (!!dataFetcher) dataFetcher.abort();
+      if ($scope.allowLoadMore) {
+        getProducts();
+      }
+    }
+  }
+
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "innermarket-newly-added") {
+      getProducts();
+    }
+  });
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.isRefreshing = true;
+      $scope.sellerProducts = [];
+      $scope.productChunk = [];
+      $scope.formData.page = 0;
+      $scope.productsLoaded = false;
+      $scope.productsLoading = false;
+      if (!!dataFetcher) dataFetcher.abort();
+      getProducts();
+    }, 500);
+  }
 });

@@ -3,7 +3,7 @@
     <div class="header-title">
       <div class="bar bar-header">
         <h1 class="title white title-left">Filter</h1>
-        <button class="button button-icon icon ion-close close-icon close" ng-click="clearAllFilter();closeSortProductModal()"></button>
+        <button class="button button-icon icon ion-close close-icon close" ng-click="crossFilter();closeSortProductModal()"></button>
       </div>
     </div>
   </ion-header-bar>
@@ -121,7 +121,7 @@
   <div class="bar bar-footer">
     <div class="row">
       <div class="col-33 full-width padding-right">
-        <button class="button button-dark" ng-click="clearAllFilter()">Clear All</button>
+        <button class="button button-dark" ng-click="clearAllFilter();">Clear All</button>
       </div>
       <div class="col-67 full-width">
         <button class="button button-positive" ng-click="applyFilter();closeSortProductModal()">Apply</button>

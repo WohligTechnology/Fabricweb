@@ -16,7 +16,7 @@
       <!-- <div class="marrl10"> -->
       <div class="profile-addr supplier-info mt-0 padright">
         <div class=" item-thumbnail-right no-border pr-0">
-          <div class="upload-camera f-right mt-12" >
+          <div class="upload-camera f-right mt-12 rel" >
               <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
                   Upload Photos
             </upload-image>
@@ -192,19 +192,19 @@
           <div class="list add-product-form bg-input-pro">
             <label class=" item-input">
               <span class="input-label">City</span>
-              <input type="text" ng-model="user.city" ng-readonly="readonly" />
+              <input type="text" ng-model="user.city" readonly />
             </label>
             <label class=" item-input">
               <span class="input-label">State</span>
-              <input type="text" ng-model="user.state" ng-readonly="readonly" />
+              <input type="text" ng-model="user.state" readonly />
             </label>
             <label class=" item-input">
               <span class="input-label">Country</span>
-              <input type="text" ng-model="user.country" ng-readonly="readonly" />
+              <input type="text" ng-model="user.country" readonly />
             </label>
             <label class=" item-input">
               <span class="input-label">Pin number</span>
-              <input type="text" pattern="[0-9]{6}" maxlength="6" ng-model="user.pincode" ng-readonly="readonly" />
+              <input type="text" pattern="[0-9]{6}" maxlength="6" ng-model="user.pincode" readonly />
             </label>
             <!-- <label class=" item-input">
               <span class="input-label">GST number</span>

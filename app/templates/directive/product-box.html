@@ -1,23 +1,17 @@
 <!-- <div class="{{imgCss ? imgCss : 'category-img inner-shop-img rel'}}" ng-click="goToBuyerProductDetail(product._id)"> -->
 
-<div
-  class="{{ imgCss ? imgCss : 'category-img inner-shop-img rel' }} rib-offer"
-  ng-click="goToBuyerProductDetail(product._id)"
+<div class="{{ imgCss ? imgCss : 'category-img inner-shop-img rel' }} rib-offer" ng-click="goToBuyerProductDetail(product._id)"
   style="background:url({{
     product.images[0] | serverimage | serverimage: 200:200:'cover'
-  }}) #ddd no-repeat center center;background-size:cover"
->
+  }}) #ddd no-repeat center center;background-size:cover">
   <!-- <img  ng-src="{{product.images[0]|serverimage}}" alt="" /> -->
   <div class="ribbon-wrap">
     <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
   </div>
 </div>
 <div class="mar-l10 rel btn-app-color1">
-  <div class="shirt-design-name">{{ product.name }}</div>
-  <div class="design-no">{{ product.designNumber }}</div>
-  <i
-    class="icon-Quick-action shirt-options"
-    ng-click="showActionsheet(product)"
-    ng-hide="noAction"
-  ></i>
+  <div class="shirt-design-name" ng-if="type == '' || type!='All'">{{ product.name }}</div>
+  <div class="shirt-design-name" ng-if="type=='All'">{{ product.subCategory.name }}</div>
+  <div class="design-no">#{{ product.designNumber }}</div>
+  <i class="icon-Quick-action shirt-options" ng-click="showActionsheet(product)" ng-hide="noAction"></i>
 </div>

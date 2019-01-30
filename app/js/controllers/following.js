@@ -1,16 +1,52 @@
-myApp.controller("FollowingCtrl", function ($scope, $state, Navigation, $ionicPopup, $timeout) {
-
-  Navigation.commonAPIWithoutLoader("User/getFollowingList", {
+myApp.controller("FollowingCtrl", function ($scope, $state, Navigation, $ionicPopup, $timeout,
+  $rootScope,
+  $timeout,
+  $ionicScrollDelegate) {
+  var dataFetcher = null;
+  $scope.formData = {
     user: $.jStorage.get('userInfo')._id,
-    page: 1
-  }, function (data) {
-    if (data.data.value) {
-      // console.log("FOllowers List::", data);
-      $scope.followersList = data.data.data.followingUser;
-      $scope.followChunk = _.chunk($scope.followersList, 2);
+    page: 0
+  }
+  $scope.followersList = [];
+  $scope.follwingLoading = false;
+  $scope.getFollowing = function () {
+    if (!$scope.follwingLoading) {
+      $scope.formData.page = $scope.formData.page + 1;
+      $scope.follwingLoading = true;
+      Navigation.commonAPIWithoutLoader("User/getFollowingList", $scope.formData, function (data) {
+        $timeout(function () {
+          $scope.pullToRefreshWorking = false;
+        }, 5000);
+        if ($scope.isRefreshing) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshing = false;
+        }
+        $scope.follwingLoading = false;
+        if (data.data.value) {
+          if (_.isEmpty(data.data.data.followingUser)) {
+            $scope.follwingLoaded = true;
+          } else {
+            $scope.followersList = _.concat(
+              $scope.followersList,
+              data.data.data.followingUser
+            );
+            $scope.followChunk = _.chunk($scope.followersList, 2);
+          }
+        }
+        $scope.$broadcast("scroll.infiniteScrollComplete");
+        $timeout(function () {
+          $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+        });
+      });
     }
-  });
-
+  }
+  $scope.getFollowing();
+  $scope.onInfinite = function () {
+    if (!$scope.pullToRefreshWorking) {
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getFollowing();
+    }
+  };
   Navigation.commonAPIWithoutLoader("User/getCategoryAndSubCategoryBuyer", {
     user: $.jStorage.get('userInfo')._id
   }, function (data) {
@@ -52,5 +88,28 @@ myApp.controller("FollowingCtrl", function ($scope, $state, Navigation, $ionicPo
   $scope.changeDisplay = function () {
     $scope.listDisplay = !$scope.listDisplay;
     $scope.gridDisplay = !$scope.gridDisplay;
+  }
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "tab.market") {
+      $scope.getFollowing();
+    }
+  });
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.followChunk = [];
+      $scope.followersList = [];
+      $scope.formData.page = 0;
+      $scope.follwingLoaded = false;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.isRefreshing = true;
+      $scope.getFollowing();
+    }, 500);
   }
 });

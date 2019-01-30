@@ -1,4 +1,6 @@
 myApp.controller("buyer-CategoryCtrl", function ($scope, $stateParams, Navigation, $state, ionicToast, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker) {
+  $scope.firstVisit = $stateParams.firstVisit;
+
   /**
    * Start By Checking $stateParams.id
    * */
@@ -133,10 +135,13 @@ myApp.controller("buyer-CategoryCtrl", function ($scope, $stateParams, Navigatio
       }
       Navigation.commonAPICall("User/save", $scope.user, function (data) {
         if (data.data.value) {
-          $state.go("buyer-inner-category", {
-            id: $stateParams.id,
-            firstVisit: true
-          });
+          var params = {
+            id: $stateParams.id
+          }
+          if ($stateParams.firstVisit) {
+            params.firstVisit = true
+          }
+          $state.go("buyer-inner-category", params);
         } else {
           ionicToast.show("Please Submit Again", 'middle');
         }

@@ -36,7 +36,7 @@
             </div>
             <!-- </div> -->
           </div>
-          <div class="supplier-info" ng-if="seller.isSeller">
+          <div class="supplier-info" ng-if="seller.isSeller && seller.companyName">
             <button class="button top-auto" ng-click="followMe(seller._id)" ng-if="!alreadyAdded">
               Follow
             </button>
@@ -85,9 +85,9 @@
             <div class="whatsapp-call-icon">
               <a href="https://api.whatsapp.com/send?phone=91{{
                   seller.mobile
-                }}&text={{ seller.name }}"><i
-                  class="ion icon-Whatsupp"></i></a>
-              <a href="tel:{{ seller.mobile }}"><i class="ion icon-Call"></i></a>
+                }}&text={{ seller.name }}"
+                target="_blank"><i class="ion icon-Whatsupp"></i></a>
+              <!-- <a href="tel:{{ seller.mobile }}"><i class="ion icon-Call"></i></a> -->
             </div>
           </div>
         </div>

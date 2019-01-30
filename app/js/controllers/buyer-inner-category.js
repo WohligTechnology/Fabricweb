@@ -9,6 +9,7 @@ myApp.controller("BuyerInnerCategoryCtrl", function (
   $cordovaFileTransfer,
   $cordovaImagePicker
 ) {
+  $scope.firstVisit = $stateParams.firstVisit;
   $scope.categories = [];
   $scope.accessoryCount = 0;
   if ($stateParams.id) {

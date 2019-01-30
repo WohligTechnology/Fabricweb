@@ -12,7 +12,8 @@ myApp.controller('PlansubscriptionCtrl', function ($scope, Navigation, $cordovaI
       checkExpiry: false
     }, function (data) {
       $scope.plan = data.data.data;
-      $scope.expiryDate = moment($.jStorage.get('userInfo').expiryDate).format('DD-MM-YYYY');
+      // $scope.expiryDate = moment($.jStorage.get('userInfo').expiryDate).format('DD-MM-YYYY');
+
       $scope.today = moment().format('DD-MM-YYYY');
     })
   }
@@ -25,6 +26,7 @@ myApp.controller('PlansubscriptionCtrl', function ($scope, Navigation, $cordovaI
     if (data.data.value) {
       $scope.user = data.data.data;
       $scope.expiryDate = moment($scope.user.expiryDate).format('DD-MM-YYYY');
+      console.log("$scope.expiryDate", $scope.expiryDate);
       $scope.currentDate = moment().format('DD-MM-YYYY');
     }
   });

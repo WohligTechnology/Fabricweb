@@ -2,7 +2,7 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header ">
-        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()" ng-hide="firstVisit"></button>
         <h1 class="title white">Category</h1>
       </div>
     </div>
@@ -28,7 +28,7 @@
                 alt=""
                 ng-class="{ 'opc':category1.active}"
               /> -->
-                <label  class="category-name">{{ category1.name }}</label>
+                <label class="category-name">{{ category1.name }}</label>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
               <div class="bg-color-gradient">
                 <i class="icon icon-Tick tick-icon" ng-if="user.isAccessories"></i>
                 <img src="img/category/accessories.jpeg" alt="" ng-class="{ 'opc':user.isAccessories}" />
-                <label  class="category-name">ACCESSORIES</label>
+                <label class="category-name">ACCESSORIES</label>
               </div>
             </div>
           </div>

@@ -177,6 +177,9 @@ myApp.controller("AddNewProductCtrl", function (
         $scope.formData.newRate = "";
       }
       if ($scope.formData.name) {
+        if ($scope.user.isAccessories) {
+          delete $scope.formData.subCategory;
+        }
         $scope.addNewProductPromise = Navigation.commonAPICall(
           "Product/save",
           $scope.formData,
@@ -279,6 +282,16 @@ myApp.controller("AddNewProductCtrl", function (
     );
   };
   $scope.getQualityType();
+  $scope.getUnit = function () {
+    Navigation.commonAPIWithoutLoader(
+      "Product/getUnitArray",
+      $scope.userId,
+      function (data) {
+        $scope.unitArray = data.data.data;
+      }
+    );
+  };
+  $scope.getUnit();
 
   // Design Number Array
   $scope.getDesignNumber = function () {

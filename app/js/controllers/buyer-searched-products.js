@@ -38,14 +38,18 @@ myApp.controller("BuyerSearchedProductsCtrl", function (
    * Common function To get all products as per keyword
    */
 
-  $scope.productChunk = [];
-  $scope.sellerProducts = [];
   var getProducts = function () {
     console.log("$scope.formData", $scope.formData);
     if (!$scope.productLoading) {
       $scope.formData.page = $scope.formData.page + 1;
       $scope.productLoading = true;
       Navigation.commonAPICall("Product/getProductForSearch", $scope.formData, function (products) {
+        if (!$scope.productChunk) {
+          $scope.productChunk = [];
+        }
+        if (!$scope.sellerProducts) {
+          $scope.sellerProducts = [];
+        }
         $scope.productLoading = false;
         // console.log("Products", products)
         if (products.data.value) {

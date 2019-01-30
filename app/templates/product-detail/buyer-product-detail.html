@@ -15,13 +15,13 @@
             <h4 class="mar0 ml-6 text-uppercase">
               {{ product.owner.companyName }}
             </h4>
-            <label class="ml-6" >Supplier of
+            <label class="ml-6">Supplier of
               <span>{{cat[0].name}},</span>
               <span>{{cat[1].name}},</span>
               <span ng-if="cat.length>2">...</span>
             </label>
-            <!-- <br /> -->
-            <label class="ml-6" >{{product.owner.city}}, {{product.owner.state}}</label>
+            <br />
+            <label class="ml-6">{{product.owner.city}}, {{product.owner.state}}</label>
           </div>
         </div>
         <!-- <div class="col-10 text-center mar-auto0"> -->
@@ -30,12 +30,13 @@
       </div>
       <div class="text-right padding-horizontal  ">
         <div class="upload-photos float-right call">
-          <a class="button button-block icon-left  icon-Call" href="tel:{{ product.owner.mobile }}">Call</a>
+          <!-- <a class="button button-block icon-left  icon-Call" href="tel:{{ product.owner.mobile }}">Call</a> -->
         </div>
         <div class="upload-photos float-right whatsapp">
           <a class="button button-block icon-left  icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{
               product.owner.mobile
-            }}&text={{ product.owner.name }}">Whatsapp</a>
+            }}&text={{ product.owner.name }}"
+            target="_blank">Whatsapp</a>
         </div>
 
         <!-- <button class="button button-small background-app white"><i class="ion icon-Whatsupp mr-5"></i>Whatsapp</button> -->
@@ -51,7 +52,7 @@
               <div class="ribbon-wrap">
                 <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
               </div>
-              <label  class="manual-quality">{{
+              <label class="manual-quality">{{
                 product.qualityType
                 }}</label>
               <!--
@@ -116,7 +117,8 @@
       </div>
 
       <div class="row mb-10">
-        <div class="col-33 product-details-stats text-center app-color1 mar-auto0" btn-promise="sendSampleRequestPromise" ng-click="sendSampleRequest('interested',product,interestedFlag)">
+        <div class="col-33 product-details-stats text-center app-color1 mar-auto0" btn-promise="sendSampleRequestPromise"
+          ng-click="sendSampleRequest('interested',product,interestedFlag)">
           <!-- <i class="icon icon-Intrested" ng-if="!interestedFlag"></i>
               <i class="ion ion-heart" ng-if="interestedFlag"></i> -->
           <i class="icon icon-Mark" ng-if="!interestedFlag"></i>
@@ -136,8 +138,8 @@
           </button>
         </div>
       </div>
-      <div class="padlr-5 ">
-        <div for=" " class="product-detail-text padding-horizontal ">
+      <div class="desc-line">
+        <div class="product-detail-text padding-horizontal ">
           {{ product.description }}
         </div>
       </div>
@@ -163,7 +165,7 @@
         <div class="row bbgrey padding-horizontal">
           <div class="col col-50 ptb20 ">Design No:</div>
           <div class="col col-50 ptb20 text-right app-color pr-15 lato-bold ">
-            {{ product.designNumber }}
+            #{{ product.designNumber }}
           </div>
         </div>
         <div class="row bbgrey padding-horizontal">

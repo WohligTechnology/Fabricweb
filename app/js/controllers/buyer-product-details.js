@@ -24,9 +24,11 @@ myApp.controller("BuyerProductDetailCtrl", function(
   $scope.formData = {};
 
   var getSimilarProducts = function() {
+    console.log("demo.........................", $scope.qualityType);
+    var quatityTypeobj = { qualityType: $scope.qualityType };
     Navigation.commonAPICall(
-      "product/getProductForSearch",
-      $scope.formData,
+      "product/getProductForSimilarQualityType",
+      quatityTypeobj,
       function(products) {
         // console.log("Similar Products", products)
         if (products.data.value) {
@@ -85,6 +87,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
             );
             $scope.formData.category = $scope.product.category._id;
             $scope.formData.subCategory = $scope.product.subCategory._id;
+            $scope.qualityType = $scope.product.qualityType;
             $scope.interestedFlag = false;
             $scope.favouriteFlag = false;
             var interestedFound = _.findIndex(
@@ -141,10 +144,12 @@ myApp.controller("BuyerProductDetailCtrl", function(
   };
 
   $scope.viewAllSimilarProducts = function() {
+    console.log("$scope.formData.qualityType", $scope.qualityType);
     $state.go("similar-products", {
       id: $stateParams.id,
       categoryId: $scope.formData.category,
-      subCategoryId: $scope.product.subCategory._id
+      subCategoryId: $scope.product.subCategory._id,
+      qualityType: $scope.qualityType
     });
   };
 

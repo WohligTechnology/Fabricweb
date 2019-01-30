@@ -17,7 +17,7 @@
       </a>
       <div ng-if="singleNotification.notificationType=='Request'">
         <div class="sample-req">
-          <label >Sample Request for</label>
+          <label>Sample Request for</label>
           <span>{{ singleNotification.product.name }}.</span>
           <button class="lato-medium check-details" ui-sref="product-detail({id:singleNotification.to._id,productId:singleNotification.product._id})"
             ng-click="closeBuyerProfileModal()">
@@ -31,7 +31,8 @@
         <ion-slide-page ng-repeat="images in imageChunk track by $index" ng-init="outerIndex=$index" class="row">
           <div class="col image-cancel-div col-33" ng-repeat="image in images track by $index">
             <div class="upload-img" on-tap="openModal(outerIndex,$index,image)">
-              <div class="upload-bg" style="background:url({{ image | serverimage :150:150:'cover' }}) #ddd no-repeat center center" ng-click="openModal(outerIndex,$index,image)"></div>
+              <div class="upload-bg" style="background:url({{ image | serverimage :150:150:'cover' }}) #ddd no-repeat center center"
+                ng-click="openModal(outerIndex,$index,image)"></div>
             </div>
             <!-- <img class="image-cancel" src="img/cross.svg" alt="" ng-click="removeImage($index)" /> -->
           </div>
@@ -53,19 +54,20 @@
       </div>
       <div class="email">
         <div>Email Id</div>
-        <label >{{ singleNotification.from.email }}</label>
+        <label>{{ singleNotification.from.email }}</label>
       </div>
       <div class="mobile">
         <div>Mobile Number</div>
-        <label >{{ singleNotification.from.mobile }}</label>
+        <label>{{ singleNotification.from.mobile }}</label>
         <div class="whatsapp-call-icon">
           <!-- <i class="ion icon-Whatsupp"> -->
           <a class="ion icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{
               singleNotification.from.mobile
-            }}&text={{ product.owner.name }}"></a>
+            }}&text={{ product.owner.name }}"
+            target="_blank"></a>
           <!-- </i> -->
           <!-- <i class="ion icon-Call"> -->
-          <a class="ion icon-Call" href="tel:{{ singleNotification.from.mobile }}"></a>
+          <!-- <a class="ion icon-Call" href="tel:{{ singleNotification.from.mobile }}"></a> -->
           <!-- </i> -->
         </div>
       </div>

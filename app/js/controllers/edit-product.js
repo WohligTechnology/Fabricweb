@@ -1,4 +1,4 @@
-myApp.controller("editProductCtrl", function(
+myApp.controller("editProductCtrl", function (
   $scope,
   $ionicModal,
   $stateParams,
@@ -7,14 +7,13 @@ myApp.controller("editProductCtrl", function(
   $state,
   $ionicSlideBoxDelegate
 ) {
-  $scope.goBackHandler = function() {
+  $scope.goBackHandler = function () {
     Navigation.gobackHandler(); //This works
   };
   if (_.isEmpty($stateParams.id) || $stateParams.id == undefined) {
     $stateParams.id = $.jStorage.get("UserId");
   }
-  $scope.unitArray = [
-    {
+  $scope.unitArray = [{
       name: "cm"
     },
     {
@@ -38,20 +37,18 @@ myApp.controller("editProductCtrl", function(
   };
   if ($stateParams.id) {
     Navigation.commonAPIWithoutLoader(
-      "User/getOne",
-      {
+      "User/getOne", {
         _id: $stateParams.id
       },
-      function(data) {
+      function (data) {
         if (data.data.value) {
           $scope.user = data.data.data;
           $scope.categories = $scope.user.category;
           Navigation.commonAPIWithoutLoader(
-            "Product/getOne",
-            {
+            "Product/getOne", {
               _id: $stateParams.product
             },
-            function(data) {
+            function (data) {
               if (data.data.value) {
                 $scope.formData = data.data.data;
                 if (_.isObject($scope.formData.category)) {
@@ -88,18 +85,18 @@ myApp.controller("editProductCtrl", function(
   } else {
     ionicToast.show("No User Selected Please Try Again", "middle");
   }
-  $scope.getSubCategory = function() {
+  $scope.getSubCategory = function () {
     var data = {};
     if ($scope.formData.category) {
       data.category = $scope.formData.category;
     }
-    Navigation.commonAPICall("SubCategory/getAllSubCategories", data, function(
+    Navigation.commonAPICall("SubCategory/getAllSubCategories", data, function (
       data
     ) {
       if (data.data.value) {
         $scope.subCategories = [];
-        _.each(data.data.data, function(n) {
-          _.each($scope.user.subCategory, function(m) {
+        _.each(data.data.data, function (n) {
+          _.each($scope.user.subCategory, function (m) {
             if (n._id.toString() == m._id.toString()) {
               $scope.subCategories.push(n);
             }
@@ -123,12 +120,12 @@ myApp.controller("editProductCtrl", function(
       }
     });
   };
-  $scope.addCamera = function(index, maxImage) {
-    Navigation.showActionsheet(false, index, maxImage, function(Images) {
+  $scope.addCamera = function (index, maxImage) {
+    Navigation.showActionsheet(false, index, maxImage, function (Images) {
       if (!$scope.formData.images) {
         $scope.formData.images = [];
       }
-      _.forEach(Images, function(value) {
+      _.forEach(Images, function (value) {
         $scope.formData.images.push(value);
       });
       if (!_.isEmpty($scope.formData.images)) {
@@ -137,7 +134,7 @@ myApp.controller("editProductCtrl", function(
     });
   };
 
-  $scope.submit = function() {
+  $scope.submit = function () {
     if (
       (_.isEmpty($scope.formData.name) || $scope.formData.name == undefined) &&
       (_.isEmpty($scope.formData.Category) ||
@@ -171,13 +168,13 @@ myApp.controller("editProductCtrl", function(
       $scope.addNewProductPromise = Navigation.commonAPICall(
         "Product/save",
         $scope.formData,
-        function(data) {
+        function (data) {
           window.history.back();
         }
       );
     }
   };
-  $scope.removeImage = function(outerIndex, innerIndex) {
+  $scope.removeImage = function (outerIndex, innerIndex) {
     var index = 3 * outerIndex + innerIndex;
     _.pullAt($scope.formData.images, index);
     // console.log("Image", $scope.formData.images);
@@ -189,10 +186,10 @@ myApp.controller("editProductCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.modal = modal;
     });
-  $scope.openModal = function(outerIndex, innerIndex, image) {
+  $scope.openModal = function (outerIndex, innerIndex, image) {
     $scope.singleImage = image;
     var value = 3 * outerIndex + innerIndex;
     $ionicSlideBoxDelegate.slide(value);
@@ -201,11 +198,11 @@ myApp.controller("editProductCtrl", function(
     $scope.product.images = $scope.formData.images;
     // console.log($scope.formData.images);
   };
-  $scope.closeModal = function() {
+  $scope.closeModal = function () {
     $scope.modal.hide();
   };
   /***Gallery End */
-  $scope.goToShop = function() {
+  $scope.goToShop = function () {
     $state.go("tab.myshop");
   };
 
@@ -213,11 +210,11 @@ myApp.controller("editProductCtrl", function(
   $scope.userId = {
     user: $stateParams.id
   };
-  $scope.getproductName = function() {
+  $scope.getproductName = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getNameArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.productName = data.data.data;
         // console.log("$scope.productName", $scope.productName);
         //seletize
@@ -236,12 +233,12 @@ myApp.controller("editProductCtrl", function(
   $scope.getproductName();
 
   // Quality Type
-  $scope.getQualityType = function() {
+  $scope.getQualityType = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getQualityTypeArray",
       $scope.userId,
-      function(data) {
-        $scope.getQualityType = data.data.data;
+      function (data) {
+        $scope.getQualityTypes = data.data.data;
         // console.log("$scope.getQualityType", $scope.getQualityType);
         //seletize
         $scope.optionQualityType = $scope.getQualityType;
@@ -257,13 +254,23 @@ myApp.controller("editProductCtrl", function(
     );
   };
   $scope.getQualityType();
+  $scope.getUnit = function () {
+    Navigation.commonAPIWithoutLoader(
+      "Product/getUnitArray",
+      $scope.userId,
+      function (data) {
+        $scope.unitArray = data.data.data;
+      }
+    );
+  };
+  $scope.getUnit();
 
   // Design Number Array
-  $scope.getDesignNumber = function() {
+  $scope.getDesignNumber = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getDesignNumberArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.designNumber = data.data.data;
         // console.log("getDesignNumberArray", $scope.designNumber);
         //seletize
@@ -282,11 +289,11 @@ myApp.controller("editProductCtrl", function(
   $scope.getDesignNumber();
 
   // Get Rate
-  $scope.getRate = function() {
+  $scope.getRate = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getRateArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.rate = data.data.data;
         // console.log("$scope.rate", $scope.rate);
         //seletize
@@ -305,11 +312,11 @@ myApp.controller("editProductCtrl", function(
   $scope.getRate();
 
   // get Size
-  $scope.getSize = function() {
+  $scope.getSize = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getSizeArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.size = data.data.data;
         // console.log("$scope.size", $scope.size);
         //seletize
@@ -328,11 +335,11 @@ myApp.controller("editProductCtrl", function(
   $scope.getSize();
 
   // get Min Order
-  $scope.getMinOrderArray = function() {
+  $scope.getMinOrderArray = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getMinOrderArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.minOrder = data.data.data;
         // console.log("$scope.minOrder", $scope.minOrder);
         //seletize
@@ -351,11 +358,11 @@ myApp.controller("editProductCtrl", function(
   $scope.getMinOrderArray();
 
   // get Description
-  $scope.getDescriptionArray = function() {
+  $scope.getDescriptionArray = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getDescriptionArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.description = data.data.data;
         // console.log("$scope.description", $scope.description);
         //seletize
@@ -374,11 +381,11 @@ myApp.controller("editProductCtrl", function(
   $scope.getDescriptionArray();
 
   // get New Rate
-  $scope.getNewRateArray = function() {
+  $scope.getNewRateArray = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/getNewRateArray",
       $scope.userId,
-      function(data) {
+      function (data) {
         $scope.newRate = data.data.data;
         // console.log("$scope.newRate", $scope.newRate);
         //seletize
@@ -395,12 +402,12 @@ myApp.controller("editProductCtrl", function(
     );
   };
   $scope.getNewRateArray();
-  $scope.refreshResults = function($select, field) {
+  $scope.refreshResults = function ($select, field) {
     var search = $select.search,
       list = angular.copy($select.items),
       FLAG = -1;
     //remove last user input
-    list = list.filter(function(item) {
+    list = list.filter(function (item) {
       return item.id !== FLAG;
     });
 
@@ -417,4 +424,16 @@ myApp.controller("editProductCtrl", function(
       $select.selected = search;
     }
   };
+  $scope.uploadedimg = function (data) {
+    if (!$scope.formData.images) {
+      $scope.formData.images = [];
+    }
+    _.forEach(data, function (value) {
+      $scope.formData.images.push(value);
+    });
+
+    if (!_.isEmpty($scope.formData.images)) {
+      $scope.imageChunk = _.chunk($scope.formData.images, 3);
+    }
+  }
 });

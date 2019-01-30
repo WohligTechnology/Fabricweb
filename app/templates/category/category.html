@@ -2,7 +2,7 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header">
-        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <button class="button button-icon icon-Back1" ng-click="goBackHandler()" ng-hide="firstVisit"></button>
         <!-- <h1 class="title white">Categories</h1> -->
       </div>
     </div>
@@ -24,7 +24,7 @@
                 alt=""
                 ng-class="{ 'opc':category1.active}"
               /> -->
-              <label  class="category-name">{{ category1.name }}</label>
+              <label class="category-name">{{ category1.name }}</label>
             </div>
           </div>
         </div>

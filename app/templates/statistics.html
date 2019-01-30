@@ -193,7 +193,7 @@
           <div class="row mb-10" ng-if="viewedData.length > 0">
             <div class="col-33" ng-repeat="viewed in viewedData | limitTo : 3" ng-click="goToProductDetail(viewed._id)">
               <div class="category-img rel" style="background:url({{
-                  viewed.images[0] | serverimage: 150:150:'cover'
+                  viewed.images[0] | serverimage: 300:300:'cover'
                 }}) #ddd no-repeat;background-size:cover">
                 <!-- <img ng-src="{{ viewed.images[0] | serverimage }}" alt="" /> -->
               </div>
@@ -215,7 +215,7 @@
           <div class="row mb-10" ng-if="interestedData.length > 0">
             <div class="col-33" ng-repeat="interested in interestedData | limitTo : 3" ng-click="goToProductDetail(interested._id)">
               <div class="category-img rel" style="background:url({{
-                  interested.images[0] | serverimage: 150:150:'cover'
+                  interested.images[0] | serverimage: 300:300:'cover'
                 }}) #ddd no-repeat center center;background-size:cover">
                 <!-- <img ng-src="{{ interested.images[0] | serverimage }}" alt="" /> -->
               </div>
@@ -241,7 +241,7 @@
           <div class="row mb-10" ng-if="sampleRequestData.length > 0">
             <div class="col-33" ng-repeat="sampleRequest in sampleRequestData | limitTo : 3" ng-click="goToProductDetail(sampleRequest._id)">
               <div class="category-img rel" style="background:url({{
-                  sampleRequest.images[0] | serverimage: 150:150:'cover'
+                  sampleRequest.images[0] | serverimage: 300:300:'cover'
                 }}) #ddd no-repeat center center;background-size:cover">
                 <!-- <img
                   ng-src="{{ sampleRequest.images[0] | serverimage }}"

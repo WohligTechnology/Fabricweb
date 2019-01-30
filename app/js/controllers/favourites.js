@@ -4,9 +4,11 @@ myApp.controller("FavouritesCtrl", function (
   $state,
   $stateParams,
   Navigation,
-  $rootScope
+  $rootScope,
+  $timeout,
+  $ionicScrollDelegate
 ) {
-
+  var dataFetcher = null;
   $scope.FavList = [];
   if ($stateParams.id) {
     console.log("No user");
@@ -19,11 +21,18 @@ myApp.controller("FavouritesCtrl", function (
   }
 
   $scope.getCollection = function () {
-    if (!$scope.productLoading) {
+    if (!$scope.productsLoading) {
       $scope.formData.page = $scope.formData.page + 1;
-      $scope.productLoading = true;
+      $scope.productsLoading = true;
       Navigation.commonAPICall("User/getFavList", $scope.formData, function (data) {
-        $scope.productLoading = false;
+        $scope.productsLoading = false;
+        $timeout(function () {
+          $scope.pullToRefreshWorking = false;
+        }, 5000);
+        if ($scope.isRefreshing) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshing = false;
+        }
         // console.log("Fav Products", data.data.data)
         if (data.data.value) {
           if (_.isEmpty(data.data.data.favourite)) {
@@ -35,10 +44,13 @@ myApp.controller("FavouritesCtrl", function (
             $scope.favListChunk = _.chunk($scope.FavList, 2);
             // console.log("Initial $scope.productChunk", $scope.productChunk);
           }
-          $scope.$broadcast('scroll.infiniteScrollComplete');
         } else {
           console.log("out of API");
         }
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+        $timeout(function () {
+          $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+        });
         console.log($scope.favListChunk);
       });
     }
@@ -46,9 +58,11 @@ myApp.controller("FavouritesCtrl", function (
 
   $scope.getCollection();
   $scope.onInfinite = function () {
-    // console.log('Infinite');
-    $scope.getCollection();
-
+    if (!$scope.pullToRefreshWorking) {
+      // console.log('Infinite');
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getCollection();
+    }
   }
 
   $rootScope.$on("getCollection", function (event, data) {
@@ -87,4 +101,27 @@ myApp.controller("FavouritesCtrl", function (
       }
     });
   };
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "favourites") {
+      $scope.getCollection();
+    }
+  });
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.favListChunk = [];
+      $scope.FavList = [];
+      $scope.formData.page = 0;
+      $scope.productsLoaded = false;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.isRefreshing = true;
+      init();
+    }, 500);
+  }
 });

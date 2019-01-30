@@ -93,17 +93,23 @@ var myApp = angular
                   });
                   break;
                 case "payment":
-                  if ($.jStorage.get('userInfo').isSeller && $.jStorage.get('userInfo').isTextile) {
+                  if (
+                    $.jStorage.get("userInfo").isSeller &&
+                    $.jStorage.get("userInfo").isTextile
+                  ) {
                     $state.go("category", {
                       id: userId.id,
                       firstVisit: true
                     });
-                  } else if ($.jStorage.get('userInfo').isSeller && $.jStorage.get('userInfo').isAccessories) {
+                  } else if (
+                    $.jStorage.get("userInfo").isSeller &&
+                    $.jStorage.get("userInfo").isAccessories
+                  ) {
                     $state.go("accessory", {
                       id: userId.id,
                       firstVisit: true
                     });
-                  } else if ($.jStorage.get('userInfo').isBuyer) {
+                  } else if ($.jStorage.get("userInfo").isBuyer) {
                     $state.go("buyer-category", {
                       id: userId.id,
                       firstVisit: true
@@ -136,6 +142,7 @@ var myApp = angular
                   } else if ($.jStorage.get("userInfo").isBuyer) {
                     $state.go("tab.market");
                   }
+                  $.jStorage.deleteKey("userState");
                   break;
                 default:
                   break;
@@ -284,6 +291,9 @@ var myApp = angular
     $ionicConfigProvider.form.checkbox("square");
     $ionicConfigProvider.views.maxCache(10000);
     $ionicConfigProvider.tabs.position("bottom");
+    $ionicConfigProvider.views.transition('none');
+    $ionicConfigProvider.scrolling.jsScrolling(false);
+
     var isSeller = false;
     // if ($.jStorage.get("userInfo") && $.jStorage.get("userInfo").isSeller) {
     //   var isSeller = $.jStorage.get("userInfo").isSeller
@@ -418,7 +428,7 @@ var myApp = angular
         controller: "PlansubscriptionCtrl"
       })
       .state("recently-view", {
-        cache: false,
+        // cache: false,
         url: "/recently-view",
         templateUrl: "templates/myshop/recently-view.html",
         controller: "RecentlyviewCtrl"
@@ -452,13 +462,12 @@ var myApp = angular
         controller: "AddNewProductCtrl"
       })
       .state("newly-added", {
-        cache: false,
         url: "/newly-added",
         templateUrl: "templates/recently-added/newly-added.html",
         controller: "newlyAddedCtrl"
       })
       .state("innermarket-newly-added", {
-        cache: false,
+        // cache: false,
         url: "/newly-added-products/:categoryId",
         templateUrl: "templates/innermarket-newlyadded.html",
         controller: "innerMarketNewlyAddedCtrl"
@@ -580,38 +589,38 @@ var myApp = angular
       })
       .state("following", {
         url: "/following",
-        cache: false,
+        // cache: false,
         templateUrl: "templates/following.html",
         controller: "FollowingCtrl"
       })
       .state("favourites", {
         url: "/favourites/:type/:id",
-        cache: false,
+        // cache: false,
         templateUrl: "templates/myshop/favourites.html",
         controller: "FavouritesCtrl"
       })
 
       .state("interested", {
         url: "/interested/:type/:id",
-        cache: false,
+        // cache: false,
         templateUrl: "templates/myshop/interested.html",
         controller: "InterestedCtrl"
       })
       .state("sample-request", {
         url: "/sample-request/:type/:id",
-        cache: false,
+        // cache: false,
         templateUrl: "templates/myshop/sample-request.html",
         controller: "SampleRequestCtrl"
       })
       .state("similar-products", {
-        url: "/similar-products/:id/:categoryId/:subCategoryId",
+        url: "/similar-products/:id/:categoryId/:subCategoryId/:qualityType",
         cache: false,
         templateUrl: "templates/myshop/similar-product.html",
         controller: "SimilarProductsCtrl"
       })
       .state("search-seller", {
         url: "/search-seller",
-        cache: false,
+        // cache: false,
         templateUrl: "templates/search-buyers/search-seller.html",
         controller: "SearchSellerCtrl"
       })
@@ -623,7 +632,7 @@ var myApp = angular
       })
       .state("app.requirement-list", {
         url: "/requirement-list",
-        cache: false,
+        // cache: false,
         views: {
           menuContent: {
             templateUrl: "templates/requirement-list.html",
@@ -662,7 +671,7 @@ var myApp = angular
         controller: "NetworkErrorCtrl"
       })
       .state("recently-added", {
-        cache: false,
+        // cache: false,
         url: "/recently-added/:id",
         templateUrl: "templates/recently-added/recently-added.html",
         controller: "RecentlyAddedCtrl"
@@ -675,7 +684,7 @@ var myApp = angular
       })
       .state("buyer-searched-products", {
         cache: false,
-        url: "/searched-products/:keyword",
+        url: "/buyer-searched-products/:keyword",
         templateUrl: "templates/buyer-searched-products.html",
         controller: "BuyerSearchedProductsCtrl"
       })
@@ -697,13 +706,13 @@ var myApp = angular
         template: "",
         controller: "RedirectingCtrl"
       })
-      .state("success",{
+      .state("success", {
         cache: false,
         url: "/success",
         templateUrl: "templates/success.html",
         controller: "SuccessCtrl"
       })
-      .state("failure",{
+      .state("failure", {
         cache: false,
         url: "/failure",
         templateUrl: "templates/failure.html",
@@ -718,12 +727,16 @@ var myApp = angular
           //do nothing
         }
       } else {
-        if ($.jStorage.get("userInfo").isSeller) {
-          return "/tab/myshop";
-        } else if ($.jStorage.get("userInfo").isBuyer) {
-          return "/tab/market";
+        if (_.isEmpty($.jStorage.get("userState"))) {
+          if ($.jStorage.get("userInfo").isSeller) {
+            return "/tab/myshop";
+          } else if ($.jStorage.get("userInfo").isBuyer) {
+            return "/tab/market";
+          } else {
+            return "/login";
+          }
         } else {
-          return "/login";
+          //do nothing
         }
       }
     });

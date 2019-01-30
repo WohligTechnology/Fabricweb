@@ -107,6 +107,7 @@ myApp
       replace: false,
       scope: {
         product: "=ngProduct",
+        type: "=type",
         imgCss: "@imgCss",
         noAction: "=noAction",
         action: "=action"

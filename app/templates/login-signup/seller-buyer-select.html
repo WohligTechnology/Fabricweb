@@ -26,7 +26,9 @@
             ng-if="!submenu">Buyer</ion-checkbox>
         </div>
       </div>
-
+      <!-- <div class="buyer-coming" ng-if="type=='Buyer' && buyer.active">
+        <h3 class="buyer-comingSoon">Hang in there buyer! Going LIVE soon.</h3>
+      </div> -->
       <div class="seller-buyer-btn">
         <button class="button button-block text-uppercase" ng-click="nextPage()" ng-disabled="!buyer.active && !selectedsupplier">
           Next

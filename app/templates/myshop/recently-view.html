@@ -8,7 +8,9 @@
     </div>
 
   </ion-header-bar>
-  <ion-content class="has-header-bar Favourites">
+  <ion-content class="has-header-bar Favourites" on-scroll="getScrollPosition()" delegate-handle="mainScroll">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="scrollToTop()">
+    </ion-refresher>
     <div class="mt-10">
       <div class="row mtb-10" ng-repeat="recent in recentProducts track by $index">
         <div class=" col-50" ng-repeat="product in recent">
@@ -74,7 +76,8 @@
         </div>
       </div>
     </div> -->
-      <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="loadMore()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+      <ion-infinite-scroll ng-if="!productsLoaded  && !productsLoading && !pullToRefreshWorking" on-infinite="loadMore()"
+        distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
   <!-- <ion-footer>
     <div class="tab-custom">
@@ -95,4 +98,5 @@
     </div>
 
   </ion-footer> -->
+  <scroll-top ng-click="scrollToTop()"></scroll-top>
 </ion-view>

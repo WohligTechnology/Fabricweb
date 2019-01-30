@@ -17,7 +17,9 @@
       </div>
     </ion-header-bar>
   </div>
-  <ion-content class="has-header-bar inner-shops  ion-top" on-scroll="getScrollPosition()">
+  <ion-content class="has-header-bar inner-shops  ion-top" on-scroll="getScrollPosition()" delegate-handle="mainScroll">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="scrollToTop()">
+    </ion-refresher>
     <div ng-if="productChunk || subCategoryChunk">
       <div class="mtb-20">
         <div class="text-center">
@@ -53,10 +55,10 @@
       <div class="list">
         <div class="item row mtb-10 border-none" ng-repeat-start="products in productChunk track by $index" ng-if="productChunk.length>0">
           <div class=" col-50" ng-repeat="product in products">
-            <product-box ng-product="product"></product-box>
+            <product-box ng-product="product" type="selectedCategory"></product-box>
           </div>
         </div>
-        <div class="newly-added-products" ng-if="$index==14 && selectedCategory==='All'" ng-repeat-end>
+        <div class="newly-added-products" ng-if="$index==12 && selectedCategory==='All'" ng-repeat-end>
           <h4 class="newly-added-heading">Newly Added Products</h4>
           <ion-slides class="buyer-subcat" options="options" slider="data.slider">
             <ion-slide-page ng-repeat="categories in allCatChunk" class="row">
@@ -77,7 +79,8 @@
     <!-- <div class="text-center padding" ng-if="productChunk.length==0">
       <h4>No products found</h4>
     </div> -->
-    <ion-infinite-scroll ng-if="!productsLoaded" on-infinite="onInfinite()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!productsLoaded && !productsLoading && !pullToRefreshWorking" on-infinite="onInfinite()"
+      distance="1%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
-  <scroll-top></scroll-top>
+  <scroll-top ng-click="scrollToTop()"></scroll-top>
 </ion-view>

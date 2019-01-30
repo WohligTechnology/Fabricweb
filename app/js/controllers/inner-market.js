@@ -7,9 +7,12 @@ myApp.controller("InnerMarketCtrl", function (
   ionicToast,
   $ionicActionSheet,
   $window,
-  $rootScope
+  $rootScope,
+  $timeout,
+  $ionicScrollDelegate
 ) {
   $scope.filterData = {};
+  var dataFetcher = null;
   var mySocket = io.sails.connect(adminSocket);
   mySocket.on("newProduct", function onConnect(data) {
     var found = -1;
@@ -18,22 +21,14 @@ myApp.controller("InnerMarketCtrl", function (
         return block === data.owner._id;
       });
     }
-    // console.log("newProduct", data);
     if (
       found == -1 &&
       $state.current.name == "tab.market" &&
       ($scope.selectedCategory == "All" ||
         $scope.selectedCategory === data.subCategory._id)
     ) {
-      // var allProducts = $.jStorage.get("allProducts");
       $scope.sellerProducts.unshift(data);
       $scope.productChunk = _.chunk($scope.sellerProducts, 2);
-      // $.jStorage.set("allProducts", {
-      //   sellerProducts: $scope.sellerProducts,
-      //   productChunk: $scope.productChunk,
-      //   page: allProducts.page
-      // });
-      // $.jStorage.setTTL("allProducts", 500000);
       $scope.$apply();
     }
   });
@@ -103,17 +98,7 @@ myApp.controller("InnerMarketCtrl", function (
             }
             $scope.formData.subCategory = $scope.subCategoryArray;
             $scope.formData.type = "All";
-            // var allProducts = $.jStorage.get("allProducts");
-            // if (_.isEmpty(allProducts) || $scope.selectedCategory != 'All') {
             getProducts();
-            // } else {
-            //   $scope.productChunk = [];
-            //   $scope.sellerProducts = [];
-            //   $scope.sellerProducts = allProducts.sellerProducts;
-            //   $scope.productChunk = allProducts.productChunk;
-            //   $scope.formData.page = allProducts.page;
-            //   // getProducts();
-            // }
             $scope.allowLoadMore = true;
           }
         }
@@ -124,8 +109,11 @@ myApp.controller("InnerMarketCtrl", function (
   };
   init();
   $scope.onInfinite = function () {
-    if ($scope.allowLoadMore) {
-      getProducts();
+    if (!$scope.pullToRefreshWorking) {
+      if (!!dataFetcher) dataFetcher.abort();
+      if ($scope.allowLoadMore) {
+        getProducts();
+      }
     }
   };
   var subcategories;
@@ -147,15 +135,22 @@ myApp.controller("InnerMarketCtrl", function (
   /**
    * Common function To get all products and products as per category and subCategory
    */
-  var getProducts = function () {
-    if (!$scope.productLoading) {
+  function getProducts() {
+    if (!$scope.productsLoading) {
       $scope.formData.page = $scope.formData.page + 1;
-      $scope.productLoading = true;
+      $scope.productsLoading = true;
       Navigation.commonAPICall(
         "product/getProductForSearch",
         $scope.formData,
         function (products) {
-          $scope.productLoading = false;
+          $timeout(function () {
+            $scope.pullToRefreshWorking = false;
+          }, 5000);
+          if ($scope.isRefreshing) {
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.isRefreshing = false;
+          }
+          $scope.productsLoading = false;
           if (products.data.value) {
             if (_.isEmpty(products.data.data)) {
               $scope.productsLoaded = true;
@@ -165,19 +160,14 @@ myApp.controller("InnerMarketCtrl", function (
                 products.data.data
               );
               $scope.productChunk = _.chunk($scope.sellerProducts, 2);
-              // if ($scope.selectedCategory == 'All') {
-              //   $.jStorage.set("allProducts", {
-              //     sellerProducts: $scope.sellerProducts,
-              //     productChunk: $scope.productChunk,
-              //     page: $scope.formData.page
-              //   });
-              //   $.jStorage.setTTL("allProducts", 50000);
-              // }
             }
-            $scope.$broadcast("scroll.infiniteScrollComplete");
           } else {
             console.log("out of API");
           }
+          $scope.$broadcast("scroll.infiniteScrollComplete");
+          $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+          }, 5000);
         }
       );
     }
@@ -191,8 +181,6 @@ myApp.controller("InnerMarketCtrl", function (
 
   /**TO get products as pere subcategory and category */
   $scope.getProductsOnFilter = function (category, subcategory) {
-    // var allProducts = $.jStorage.get("allProducts");
-    // if (_.isEmpty(allProducts) || $scope.selectedCategory != 'All') {
     $scope.productChunk = [];
     $scope.sellerProducts = [];
     $scope.formData.page = 0;
@@ -206,14 +194,6 @@ myApp.controller("InnerMarketCtrl", function (
       $scope.formData.subCategory = subcategory;
     }
     getProducts();
-    // } else {
-    //   $scope.productChunk = [];
-    //   $scope.sellerProducts = [];
-    //   $scope.sellerProducts = allProducts.sellerProducts;
-    //   $scope.productChunk = allProducts.productChunk;
-    //   $scope.formData.page = allProducts.page;
-    //   // getProducts();
-    // }
   };
 
   $scope.postReqData = {};
@@ -266,7 +246,6 @@ myApp.controller("InnerMarketCtrl", function (
   $scope.removeImage = function (outerIndex, innerIndex) {
     var index = 3 * outerIndex + innerIndex;
     _.pullAt($scope.formData.images, index);
-    // console.log("Image", $scope.formData.images);
     $scope.imageChunk = _.chunk($scope.formData.images, 3);
   };
 
@@ -286,13 +265,22 @@ myApp.controller("InnerMarketCtrl", function (
       $scope.sortProductModal = modal;
     });
   $scope.openSortProductModal = function () {
+    $scope.oldFormData = _.cloneDeep($scope.formData);
+    $scope.oldFilterObj = _.cloneDeep($scope.filterObj);
     $scope.sortProductModal.show();
   };
 
   $scope.closeSortProductModal = function () {
     $scope.sortProductModal.hide();
   };
-
+  $scope.crossFilter = function () {
+    if (!$scope.clearFilter) {
+      $scope.formData = $scope.oldFormData;
+      $scope.filterObj = $scope.oldFilterObj;
+    } else {
+      $scope.clearFilter = true;
+    }
+  };
   /**Filter start */
   $scope.filterObj = {
     minPrice: 0,
@@ -353,6 +341,7 @@ myApp.controller("InnerMarketCtrl", function (
     $scope.formData = _.cloneDeep(reqData);
     getProducts();
   };
+  $scope.clearFilter = false;
 
   $scope.clearAllFilter = function () {
     $scope.filterObj = {
@@ -360,6 +349,15 @@ myApp.controller("InnerMarketCtrl", function (
       maxPrice: 0
     };
     $scope.filterApplied = false;
+    $scope.clearFilter = true;
+    var reqData = _.cloneDeep($scope.filterObj);
+    reqData.page = 0;
+    reqData.blockedUser = $scope.user.blockedUser;
+    $scope.formData = _.cloneDeep(reqData);
+    $scope.productChunk = [];
+    $scope.sellerProducts = [];
+    getProducts();
+
   };
 
   Navigation.commonAPICall("Product/getMinAndMax", {}, function (data) {
@@ -391,7 +389,12 @@ myApp.controller("InnerMarketCtrl", function (
     fromState,
     fromParams
   ) {
-    if (toState.name == "tab.market") {
+    if (fromState.name == "buyer-inner-category") {
+      $scope.productChunk = [];
+      $scope.sellerProducts = [];
+      $scope.formData.page = 0;
+    }
+    if (toState.name == "tab.market" && fromState.name != "buyer-product-detail") {
       init();
     }
   });
@@ -404,6 +407,18 @@ myApp.controller("InnerMarketCtrl", function (
       $scope.postReqData.images.push(value);
     });
     $scope.postReqData.imageChunk = _.chunk($scope.postReqData.images, 3);
-
+  }
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.productChunk = [];
+      $scope.sellerProducts = [];
+      $scope.formData.page = 0;
+      $scope.productsLoaded = false;
+      $scope.productsLoading = false;
+      $scope.isRefreshing = true;
+      if (!!dataFetcher) dataFetcher.abort();
+      getProducts();
+    }, 500);
   }
 });

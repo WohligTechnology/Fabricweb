@@ -9,6 +9,8 @@ myApp.controller("AccessoryCtrl", function (
   $cordovaFileTransfer,
   $cordovaImagePicker
 ) {
+  $scope.firstVisit = $stateParams.firstVisit;
+
   if (_.isEmpty($stateParams.id) || $stateParams.id == undefined) {
     $stateParams.id = $.jStorage.get("UserId");
   }

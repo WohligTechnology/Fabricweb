@@ -24,7 +24,8 @@
       </div>
       <div class="col-66">
         <div class="rel">
-          <ui-select ng-model="formData.category" required="true" on-select="getSubCategory()" ng-disabled="categoryDisabled">
+          <ui-select ng-model="formData.category" required="true" on-select="getSubCategory();formData.subCategory = ''"
+            ng-disabled="categoryDisabled">
             <ui-select-match placeholder="Category">
               <span>{{ $select.selected.name || $select.search }}</span>
             </ui-select-match>
@@ -124,11 +125,11 @@
         <div class="rel">
           <ui-select ng-model="formData.unit" required="true">
             <ui-select-match placeholder="Unit">
-              <span>{{ $select.selected.name || $select.search }}</span>
+              <span>{{ $select.selected.unit || $select.search }}</span>
             </ui-select-match>
-            <ui-select-choices repeat="table.name as table in (optionUnit | filter: { name: $select.search })" refresh="refreshResults($select,'name')"
+            <ui-select-choices repeat="table.unit as table in (unitArray | filter: { unit: $select.search })" refresh="refreshResults($select,'unit')"
               refresh-delay="0">
-              <span>{{ table.name }}</span>
+              <span>{{ table.unit }}</span>
             </ui-select-choices>
           </ui-select>
         </div>

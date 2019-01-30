@@ -5,7 +5,8 @@ myApp.controller("RecentlyAddedCtrl", function (
   Navigation,
   ionicToast,
   $state,
-  $ionicHistory
+  $ionicHistory,
+  $rootScope
 ) {
   $scope.goBackHandler = function () {
     Navigation.gobackHandler();
@@ -13,21 +14,25 @@ myApp.controller("RecentlyAddedCtrl", function (
   if (_.isEmpty($stateParams.id) || $stateParams.id == undefined) {
     $stateParams.id = $.jStorage.get("UserId");
   }
-  if ($stateParams.id) {
-    Navigation.commonAPICall(
-      "Product/getRecentlyAddedProducts", {
-        owner: $stateParams.id
-      },
-      function (data) {
-        if (data.data.value) {
-          $scope.products = data.data.data;
-          console.log("$scope.products", $scope.products);
+  var init = function () {
+    if ($stateParams.id) {
+      Navigation.commonAPICall(
+        "Product/getRecentlyAddedProducts", {
+          owner: $stateParams.id
+        },
+        function (data) {
+          if (data.data.value) {
+            $scope.products = data.data.data;
+            console.log("$scope.products", $scope.products);
+          }
         }
-      }
-    );
-  } else {
-    ionicToast.show("No User Selected Please Try Again", 'middle');
+      );
+    } else {
+      ionicToast.show("No User Selected Please Try Again", 'middle');
+    }
   }
+  init();
+
   $scope.editProduct = function (product) {
     $state.go("edit-product", {
       id: $stateParams.id,
@@ -41,4 +46,15 @@ myApp.controller("RecentlyAddedCtrl", function (
       productId: productId
     });
   };
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "recently-added") {
+      init();
+    }
+  });
 });

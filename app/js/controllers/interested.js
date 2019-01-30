@@ -3,9 +3,12 @@ myApp.controller("InterestedCtrl", function (
   $ionicActionSheet,
   $state,
   $stateParams,
-  Navigation
+  Navigation,
+  $rootScope,
+  $timeout,
+  $ionicScrollDelegate
 ) {
-
+  var dataFetcher = null;
   $scope.FavList = [];
   if ($stateParams.id) {
     console.log("No user");
@@ -18,11 +21,18 @@ myApp.controller("InterestedCtrl", function (
   }
 
   var getProducts = function () {
-    if (!$scope.productLoading) {
+    if (!$scope.productsLoading) {
       $scope.formData.page = $scope.formData.page + 1;
-      $scope.productLoading = true;
+      $scope.productsLoading = true;
       Navigation.commonAPICall("User/getFavList", $scope.formData, function (data) {
-        $scope.productLoading = false;
+        $timeout(function () {
+          $scope.pullToRefreshWorking = false;
+        }, 5000);
+        if ($scope.isRefreshing) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshing = false;
+        }
+        $scope.productsLoading = false;
         // console.log("Fav Products", data.data.data)
         if (data.data.value) {
           if (_.isEmpty(data.data.data.interested)) {
@@ -34,7 +44,10 @@ myApp.controller("InterestedCtrl", function (
             $scope.favListChunk = _.chunk($scope.FavList, 2);
             // console.log("Initial $scope.productChunk", $scope.productChunk);
           }
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.$broadcast("scroll.infiniteScrollComplete");
+          $timeout(function () {
+            $ionicScrollDelegate.$getByHandle('mainScroll').resize();
+          });
         } else {
           console.log("out of API");
         }
@@ -44,8 +57,11 @@ myApp.controller("InterestedCtrl", function (
 
   getProducts();
   $scope.onInfinite = function () {
-    // console.log('Infinite');
-    getProducts();
+    if (!$scope.pullToRefreshWorking) {
+      // console.log('Infinite');
+      if (!!dataFetcher) dataFetcher.abort();
+      getProducts();
+    }
   }
 
 
@@ -78,4 +94,27 @@ myApp.controller("InterestedCtrl", function (
       }
     });
   };
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "interested") {
+      getProducts();
+    }
+  });
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.favListChunk = [];
+      $scope.FavList = [];
+      $scope.formData.page = 0;
+      $scope.productsLoaded = false;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.isRefreshing = true;
+      getProducts();
+    }, 500);
+  }
 });

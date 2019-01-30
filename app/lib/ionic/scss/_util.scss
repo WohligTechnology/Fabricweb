@@ -349,6 +349,18 @@ a.dark {
 .text-capitalize {
   text-transform: capitalize;
 }
-.platform-ios .search-mt{
-margin-top: 10px;
-  }
+
+.platform-ios .search-mt {
+  margin-top: 10px;
+}
+
+.no-item {
+  border-color: inherit;
+  background-color: inherit;
+  color: inherit;
+  z-index: 2;
+  margin: -1px;
+  padding: 3px;
+  border: none;
+  font-size: 14px;
+}

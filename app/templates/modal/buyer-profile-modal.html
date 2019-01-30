@@ -1,8 +1,5 @@
 <ion-modal-view class="uploadphotomodal">
-  <a
-    class="button button-icon icon ion-close-round item-note close-size"
-    ng-click="closeBuyerProfileModal()"
-  ></a>
+  <a class="button button-icon icon ion-close-round item-note close-size" ng-click="closeBuyerProfileModal()"></a>
   <ion-content class="buyer-profile top35">
     <div class="buyer-info">
       <a class="item item-thumbnail-left">
@@ -15,11 +12,8 @@
         <div class="sample-req">
           <label>Sample Request for</label>
           <span>{{ singleNotification.product.name }}.</span>
-          <button
-            class="lato-medium check-details"
-            ui-sref="product-detail({id:singleNotification.to._id,productId:singleNotification.product._id})"
-            ng-click="closeBuyerProfileModal()"
-          >
+          <button class="lato-medium check-details" ui-sref="product-detail({id:singleNotification.to._id,productId:singleNotification.product._id})"
+            ng-click="closeBuyerProfileModal()">
             Product Page
           </button>
         </div>
@@ -47,43 +41,27 @@
         <label>{{ singleNotification.from.mobile }}</label>
         <div class="whatsapp-call-icon">
           <!-- <i class="ion icon-Whatsupp"> -->
-          <a
-            class="ion icon-Whatsupp"
-            href="https://api.whatsapp.com/send?phone=91{{
+          <a class="ion icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{
               singleNotification.from.mobile
             }}&text={{ product.owner.name }}"
-          ></a>
+            target="_blank"></a>
           <!-- </i> -->
           <!-- <i class="ion icon-Call"> -->
-          <a
-            class="ion icon-Call"
-            href="tel:{{ singleNotification.from.mobile }}"
-          ></a>
+          <!-- <a class="ion icon-Call" href="tel:{{ singleNotification.from.mobile }}"></a> -->
           <!-- </i> -->
         </div>
       </div>
-      <div
-        class="row"
-        ng-hide="singleNotification.sampleReqStatus || singleNotification.notificationType == 'Fav' || singleNotification.notificationType=='PostRequirement'"
-      >
+      <div class="row" ng-hide="singleNotification.sampleReqStatus || singleNotification.notificationType == 'Fav' || singleNotification.notificationType=='PostRequirement'">
         <div class="col">
           <div class="accept-btn">
-            <button
-              class="button button-block"
-              ng-click="acceptNotification('Accept',singleNotification)"
-              promise-btn="sendSampleRequestAcceptPromise"
-            >
+            <button class="button button-block" ng-click="acceptNotification('Accept',singleNotification)" promise-btn="sendSampleRequestAcceptPromise">
               Accept
             </button>
           </div>
         </div>
         <div class="col">
           <div class="decline">
-            <button
-              class="button button-block"
-              promise-btn="acceptNotificationDeclinePromise"
-              ng-click="acceptNotification('Reject',singleNotification)"
-            >
+            <button class="button button-block" promise-btn="acceptNotificationDeclinePromise" ng-click="acceptNotification('Reject',singleNotification)">
               Decline
             </button>
           </div>

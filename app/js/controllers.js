@@ -55,8 +55,6 @@ myApp.controller("AppCtrl", function (
     }
   };
   $scope.notificationFun();
-
-
   $scope.newlyAddedCount = function () {
     Navigation.commonAPIWithoutLoader(
       "Product/recentlyAddedViewBuyer", {
@@ -84,6 +82,17 @@ myApp.controller("AppCtrl", function (
     },
     function (isOpen) {
       if (isOpen) {
+        Navigation.commonAPIWithoutLoader(
+          "Product/recentlyAddedViewBuyer", {
+            user: $.jStorage.get("userInfo")._id,
+            type: "count"
+          },
+          function (data) {
+            if (data.data.value) {
+              $scope.newlyAddedCount = data.data.data;
+            }
+          }
+        );
         Navigation.commonAPIWithoutLoader(
           "User/getOne", {
             _id: $.jStorage.get("userInfo")._id
@@ -179,6 +188,12 @@ myApp.controller("AppCtrl", function (
           text: "<b>Yes</b>",
           type: "button-positive",
           onTap: function (e) {
+            Navigation.commonAPICall(
+              "User/removeDeviceId", {
+                _id: $.jStorage.get("userInfo")._id
+              },
+              function (data) {}
+            );
             startApplication();
             location.reload();
             $.jStorage.flush();
@@ -223,7 +238,7 @@ myApp.controller("AppCtrl", function (
       clearcache: "yes",
       toolbar: "no"
     };
-    window.open(url, "_self")
+    window.open(url, "_blank")
     // document.addEventListener(
     //   "deviceready",
     //   function () {
@@ -246,12 +261,14 @@ myApp.controller("AppCtrl", function (
     console.log(errMsg);
   };
   $scope.openPaytm = function () {
+    window.open("https://paytm.com/", "_blank")
     console.log("demo paytm");
-    window.plugins.launcher.launch({
-        uri: "paytm://"
-      },
-      successCallback,
-      errorCallback
-    );
+    // window.plugins.launcher.launch({
+    //     uri: "paytm://"
+    //   },
+    //   successCallback,
+    //   errorCallback
+    // );
   };
+
 });
