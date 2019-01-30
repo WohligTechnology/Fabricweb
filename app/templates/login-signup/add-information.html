@@ -19,8 +19,11 @@
             -->
           </div>
         </div>
-        <div class="upload-camera" ng-click="adducimage(1)">
-          <img ng-src="{{ formData.photo | serverimage }}" alt="" ng-if="formData.photo" class="img-responsive" />
+        <div class="upload-camera">
+          <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+            Upload Photos
+          </upload-image>
+          <img ng-src="{{ formData.photo | serverimage :60:60:'cover'}}" alt="" ng-if="formData.photo" class="img-responsive" />
           <i class="ion ion-camera" ng-if="!formData.photo"></i>
         </div>
       </div>

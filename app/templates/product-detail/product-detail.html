@@ -26,8 +26,13 @@
           <ion-slide-page ng-repeat="image in product.images track by $index">
             <div class="slider-image" style="background:url({{
                 image | serverimage: 400:'cover'
-              }}) #ddd no-repeat center center;"
-              ng-click="openModal($index,image)">
+              }}) #ddd no-repeat center center;">
+              <a
+              fancybox-box
+              data-fancybox="gallery"
+              href="{{ image | serverimage }}"
+              rel="gal"
+            ></a>
               <div class="ribbon-wrap">
                 <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
               </div>

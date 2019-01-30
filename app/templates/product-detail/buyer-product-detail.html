@@ -2,7 +2,10 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header ">
-        <button class="button button-icon icon-Back1" ng-click="goBackHandler()"></button>
+        <button
+          class="button button-icon icon-Back1"
+          ng-click="goBackHandler()"
+        ></button>
         <h1 class="title white ">Product Details</h1>
       </div>
     </div>
@@ -11,17 +14,22 @@
     <div ng-if="product">
       <div class="row">
         <div class="col-100">
-          <div class="product-name product-nomar" ui-sref="sellermyshop({sellerId:product.owner._id})">
+          <div
+            class="product-name product-nomar"
+            ui-sref="sellermyshop({sellerId:product.owner._id})"
+          >
             <h4 class="mar0 ml-6 text-uppercase">
               {{ product.owner.companyName }}
             </h4>
-            <label class="ml-6">Supplier of
-              <span>{{cat[0].name}},</span>
-              <span>{{cat[1].name}},</span>
+            <label class="ml-6"
+              >Supplier of <span>{{ cat[0].name }},</span>
+              <span>{{ cat[1].name }},</span>
               <span ng-if="cat.length>2">...</span>
             </label>
             <br />
-            <label class="ml-6">{{product.owner.city}}, {{product.owner.state}}</label>
+            <label class="ml-6"
+              >{{ product.owner.city }}, {{ product.owner.state }}</label
+            >
           </div>
         </div>
         <!-- <div class="col-10 text-center mar-auto0"> -->
@@ -33,28 +41,43 @@
           <!-- <a class="button button-block icon-left  icon-Call" href="tel:{{ product.owner.mobile }}">Call</a> -->
         </div>
         <div class="upload-photos float-right whatsapp">
-          <a class="button button-block icon-left  icon-Whatsupp" href="https://api.whatsapp.com/send?phone=91{{
+          <a
+            class="button button-block icon-left  icon-Whatsupp"
+            href="https://api.whatsapp.com/send?phone=91{{
               product.owner.mobile
             }}&text={{ product.owner.name }}"
-            target="_blank">Whatsapp</a>
+            target="_blank"
+            >Whatsapp</a
+          >
         </div>
 
         <!-- <button class="button button-small background-app white"><i class="ion icon-Whatsupp mr-5"></i>Whatsapp</button> -->
         <!-- <button class="button button-small background-app white"><i class="ion icon-Call mr-5"></i>Call</button> -->
       </div>
       <div class="slider-div buyer-slider-div">
-        <ion-slides class="ionslide sliderbutton swipperbutton" slider="sliderData.sliderDelegate">
+        <ion-slides
+          class="ionslide sliderbutton swipperbutton"
+          slider="sliderData.sliderDelegate"
+        >
           <ion-slide-page ng-repeat="image in product.images track by $index">
-            <div class="slider-image" style="background:url({{
+            <!-- <img ng-src="{{img.img1}}" alt="{{img.alt}}" class="img-fluid fancy-image"> -->
+            <div
+              class="slider-image"
+              style="background:url({{
                 image | serverimage: 400:475:'cover'
               }}) #ddd no-repeat center center;background-size: cover;"
-              ng-click="openModal($index,image)">
-              <div class="ribbon-wrap">
-                <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
-              </div>
-              <label class="manual-quality">{{
-                product.qualityType
-                }}</label>
+            >
+              <a
+                fancybox-box
+                data-fancybox="gallery"
+                href="{{ image | serverimage }}"
+                rel="gal"
+              >
+                <div class="ribbon-wrap">
+                  <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
+                </div>
+                <label class="manual-quality">{{ product.qualityType }}</label>
+              </a>
               <!--
                     <ion-scroll zooming="true" direction="xy" overflow-scroll="false" delegate-handle="zoom-pane" class="zoom-pane" min-zoom="1"
                     scrollbar-x="false" scrollbar-y="false">
@@ -117,8 +140,11 @@
       </div>
 
       <div class="row mb-10">
-        <div class="col-33 product-details-stats text-center app-color1 mar-auto0" btn-promise="sendSampleRequestPromise"
-          ng-click="sendSampleRequest('interested',product,interestedFlag)">
+        <div
+          class="col-33 product-details-stats text-center app-color1 mar-auto0"
+          btn-promise="sendSampleRequestPromise"
+          ng-click="sendSampleRequest('interested',product,interestedFlag)"
+        >
           <!-- <i class="icon icon-Intrested" ng-if="!interestedFlag"></i>
               <i class="ion ion-heart" ng-if="interestedFlag"></i> -->
           <i class="icon icon-Mark" ng-if="!interestedFlag"></i>
@@ -126,14 +152,20 @@
           <!-- <i class="icon icon-Intrested icon-fill"></i> -->
           Interested
         </div>
-        <div class="col-33 product-details-stats text-center app-color1 mar-auto0" ng-click="sendSampleRequest('favourite',product,favouriteFlag)">
+        <div
+          class="col-33 product-details-stats text-center app-color1 mar-auto0"
+          ng-click="sendSampleRequest('favourite',product,favouriteFlag)"
+        >
           <!-- <i class="icon icon-Mark" ng-if="!favouriteFlag"></i>
               <i class="icon icon-Mark-fill" ng-if="favouriteFlag"></i> -->
           <i class="icon icon-Intrested" ng-if="!favouriteFlag"></i>
           <i class="ion ion-heart" ng-if="favouriteFlag"></i> Add Favourite
         </div>
         <div class="col-33 product-details-stats text-center mt-10">
-          <button class=" button button-small button-assertive fnt-12" ng-click="openSellerProfileModal(product._id)">
+          <button
+            class=" button button-small button-assertive fnt-12"
+            ng-click="openSellerProfileModal(product._id)"
+          >
             Sample Request
           </button>
         </div>
@@ -150,13 +182,19 @@
             {{ product.name }}
           </div>
         </div>
-        <div class="row bbgrey padding-horizontal" ng-if="product.branch=='Textile'">
+        <div
+          class="row bbgrey padding-horizontal"
+          ng-if="product.branch=='Textile'"
+        >
           <div class="col col-50 ptb20 ">Subcategory:</div>
           <div class="col col-50 ptb20 text-right app-color pr-15 lato-bold ">
             {{ product.subCategory.name }}
           </div>
         </div>
-        <div class="row bbgrey padding-horizontal" ng-if="product.branch=='Accessory'">
+        <div
+          class="row bbgrey padding-horizontal"
+          ng-if="product.branch=='Accessory'"
+        >
           <div class="col col-50 ptb20 ">Accessory:</div>
           <div class="col col-50 ptb20 text-right app-color pr-15 lato-bold ">
             {{ product.category.name }}
@@ -181,15 +219,13 @@
             <span ng-if="product.offer">{{ product.newRate }}</span> -->
             <div ng-if="product.rate && product.newRate">
               <strike>₹{{ product.rate }}</strike> &nbsp;&nbsp;₹{{
-              product.newRate
+                product.newRate
               }}
             </div>
             <div ng-if="product.rate && !product.newRate">
               ₹{{ product.rate }}
             </div>
-            <div ng-if="!product.rate">
-              Rate On Request
-            </div>
+            <div ng-if="!product.rate">Rate On Request</div>
           </div>
         </div>
         <div class="row bbgrey padding-horizontal">
@@ -211,9 +247,16 @@
           </div>
         </div>
       </div>
-      <div class="mt-10 app-color1 title-band padding" ng-if="productChunk.length>0">
+      <div
+        class="mt-10 app-color1 title-band padding"
+        ng-if="productChunk.length>0"
+      >
         Similar Products
-        <span ng-click="viewAllSimilarProducts()" ng-if="sellerProducts.length>4">View All</span>
+        <span
+          ng-click="viewAllSimilarProducts()"
+          ng-if="sellerProducts.length>4"
+          >View All</span
+        >
       </div>
 
       <div class="mtb-10">

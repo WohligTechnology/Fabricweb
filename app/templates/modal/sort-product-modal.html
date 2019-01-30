@@ -68,10 +68,10 @@
         <span class="input-label lato-bold">All categories</span>
         <ui-select ng-model="filterObj.category" class="bg-white" theme="bootstrap" required>
           <ui-select-match placeholder="Select categories">
-            <span ng-if="$select.selected.name">{{$select.selected.name}}</span>
+            <span ng-if="$select.selected.name" class="text-uppercase">{{$select.selected.name}}</span>
           </ui-select-match>
           <ui-select-choices repeat="subcat in filterCategory | filter: $select.search" ng-click="getSubCategory(filterObj.category); filterObj.subCategory=''">
-            <span ng-bind="subcat.name"></span>
+            <span ng-bind="subcat.name" class="text-uppercase"></span>
           </ui-select-choices>
         </ui-select>
       </div>
