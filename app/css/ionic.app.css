@@ -15511,13 +15511,14 @@ select[readonly] {
 .active .modal-backdrop-bg {
   opacity: 1; }
 
-.profile-addr.buyers-detail.supplier-info upload-image {
+.profile-addr upload-image {
   max-width: 80px;
   border-radius: 10px;
   position: absolute;
   right: 5px;
-  opacity: 0; }
-  .profile-addr.buyers-detail.supplier-info upload-image .btn-upload.btn.btn-primary.btn-outline.btn-small.create-btn {
+  opacity: 0;
+  z-index: 4; }
+  .profile-addr upload-image .btn-upload.btn.btn-primary.btn-outline.btn-small.create-btn {
     width: 80px;
     height: 80px;
     float: right;

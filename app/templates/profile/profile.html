@@ -16,12 +16,14 @@
       <!-- <div class="marrl10"> -->
       <div class="profile-addr supplier-info mt-0 padright">
         <div class=" item-thumbnail-right no-border pr-0">
-          <div class="upload-camera f-right mt-12 rel" >
-              <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
-                  Upload Photos
+          <div class="upload-camera f-right mt-12 rel">
+            <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
+              Upload Photos
             </upload-image>
-            <img ng-src="{{ user.photo | serverimage: 60:60:'cover' }}" alt="" ng-if="user.photo" class="img-responsive" />
-            <i class="ion ion-camera" ng-if="!user.photo"></i>
+            <div class="web-img">
+              <img ng-src="{{user.photo | serverimage : 80:80:'cover'}}" alt="" class="img-responsive" />
+            </div>
+            <!-- <i class="ion ion-camera" ng-if="!user.photo"></i> -->
           </div>
           <div class="user-profile pt-0">
             <!-- <h2>{{ user.companyName }}</h2> -->
