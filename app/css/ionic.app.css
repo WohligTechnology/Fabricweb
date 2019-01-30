@@ -9634,10 +9634,10 @@ a.dark {
     margin-top: env(safe-area-inset-top); }
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header {
-  padding-left: calc( constant(safe-area-inset-left) + 5px);
+  padding-left: calc( constant(safe-area-inset-left) + 5px);
   padding-left: calc(env(safe-area-inset-left) + 5px);
-  padding-right: calc( constant(safe-area-inset-right) + 5px);
-  padding-right: calc( env(safe-area-inset-right) + 5px); }
+  padding-right: calc( constant(safe-area-inset-right) + 5px);
+  padding-right: calc( env(safe-area-inset-right) + 5px); }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header .buttons:last-child {
     right: calc(constant(safe-area-inset-right) + 5px);
     right: calc(env(safe-area-inset-right) + 5px); }
@@ -11271,10 +11271,10 @@ progress[value]::-webkit-progress-value {
 .btn-spinner:not(:required) {
   margin-left: -22px;
   opacity: 0;
-  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
+  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
 
 .is-loading .btn-spinner {
-  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
+  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
   margin-left: 5px;
   opacity: 1; }
 
@@ -15385,6 +15385,9 @@ select[readonly] {
     top: 0;
     right: 0; }
 
+.rel, .add-product-form .ui-select-choices-row.active {
+  position: relative; }
+
 @media (min-width: 482px) {
   ion-nav-view {
     width: 768px !important; }
@@ -15454,11 +15457,14 @@ select[readonly] {
     width: 100%;
     padding-right: 5px; }
   .web-view .sell-name {
-    padding-top: 0px; }
-  .web-view .web-img {
-    float: right;
-    max-width: 80px;
-    border-radius: 10px; } }
+    padding-top: 0px; } }
+
+.web-img {
+  float: right;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden; }
 
 @media (max-width: 480px) {
   ion-nav-view {
@@ -15478,13 +15484,14 @@ select[readonly] {
   max-width: 80px;
   border-radius: 10px;
   position: absolute;
-  border-radius: 10px;
   right: 5px;
   opacity: 0; }
   .profile-addr.buyers-detail.supplier-info upload-image .btn-upload.btn.btn-primary.btn-outline.btn-small.create-btn {
     width: 80px;
     height: 80px;
-    float: right; }
+    float: right;
+    position: relative;
+    overflow: hidden; }
 
 @media (min-width: 482px) {
   .upload-center {

@@ -221,13 +221,13 @@ var myApp = angular
       }
       // }
 
-      $rootScope.$on("$cordovaNetwork:online", function (event, networkState) {
-        window.history.back();
-      });
+      // $rootScope.$on("$cordovaNetwork:online", function (event, networkState) {
+      //   window.history.back();
+      // });
 
-      $rootScope.$on("$cordovaNetwork:offline", function (event, networkState) {
-        $state.go("network-error");
-      });
+      // $rootScope.$on("$cordovaNetwork:offline", function (event, networkState) {
+      //   $state.go("network-error");
+      // });
 
       var stateArray = [
         "login",
@@ -261,12 +261,12 @@ var myApp = angular
         fromState,
         fromParams
       ) {
-        if (
-          $state.current.name != "network-error" &&
-          $cordovaNetwork.isOffline()
-        ) {
-          $state.go("network-error");
-        }
+        // if (
+        //   $state.current.name != "network-error" &&
+        //   $cordovaNetwork.isOffline()
+        // ) {
+        //   $state.go("network-error");
+        // }
         var stateIndex = _.findIndex(stateArray, function (state) {
           return state == $state.current.name;
         });

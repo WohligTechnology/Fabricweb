@@ -14,7 +14,7 @@
       <div class="supplier-info buyers-info">
         <div class="profile-addr buyers-detail seller-detail">
           <div class="item-thumbnail-right">
-            <img ng-src="{{ seller.photo | serverimage }}" />
+            <img ng-src="{{ seller.photo | serverimage : 80:80:'cover'}}" />
             <h2 class="sell-name fs19">{{ seller.companyName }}</h2>
             <div ng-if="seller.isSeller" class="fs16">
               <span class="fs16" ng-if="seller.category.length>0">Supplier of

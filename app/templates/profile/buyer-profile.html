@@ -17,8 +17,10 @@
         <upload-image multi='false' ng-callback="uploadedimg(productimage)" ng-model="productimage" type='image'>
           Upload Photos
         </upload-image>
-        <!-- <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive" ng-click="adducimage(1)" /> -->
-        <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive web-img" />
+        <!-- <img ng-src="{{user.photo | serverimage }}" alt="" class="img-responsive" ng-click="adducimage(1)" /> -->
+        <div class="web-img">
+          <img ng-src="{{user.photo | serverimage : 80:80:'cover'}}" alt="" class="img-responsive" />
+        </div>
 
         <!-- <img ng-src="{{user.photo | serverimage}}" alt="" class="img-responsive" /> -->
         <div class="item-input item-stacked-label pl-0 wd-100">
