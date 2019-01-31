@@ -1,8 +1,4 @@
   myApp.controller("SubscriptionInvoiceCtrl", function ($scope, $location, $stateParams, Navigation, $state, $cordovaInAppBrowser, $rootScope, $timeout, $ionicHistory, $window) {
-    // var adminSocket = "http://192.168.1.106:1337/";
-    // var adminSocket = "http://payment.fabricterminal.com/";
-    var adminSocket = "http://localhost:1337/";
-    var adminUrl = adminSocket + "api/";
 
     // if ($stateParams.id) {}
     var getPlans = function () {

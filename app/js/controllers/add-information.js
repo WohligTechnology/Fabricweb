@@ -68,6 +68,9 @@ myApp.controller("AddInformationCtrl", function (
     Navigation.gobackHandler();
   };
   $scope.gstValidate = false;
+  $scope.uploadedimg = function (data) {
+    $scope.formData.photo = data[0];
+  }
   $scope.validateGst = function (gstin, valid) {
     $scope.invalidGst = false;
     $scope.noCity = false;

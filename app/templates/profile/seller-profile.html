@@ -117,11 +117,13 @@
       <div class="buyers-detail-final" ng-if="seller.isBuyer && seller.endProduct.length > 0">
         <h5 class="fnt-16 lato-bold">Buyers Final Product</h5>
         <div class="row mtb-10" ng-repeat="product in seller.endProductChunk">
-          <div class=" col-50" ng-repeat="p in product" ng-click="openModal(p.image)">
+          <div class=" col-50" ng-repeat="p in product">
             <label class="shirt-design-name">{{ p.name }}</label>
-            <div class="buyers-detail-img rel">
-              <img ng-src="{{ p.image | serverimage }}" alt="" />
-            </div>
+            <a fancybox-box data-fancybox="gallery" href="{{ p.image | serverimage }}" rel="gal">
+              <div class="buyers-detail-img rel">
+                <img ng-src="{{ p.image | serverimage }}" alt="" />
+              </div>
+            </a>
           </div>
           <!-- <div class=" col-50 " ui-sref="product-detail">
             <label  class="shirt-design-name">Excepteur sint</label>

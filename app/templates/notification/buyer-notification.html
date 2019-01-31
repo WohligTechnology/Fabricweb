@@ -2,32 +2,19 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header">
-        <notification-toggle></notification-toggle>
-        <button
-          class="button button-icon icon-Menu"
-          menu-toggle="left"
-        ></button>
+        <!-- <notification-toggle></notification-toggle> -->
+        <button class="button button-icon icon-Menu" menu-toggle="left"></button>
         <!-- <button class="button button-icon icon icon-Back1" ng-click="goBackHandler()"></button> -->
         <h1 class="title white ">Notification</h1>
       </div>
     </div>
     <div class="custome-noti-tabs">
-      <div
-        class="tabs-striped tabs-top tabs-background-positive tabs-color-light"
-      >
+      <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
         <div class="tabs buyer-notify">
-          <a
-            class="tab-item"
-            ng-click="notiTabs('General')"
-            ng-class="{'active': selectedTab=='General'}"
-          >
+          <a class="tab-item" ng-click="notiTabs('General')" ng-class="{'active': selectedTab=='General'}">
             General
           </a>
-          <a
-            class="tab-item"
-            ng-click="notiTabs('Sample')"
-            ng-class="{'active': selectedTab=='Sample'}"
-          >
+          <a class="tab-item" ng-click="notiTabs('Sample')" ng-class="{'active': selectedTab=='Sample'}">
             Sample Req
           </a>
           <!-- <a class="tab-item" ng-click="notiTabs('Following')" ng-class="{'active': selectedTab=='Following'}">
@@ -39,41 +26,24 @@
   </ion-header-bar>
   <ion-content class="has-header-tab">
     <!--for general-->
-    <div
-      class="notification-tab chat-item item-remove-animate"
-      ng-repeat="notification in notificationList"
-    >
+    <div class="notification-tab chat-item item-remove-animate" ng-repeat="notification in notificationList">
       <div class="row">
         <!-- <div class="col-20" ng-click="openBuyerProfileModal()"> -->
-        <div
-          class="col-20"
-          ng-if="notification.notificationType == 'Request'"
-          ui-sref="sellermyshop({sellerId:notification.from._id})"
-        >
-          <div
-            class="noti-right-img"
-            style="background:url({{
+        <div class="col-20" ng-if="notification.notificationType == 'Request'" ui-sref="sellermyshop({sellerId:notification.from._id})">
+          <div class="noti-right-img" style="background:url({{
               notification.from.photo | serverimage: 60:60:'cover'
-            }}) #ddd no-repeat center center"
-          >
+            }}) #ddd no-repeat center center">
             <!-- <img src="{{ notification.from.photo | serverimage }}" alt="" /> -->
           </div>
         </div>
         <div class="col-20" ng-if="notification.notificationType != 'Request'">
-          <div
-            class="noti-right-img"
-            style="background:url({{
+          <div class="noti-right-img" style="background:url({{
               notification.from.photo | serverimage: 60:60:'cover'
-            }}) #ddd no-repeat center center"
-          >
+            }}) #ddd no-repeat center center">
             <!-- <img src="{{ notification.from.photo | serverimage }}" alt="" /> -->
           </div>
         </div>
-        <div
-          class="col-60"
-          ng-if="notification.notificationType == 'Request'"
-          ui-sref="sellermyshop({sellerId:notification.from._id})"
-        >
+        <div class="col-60" ng-if="notification.notificationType == 'Request'" ui-sref="sellermyshop({sellerId:notification.from._id})">
           <div class="notification-text">
             <!-- <pre>{{ notification }}</pre> -->
             <label> {{ notification.description }}</label>
@@ -90,13 +60,9 @@
           <span class="time">{{ notification.createdAt | timeDiff }}</span>
         </div>
         <div class="col-20" ng-if="notification.notificationType != 'Follow'">
-          <div
-            ng-if="notification.notificationType != 'Block'"
-            class="noti-right-img"
-            style="background:url({{
+          <div ng-if="notification.notificationType != 'Block'" class="noti-right-img" style="background:url({{
               notification.product.images[0] | serverimage: 60:60:'cover'
-            }}) #ddd no-repeat center center"
-          >
+            }}) #ddd no-repeat center center">
             <!-- <img
               src="{{ notification.product.images[0] | serverimage }}"
               alt=""
@@ -106,26 +72,15 @@
         </div>
       </div>
       <div class="check-details">
-        <button
-          ng-if="notification.notificationType == 'Request'"
-          ui-sref="buyer-product-detail({id:notification.to._id,productId:notification.product._id})"
-          ng-click="closeBuyerProfileModal()"
-        >
+        <button ng-if="notification.notificationType == 'Request'" ui-sref="buyer-product-detail({id:notification.to._id,productId:notification.product._id})"
+          ng-click="closeBuyerProfileModal()">
           Product Page
         </button>
-        <button
-          ui-sref="seller-profile({sellerId:notification.from._id})"
-          ng-if="notification.notificationType == 'Follow' || notification.notificationType == 'Block'"
-        >
+        <button ui-sref="seller-profile({sellerId:notification.from._id})" ng-if="notification.notificationType == 'Follow' || notification.notificationType == 'Block'">
           View Profile
         </button>
       </div>
     </div>
-    <ion-infinite-scroll
-      ng-if="!notificationLoaded"
-      on-infinite="loadMore()"
-      distance="4%"
-      icon="ion-loading-c"
-    ></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!notificationLoaded" on-infinite="loadMore()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

@@ -9634,10 +9634,10 @@ a.dark {
     margin-top: env(safe-area-inset-top); }
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header {
-  padding-left: calc( constant(safe-area-inset-left) + 5px);
+  padding-left: calc( constant(safe-area-inset-left) + 5px);
   padding-left: calc(env(safe-area-inset-left) + 5px);
-  padding-right: calc( constant(safe-area-inset-right) + 5px);
-  padding-right: calc( env(safe-area-inset-right) + 5px); }
+  padding-right: calc( constant(safe-area-inset-right) + 5px);
+  padding-right: calc( env(safe-area-inset-right) + 5px); }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header .buttons:last-child {
     right: calc(constant(safe-area-inset-right) + 5px);
     right: calc(env(safe-area-inset-right) + 5px); }
@@ -11271,10 +11271,10 @@ progress[value]::-webkit-progress-value {
 .btn-spinner:not(:required) {
   margin-left: -22px;
   opacity: 0;
-  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
+  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
 
 .is-loading .btn-spinner {
-  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
+  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
   margin-left: 5px;
   opacity: 1; }
 
@@ -15388,15 +15388,24 @@ select[readonly] {
 .rel, .add-product-form .ui-select-choices-row.active {
   position: relative; }
 
+.slider-div .slider-image a {
+  width: 100%;
+  height: 100%;
+  display: block; }
+
 @media (min-width: 482px) {
   ion-nav-view {
     width: 768px !important; }
+  .item-complex .item-content,
+  .item-radio .item-content {
+    padding: 16px 35px 16px 16px; }
   .add-product-div {
     padding: 25px; }
   .view-container {
     transform: translate(-50%, -50%);
     top: 50%;
-    left: 50%; }
+    left: 50%;
+    border: 2px solid #002e6e; }
   /*For category and subcat strip*/
   .buyer-subcat .swiper-container {
     height: 12.85em; }
@@ -15466,6 +15475,25 @@ select[readonly] {
   border-radius: 10px;
   overflow: hidden; }
 
+.upload-camera .btn-upload.btn.btn-primary {
+  opacity: 0;
+  z-index: 5; }
+
+.upload-camera i {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0; }
+
+.upload-camera img {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0; }
+
 @media (max-width: 480px) {
   ion-nav-view {
     width: 100% !important; }
@@ -15480,13 +15508,17 @@ select[readonly] {
   .inner-shops .items .bg-img-overlay {
     height: 90px; } }
 
-.profile-addr.buyers-detail.supplier-info upload-image {
+.active .modal-backdrop-bg {
+  opacity: 1; }
+
+.profile-addr upload-image {
   max-width: 80px;
   border-radius: 10px;
   position: absolute;
   right: 5px;
-  opacity: 0; }
-  .profile-addr.buyers-detail.supplier-info upload-image .btn-upload.btn.btn-primary.btn-outline.btn-small.create-btn {
+  opacity: 0;
+  z-index: 4; }
+  .profile-addr upload-image .btn-upload.btn.btn-primary.btn-outline.btn-small.create-btn {
     width: 80px;
     height: 80px;
     float: right;
@@ -15511,25 +15543,7 @@ ion-modal-view.bg-color-black {
   max-height: 100%;
   position: static; }
 
-@media (min-width: 482px) {
-  .upload-center {
-    text-align: center; }
-    .upload-center .btn-upload {
-      width: 190px;
-      margin: 0 auto; }
-      .upload-center .btn-upload input[type="file"] {
-        width: 190px;
-        z-index: 1; }
-      .upload-center .btn-upload button {
-        font-size: 20px; }
-  .upload-camera {
-    line-height: 0px;
-    padding: 0 10px;
-    text-align: unset; }
-    .upload-camera .btn-upload input[type="file"] {
-      width: 50px;
-      height: 50px;
-      top: -31px;
-      left: -11px; }
-    .upload-camera .button-upload {
-      display: none; } }
+.web-img {
+  max-width: 80px; }
+  .web-img img {
+    width: 100%; }

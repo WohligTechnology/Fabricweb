@@ -242,7 +242,9 @@
         <div class="col-50 " ng-repeat="endproduct in endproducts">
           <!-- <label class="shirt-design-name">{{endproduct.name}}</label> -->
           <div class="buyers-detail-img rel">
-            <img ng-src="{{endproduct.image | serverimage}}" ng-click="openModal(endproduct.image)" alt="">
+            <a fancybox-box data-fancybox="gallery" href="{{ endproduct.image | serverimage }}" rel="gal">
+              <img ng-src="{{endproduct.image | serverimage}}" alt="">
+            </a>
           </div>
         </div>
       </div>
