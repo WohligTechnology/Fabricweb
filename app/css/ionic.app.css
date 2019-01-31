@@ -9634,10 +9634,10 @@ a.dark {
     margin-top: env(safe-area-inset-top); }
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header {
-  padding-left: calc( constant(safe-area-inset-left) + 5px);
+  padding-left: calc( constant(safe-area-inset-left) + 5px);
   padding-left: calc(env(safe-area-inset-left) + 5px);
-  padding-right: calc( constant(safe-area-inset-right) + 5px);
-  padding-right: calc( env(safe-area-inset-right) + 5px); }
+  padding-right: calc( constant(safe-area-inset-right) + 5px);
+  padding-right: calc( env(safe-area-inset-right) + 5px); }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header .buttons:last-child {
     right: calc(constant(safe-area-inset-right) + 5px);
     right: calc(env(safe-area-inset-right) + 5px); }
@@ -11271,10 +11271,10 @@ progress[value]::-webkit-progress-value {
 .btn-spinner:not(:required) {
   margin-left: -22px;
   opacity: 0;
-  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
+  transition: 0.4s margin ease-out, 0.2s opacity ease-out; }
 
 .is-loading .btn-spinner {
-  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
+  transition: 0.2s margin ease-in, 0.4s opacity ease-in;
   margin-left: 5px;
   opacity: 1; }
 
@@ -15547,3 +15547,17 @@ ion-modal-view.bg-color-black {
   max-width: 80px; }
   .web-img img {
     width: 100%; }
+
+.scroll {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+  -webkit-text-size-adjust: text;
+  -moz-text-size-adjust: text; }
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+  cursor: pointer; }
