@@ -13,13 +13,6 @@ myApp.controller("AppCtrl", function (
 ) {
   $scope.userInfo = $.jStorage.get("userInfo");
 
-  // if (!_.isEmpty($scope.userInfo)) {
-  //   if ($scope.userInfo.isSeller) {
-  //     $state.go("tab.myshop");
-  //   } else if ($scope.userInfo.isBuyer) {
-  //     $state.go("tab.market");
-  //   }
-  // }
   if (!_.isEmpty($.jStorage.get("userInfo"))) {
     var mySocket = io.sails.connect(adminSocket);
     mySocket.on("Notification_" + $.jStorage.get("userInfo")._id, function onConnect(data) {

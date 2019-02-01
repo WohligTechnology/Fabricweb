@@ -6,7 +6,14 @@ myApp.controller("LoginCtrl", function (
   $timeout,
   $ionicPlatform
 ) {
-  $.jStorage.flush();
+  // $.jStorage.flush();
+  if ($.jStorage.get("userInfo")) {
+    if ($.jStorage.get("userInfo").isSeller) {
+      $state.go("tab.myshop");
+    } else if ($.jStorage.get("userInfo").isBuyer) {
+      $state.go("tab.market");
+    }
+  }
   $scope.formData = {};
   $scope.formData.mobile = "";
   $scope.formData.password = "";

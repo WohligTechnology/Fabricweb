@@ -243,8 +243,12 @@ myApp.controller("MyShopCtrl", function (
     fromParams
   ) {
     if (toState.name == 'tab.myshop') {
-      // $scope.getMyProduct();
-      $scope.applyFilter();
+      if (_.isEmpty($scope.userInfo)) {
+        $state.go("login");
+      } else {
+        // $scope.getMyProduct();
+        $scope.applyFilter();
+      }
     }
   });
 });

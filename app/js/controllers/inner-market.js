@@ -395,7 +395,11 @@ myApp.controller("InnerMarketCtrl", function (
       $scope.formData.page = 0;
     }
     if (toState.name == "tab.market" && fromState.name != "buyer-product-detail") {
-      init();
+      if (_.isEmpty($scope.userInfo)) {
+        $state.go("login");
+      } else {
+        init();
+      }
     }
   });
   $scope.uploadedimg = function (data) {
