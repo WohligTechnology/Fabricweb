@@ -15379,7 +15379,8 @@ select[readonly] {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 4; }
+    z-index: 4;
+    width: 100%; }
   .btn-upload button {
     margin: 0 !important;
     top: 0;
@@ -15561,3 +15562,17 @@ ion-modal-view.bg-color-black {
 [data-ng-click],
 [x-ng-click] {
   cursor: pointer; }
+
+.ribbon a:before {
+  content: "";
+  height: 0;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -28px;
+  border-top: 22px solid #e42229;
+  border-bottom: 20px solid #e42229;
+  border-right: 29px solid transparent; }
+
+.sampleReq-close {
+  float: right; }

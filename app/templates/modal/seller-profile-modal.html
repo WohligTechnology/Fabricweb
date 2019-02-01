@@ -5,6 +5,7 @@
       <ion-modal-view>
         <ion-content>
           <div class="buyer-info">
+            <button class="button button-icon ion ion-close-round sampleReq-close" ng-click="closeSellerProfileModal()"></button>
             <a class="item item-thumbnail-left">
               <img src="{{product.owner.photo | serverimage}}">
               <h2 class="fashion col-black">{{product.owner.companyName}}</h2>
