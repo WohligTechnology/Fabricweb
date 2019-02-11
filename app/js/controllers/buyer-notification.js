@@ -4,11 +4,13 @@ myApp.controller("BuyerNotificationCtrl", function (
   $stateParams,
   $ionicHistory,
   Navigation,
-  $state
+  $state,
+  $timeout
 ) {
 
   $scope.notificationList = [];
   $scope.currentPage = 1;
+  var dataFetcher = null;
   // $scope.loadData = function () {
   //   Navigation.commonAPICall("Notification/viewNotification", {
   //     user: $.jStorage.get('userInfo')
@@ -34,6 +36,13 @@ myApp.controller("BuyerNotificationCtrl", function (
         notificationType: notificationType
       }
       Navigation.commonAPIWithoutLoader("Notification/notificationList", $scope.notificationData, function (data) {
+        $timeout(function () {
+          $scope.pullToRefreshWorking = false;
+        }, 5000);
+        if ($scope.isRefreshing) {
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.isRefreshing = false;
+        }
         $scope.notificationLoading = false;
         if (data.data.value) {
           if (_.isEmpty(data.data.data)) {
@@ -46,7 +55,7 @@ myApp.controller("BuyerNotificationCtrl", function (
       })
     }
   }
-  var mySocket = io.sails.connect(adminSocket);
+  // var mySocket = io.sails.connect(adminSocket);
   mySocket.on("Notification_" + $.jStorage.get("userInfo")._id, function onConnect(data) {
     console.log("Notification_", data);
     if (data.notificationType == 'Request' && ($scope.selectedTab == 'Sample' || $scope.selectedTab == 'General')) {
@@ -142,6 +151,21 @@ myApp.controller("BuyerNotificationCtrl", function (
   // $scope.getNotification(['Request', 'Follow', 'Like', "Fav", "Interested"]);
 
   $scope.loadMore = function () {
-    $scope.getNotification($scope.notificationType);
+    if (!$scope.pullToRefreshWorking) {
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getNotification($scope.notificationType);
+    }
+  }
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.notificationList = [];
+      $scope.notificationData.page = 0;
+      $scope.notificationLoaded = false;
+      $scope.notificationLoading = false;
+      $scope.isRefreshing = true;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getNotification($scope.notificationType);
+    }, 500);
   }
 });

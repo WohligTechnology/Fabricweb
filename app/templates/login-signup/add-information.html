@@ -54,37 +54,6 @@
               GST Number is invalid
             </div>
           </label>
-          <label class="login-form item-input item-stacked-label">
-            <span class="input-label lato-bold">Company Name</span>
-            <input type="text" name="companyName" ng-model="formData.companyName" required />
-            <small class="errors" ng-show="addInfo.companyName.$touched && addInfo.companyName.$invalid">Company Name
-              is required.</small>
-          </label>
-          <label class="login-form item-input item-stacked-label">
-            <span class="input-label lato-bold">Company Description</span>
-            <textarea name="" id="" id="" cols="4" rows="6" name="streetName" ng-model="formData.companyDescription"></textarea>
-          </label>
-          <label class="login-form item-input item-stacked-label">
-            <span class="input-label lato-bold">Email ID</span>
-            <input type="email" name="email" ng-model="formData.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
-              required />
-            <!-- <small class="errors" ng-show="addInfo.email.$touched && addInfo.email.$invalid">Email ID is required.</small> -->
-            <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter Valid
-              Email</small>
-          </label>
-          <label class="login-form item-input item-stacked-label">
-            <span class="input-label lato-bold">Brand Name</span>
-            <input type="text" name="brandName" ng-model="formData.brandName" />
-            <small class="errors" ng-show="addInfo.brandName.$touched && addInfo.brandName.$invalid">Brand Name is
-              required.</small>
-          </label>
-          <label class="login-form item-input item-stacked-label">
-            <div class="contact-number">
-              <span class="input-label lato-bold inline">Contact number</span>
-              <span class="lato-bold fnt-12">(Whatsapp number to chat with buyer)</span>
-            </div>
-            <input type="text" name="mobile" ng-model="formData.mobile" readonly required />
-          </label>
 
           <div ng-if="gstValidate">
             <!-- <div class="gsdt-addr"> -->
@@ -136,6 +105,37 @@
               </div>
             </div>
           </div>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Company Name</span>
+            <input type="text" name="companyName" ng-model="formData.companyName" required />
+            <small class="errors" ng-show="addInfo.companyName.$touched && addInfo.companyName.$invalid">Company Name
+              is required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Company Description</span>
+            <textarea name="" id="" id="" cols="4" rows="6" name="streetName" ng-model="formData.companyDescription"></textarea>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Email ID</span>
+            <input type="email" name="email" ng-model="formData.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+              required />
+            <!-- <small class="errors" ng-show="addInfo.email.$touched && addInfo.email.$invalid">Email ID is required.</small> -->
+            <small class="errors" ng-show="addInfo.email.$dirty && addInfo.email.$error.pattern">Please Enter Valid
+              Email</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <span class="input-label lato-bold">Brand Name</span>
+            <input type="text" name="brandName" ng-model="formData.brandName" />
+            <small class="errors" ng-show="addInfo.brandName.$touched && addInfo.brandName.$invalid">Brand Name is
+              required.</small>
+          </label>
+          <label class="login-form item-input item-stacked-label">
+            <div class="contact-number">
+              <span class="input-label lato-bold inline">Contact number</span>
+              <span class="lato-bold fnt-12">(Whatsapp number to chat with buyer)</span>
+            </div>
+            <input type="text" name="mobile" ng-model="formData.mobile" readonly required />
+          </label>
 
           <!-- <label class="login-form item-input item-stacked-label">
             <span class="input-label lato-bold">Pin Number</span>

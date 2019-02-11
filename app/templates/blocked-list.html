@@ -7,7 +7,8 @@
       </div>
     </div>
   </ion-header-bar>
-  <ion-content>
+  <ion-content on-scroll="getScrollPosition()" delegate-handle="mainScroll">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="scrollToTop()"></ion-refresher>
     <div class="not-top-pad">
       <div class="buyers-list-card search-seller" ng-repeat="blocked in BlockedList">
         <div class="list card">
@@ -30,5 +31,7 @@
         </div>
       </div>
     </div>
+    <ion-infinite-scroll ng-if="!BlockedListLoaded" on-infinite="loadMore()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
+  <scroll-top ng-click="scrollToTop()"></scroll-top>
 </ion-view>

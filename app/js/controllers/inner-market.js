@@ -13,7 +13,7 @@ myApp.controller("InnerMarketCtrl", function (
 ) {
   $scope.filterData = {};
   var dataFetcher = null;
-  var mySocket = io.sails.connect(adminSocket);
+  // var mySocket = io.sails.connect(adminSocket);
   mySocket.on("newProduct", function onConnect(data) {
     var found = -1;
     if (!_.isEmpty($scope.user) && !_.isEmpty($scope.user.blockedUser)) {

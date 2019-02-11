@@ -417,7 +417,7 @@ var myApp = angular
         controller: "ProductDetailCtrl"
       })
       .state("buyer-product-detail", {
-        cache: false,
+        // cache: false,
         url: "/buyer-product-detail/:id/:productId",
         templateUrl: "templates/product-detail/buyer-product-detail.html",
         controller: "BuyerProductDetailCtrl"

@@ -109,6 +109,9 @@ angular
         });
         // }
         data.expiryCheck = $.jStorage.get('UserId');
+        if (data.gstin) {
+          data.gstin = _.toUpper(data.gstin)
+        }
         // $http.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
         // $httpProvider.defaults.headers = {'Access-Control-Allow-Origin':'*'}
         return $http.post("http://payment.fabricterminal.com/api/" + url, data).then(

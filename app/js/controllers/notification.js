@@ -1,4 +1,4 @@
-myApp.controller("NotificationCtrl", function(
+myApp.controller("NotificationCtrl", function (
   $scope,
   $ionicModal,
   $stateParams,
@@ -7,10 +7,12 @@ myApp.controller("NotificationCtrl", function(
   Navigation,
   ionicToast,
   $ionicPopup,
-  $rootScope
+  $rootScope,
+  $timeout
 ) {
   $scope.notificationList = [];
   $scope.currentPage = 1;
+  var dataFetcher = null;
   // $scope.loadData = function () {
   //   Navigation.commonAPICall(
   //     "Notification/viewNotification", {
@@ -24,18 +26,16 @@ myApp.controller("NotificationCtrl", function(
   //   );
   // };
   // $scope.loadData();
-  $scope.notiTabs = function(selectedTabs) {
+  $scope.notiTabs = function (selectedTabs) {
     $scope.currentPage = 1;
     $scope.notificationList = [];
     $scope.selectedTab = selectedTabs;
     switch (selectedTabs) {
       case "General":
         $state.go(
-          $state.current,
-          {
+          $state.current, {
             innerTab: selectedTabs
-          },
-          {
+          }, {
             notify: false
           }
         );
@@ -50,11 +50,9 @@ myApp.controller("NotificationCtrl", function(
         break;
       case "Sample":
         $state.go(
-          $state.current,
-          {
+          $state.current, {
             innerTab: selectedTabs
-          },
-          {
+          }, {
             notify: false
           }
         );
@@ -62,11 +60,9 @@ myApp.controller("NotificationCtrl", function(
         break;
       case "Following":
         $state.go(
-          $state.current,
-          {
+          $state.current, {
             innerTab: selectedTabs
-          },
-          {
+          }, {
             notify: false
           }
         );
@@ -74,11 +70,9 @@ myApp.controller("NotificationCtrl", function(
         break;
       case "Interested":
         $state.go(
-          $state.current,
-          {
+          $state.current, {
             innerTab: selectedTabs
-          },
-          {
+          }, {
             notify: false
           }
         );
@@ -88,7 +82,7 @@ myApp.controller("NotificationCtrl", function(
         break;
     }
   };
-  var mySocket = io.sails.connect(adminSocket);
+  // var mySocket = io.sails.connect(adminSocket);
   mySocket.on(
     "Notification_" + $.jStorage.get("userInfo")._id,
     function onConnect(data) {
@@ -113,7 +107,7 @@ myApp.controller("NotificationCtrl", function(
       }
     }
   );
-  $scope.getNotification = function(notificationType) {
+  $scope.getNotification = function (notificationType) {
     if (!$scope.notificationLoading) {
       $scope.notificationLoading = true;
       $scope.notificationType = notificationType;
@@ -128,7 +122,14 @@ myApp.controller("NotificationCtrl", function(
       Navigation.commonAPIWithoutLoader(
         "Notification/notificationList",
         $scope.notificationData,
-        function(data) {
+        function (data) {
+          $timeout(function () {
+            $scope.pullToRefreshWorking = false;
+          }, 5000);
+          if ($scope.isRefreshing) {
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.isRefreshing = false;
+          }
           $scope.notificationLoading = false;
           if (data.data.value) {
             if (_.isEmpty(data.data.data)) {
@@ -146,7 +147,7 @@ myApp.controller("NotificationCtrl", function(
     }
   };
   $scope.notiTabs($stateParams.innerTab ? $stateParams.innerTab : "General");
-  $scope.goBackHandler = function() {
+  $scope.goBackHandler = function () {
     Navigation.gobackHandler(); //This works
   };
   $ionicModal
@@ -154,10 +155,10 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.buyerProfileModal = modal;
     });
-  $scope.openBuyerProfileModal = function(notification) {
+  $scope.openBuyerProfileModal = function (notification) {
     $scope.singleNotification = notification;
     $scope.fullAddress = "";
     if ($scope.singleNotification.from.gstAddress)
@@ -171,11 +172,11 @@ myApp.controller("NotificationCtrl", function(
     $scope.buyerProfileModal.show();
   };
 
-  $scope.closeBuyerProfileModal = function() {
+  $scope.closeBuyerProfileModal = function () {
     $scope.buyerProfileModal.hide();
   };
 
-  $scope.acceptNotification = function(sampleReqStatus, notification) {
+  $scope.acceptNotification = function (sampleReqStatus, notification) {
     if (sampleReqStatus == "Accept") {
       sampleReq = "Accept";
     } else {
@@ -183,22 +184,19 @@ myApp.controller("NotificationCtrl", function(
     }
     $ionicPopup.show({
       title: "",
-      subTitle:
-        "Are you sure you want to " + sampleReq + " the Sample Request?",
+      subTitle: "Are you sure you want to " + sampleReq + " the Sample Request?",
       scope: $scope,
       cssClass: "logoutPopup",
-      buttons: [
-        {
+      buttons: [{
           text: "<b>Yes</b>",
           type: "button-positive",
-          onTap: function(e) {
+          onTap: function (e) {
             $scope.acceptNotificationPromise = Navigation.commonAPICall(
-              "notification/acceptNotification",
-              {
+              "notification/acceptNotification", {
                 sampleReqStatus: sampleReqStatus,
                 notification: notification
               },
-              function(data) {
+              function (data) {
                 if (data.data.value) {
                   if (sampleReqStatus == "Accept") {
                     ionicToast.show("Accepted successfully", "middle");
@@ -211,8 +209,8 @@ myApp.controller("NotificationCtrl", function(
                 } else {
                   ionicToast.show(
                     "Error occured while " +
-                      sampleReqStatus +
-                      "ing the sample request",
+                    sampleReqStatus +
+                    "ing the sample request",
                     "middle"
                   );
                 }
@@ -232,14 +230,14 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "fade-in"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.filterModal = modal;
     });
-  $scope.openFilterModal = function() {
+  $scope.openFilterModal = function () {
     $scope.filterModal.show();
   };
 
-  $scope.closeFilterModal = function() {
+  $scope.closeFilterModal = function () {
     $scope.filterModal.hide();
   };
 
@@ -248,13 +246,13 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.buyerPostrequirementModal = modal;
     });
-  $scope.openBuyerPostRequirementModal = function() {
+  $scope.openBuyerPostRequirementModal = function () {
     $scope.buyerPostrequirementModal.show();
   };
-  $scope.closeBuyerPostRequirementModal = function() {
+  $scope.closeBuyerPostRequirementModal = function () {
     $scope.buyerPostrequirementModal.hide();
   };
   $ionicModal
@@ -262,13 +260,13 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "slide-left-right"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.togglenotificationModal = modal;
     });
-  $scope.opentogglenotificationModal = function() {
+  $scope.opentogglenotificationModal = function () {
     $scope.togglenotificationModal.show();
   };
-  $scope.closetogglenotificationModal = function() {
+  $scope.closetogglenotificationModal = function () {
     $scope.togglenotificationModal.hide();
   };
 
@@ -280,8 +278,11 @@ myApp.controller("NotificationCtrl", function(
   //   "Interested",
   //   "PostRequirement"
   // ]);
-  $scope.loadMore = function() {
-    $scope.getNotification($scope.notificationType);
+  $scope.loadMore = function () {
+    if (!$scope.pullToRefreshWorking) {
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getNotification($scope.notificationType);
+    }
   };
 
   /**For Post Reequirement Start */
@@ -290,11 +291,11 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "slide-left-right"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       console.log("modal", modal);
       $scope.postReqDetail = modal;
     });
-  $scope.openPostReqDetail = function(notification) {
+  $scope.openPostReqDetail = function (notification) {
     $scope.singleNotification = notification;
     $scope.fullAddress = "";
     if ($scope.singleNotification.from.gstAddress)
@@ -309,7 +310,7 @@ myApp.controller("NotificationCtrl", function(
     $scope.imageChunk = _.chunk($scope.singleNotification.product.images, 3);
     $scope.postReqDetail.show();
   };
-  $scope.closePostReqDetail = function() {
+  $scope.closePostReqDetail = function () {
     $scope.postReqDetail.hide();
   };
   //**Post Requirement End */
@@ -320,10 +321,10 @@ myApp.controller("NotificationCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.modal = modal;
     });
-  $scope.openModal = function(outerIndex, innerIndex, image) {
+  $scope.openModal = function (outerIndex, innerIndex, image) {
     $scope.singleImage = image;
     var value = 3 * outerIndex + innerIndex;
     $ionicSlideBoxDelegate.slide(value);
@@ -332,7 +333,7 @@ myApp.controller("NotificationCtrl", function(
     $scope.product.images = $scope.singleNotification.product.images;
     console.log($scope.singleNotification.product.images);
   };
-  $scope.closeModal = function() {
+  $scope.closeModal = function () {
     $scope.modal.hide();
   };
   /***Gallery End */
@@ -349,4 +350,16 @@ myApp.controller("NotificationCtrl", function(
   //       "General");
   //   }
   // });
+  $scope.scrollToTop = function () {
+    $scope.pullToRefreshWorking = true;
+    $timeout(function () {
+      $scope.notificationList = [];
+      $scope.notificationData.page = 0;
+      $scope.notificationLoaded = false;
+      $scope.notificationLoading = false;
+      $scope.isRefreshing = true;
+      if (!!dataFetcher) dataFetcher.abort();
+      $scope.getNotification($scope.notificationType);
+    }, 500);
+  }
 });

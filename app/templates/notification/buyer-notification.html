@@ -24,7 +24,8 @@
       </div>
     </div>
   </ion-header-bar>
-  <ion-content class="has-header-tab">
+  <ion-content class="has-header-tab" on-scroll="getScrollPosition()" delegate-handle="mainScroll">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="scrollToTop()"></ion-refresher>
     <!--for general-->
     <div class="notification-tab chat-item item-remove-animate" ng-repeat="notification in notificationList">
       <div class="row">
@@ -49,7 +50,7 @@
             <label> {{ notification.description }}</label>
           </div>
           <!-- <span class="time">1h ago</span> -->
-          <span class="time">{{ notification.createdAt | timeDiff }}</span>
+          <span class="time">{{ notification.createdAt | date:"dd/MM/yyyy hh:mm" }}</span>
         </div>
         <div class="col-60" ng-if="notification.notificationType != 'Request'">
           <div class="notification-text">
@@ -57,7 +58,7 @@
             <label> {{ notification.description }}</label>
           </div>
           <!-- <span class="time">1h ago</span> -->
-          <span class="time">{{ notification.createdAt | timeDiff }}</span>
+          <span class="time">{{ notification.createdAt | date:"dd/MM/yyyy hh:mm" }}</span>
         </div>
         <div class="col-20" ng-if="notification.notificationType != 'Follow'">
           <div ng-if="notification.notificationType != 'Block'" class="noti-right-img" style="background:url({{
@@ -83,4 +84,5 @@
     </div>
     <ion-infinite-scroll ng-if="!notificationLoaded" on-infinite="loadMore()" distance="4%" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
+  <scroll-top ng-click="scrollToTop()"></scroll-top>
 </ion-view>

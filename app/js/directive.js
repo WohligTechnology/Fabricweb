@@ -209,7 +209,10 @@ myApp
                           "data.data.data.nModified",
                           data.data.data[0].nModified
                         );
-                        if (data.data.data[0].nModified == 1) {
+                        if (data.data.data[0].n == 0 || data.data.data[1].n == 0) {
+                          ionicToast.show("Product Not Found", "middle");
+                        } else
+                        if (data.data.data[1].nModified == 1) {
                           if (reqData.type == "favourite") {
                             ionicToast.show("Added To Favourites", "middle");
                           }

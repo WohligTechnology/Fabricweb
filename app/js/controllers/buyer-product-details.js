@@ -1,4 +1,4 @@
-myApp.controller("BuyerProductDetailCtrl", function(
+myApp.controller("BuyerProductDetailCtrl", function (
   $scope,
   $state,
   $stateParams,
@@ -11,30 +11,33 @@ myApp.controller("BuyerProductDetailCtrl", function(
   Navigation,
   $ionicPopup,
   $timeout,
-  $ionicSlideBoxDelegate
+  $ionicSlideBoxDelegate,
+  $rootScope
 ) {
-  $scope.scrollTop = function() {
+  $scope.scrollTop = function () {
     $ionicScrollDelegate.scrollTop();
   };
-  $scope.goBackHandler = function() {
+  $scope.goBackHandler = function () {
     Navigation.gobackHandler(); //This works
   };
 
   /**To get the product id from state params for product details */
   $scope.formData = {};
 
-  var getSimilarProducts = function() {
+  var getSimilarProducts = function () {
     console.log("demo.........................", $scope.qualityType);
-    var quatityTypeobj = { qualityType: $scope.qualityType };
+    var quatityTypeobj = {
+      qualityType: $scope.qualityType
+    };
     Navigation.commonAPICall(
       "product/getProductForSimilarQualityType",
       quatityTypeobj,
-      function(products) {
+      function (products) {
         // console.log("Similar Products", products)
         if (products.data.value) {
           // $scope.prod = products.data.data;
           $scope.prod = products.data.data;
-          _.each($scope.prod, function(n) {
+          _.each($scope.prod, function (n) {
             if (n._id != $stateParams.productId) {
               $scope.sellerProducts = _.concat($scope.sellerProducts, n);
             }
@@ -49,25 +52,23 @@ myApp.controller("BuyerProductDetailCtrl", function(
       }
     );
   };
-  $scope.getProduct = function() {
+  $scope.getProduct = function () {
     $scope.userBlocked = false;
     if ($stateParams.productId) {
       Navigation.commonAPICall(
-        "Product/getOne",
-        {
+        "Product/getOne", {
           _id: $stateParams.productId
         },
-        function(data) {
+        function (data) {
           console.log("data-->", data);
           if (data.data.value) {
             $scope.product = data.data.data;
             Navigation.commonAPIWithoutLoader(
-              "BlockList/getBlockStatus",
-              {
+              "BlockList/getBlockStatus", {
                 blockedBy: $scope.product.owner._id,
                 blockedTo: $.jStorage.get("userInfo")._id
               },
-              function(data) {
+              function (data) {
                 if (data.data.value && data.data.data == true) {
                   $scope.userBlocked = true;
                 }
@@ -75,11 +76,10 @@ myApp.controller("BuyerProductDetailCtrl", function(
             );
             // console.log("$scope.product", $scope.product);
             Navigation.commonAPIWithoutLoader(
-              "User/getCategoryAndSubCategoryBuyer",
-              {
+              "User/getCategoryAndSubCategoryBuyer", {
                 user: $scope.product.owner._id
               },
-              function(data) {
+              function (data) {
                 if (data.data.value) {
                   $scope.cat = data.data.data.category;
                 }
@@ -92,14 +92,14 @@ myApp.controller("BuyerProductDetailCtrl", function(
             $scope.favouriteFlag = false;
             var interestedFound = _.findIndex(
               $scope.product.interested,
-              function(interested) {
+              function (interested) {
                 return interested === $.jStorage.get("UserId");
               }
             );
             if (interestedFound != -1) {
               $scope.interestedFlag = true;
             }
-            var favouriteFound = _.findIndex($scope.product.favourite, function(
+            var favouriteFound = _.findIndex($scope.product.favourite, function (
               favourite
             ) {
               return favourite === $.jStorage.get("UserId");
@@ -113,20 +113,18 @@ myApp.controller("BuyerProductDetailCtrl", function(
         }
       );
       Navigation.commonAPIWithoutLoader(
-        "User/addRecentlyViewed",
-        {
+        "User/addRecentlyViewed", {
           product: $stateParams.productId,
           user: $.jStorage.get("UserId")
         },
-        function(data) {}
+        function (data) {}
       );
       Navigation.commonAPIWithoutLoader(
-        "Product/viewedProduct",
-        {
+        "Product/viewedProduct", {
           product: $stateParams.productId,
           user: $.jStorage.get("UserId")
         },
-        function(data) {}
+        function (data) {}
       );
     }
   };
@@ -135,7 +133,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
   $scope.sellerProducts = [];
   $scope.productChunk = [];
   /**For getting similar product detail on this page */
-  $scope.goToBuyerProductDetail = function(productId) {
+  $scope.goToBuyerProductDetail = function (productId) {
     console.log("goToBuyerProductDetail");
     $state.go("buyer-product-detail", {
       id: $stateParams.id,
@@ -143,7 +141,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
     });
   };
 
-  $scope.viewAllSimilarProducts = function() {
+  $scope.viewAllSimilarProducts = function () {
     console.log("$scope.formData.qualityType", $scope.qualityType);
     $state.go("similar-products", {
       id: $stateParams.id,
@@ -159,7 +157,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
     product: ""
   };
   $scope.sampleRequestSent = false;
-  $scope.sendSampleRequest = function(type, product, flag) {
+  $scope.sendSampleRequest = function (type, product, flag) {
     if ($scope.userBlocked) {
       $scope.blockPopup();
     } else {
@@ -171,7 +169,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
         $scope.sendSampleRequestAcceptPromise = Navigation.commonAPICall(
           "User/addToFavArray",
           $scope.requestedData,
-          function(data) {
+          function (data) {
             console.log("Data::>>", data);
             if (data.data.value) {
               $scope.added = true;
@@ -179,7 +177,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
               if ($scope.requestedData.type != "sampleRequest") {
                 ionicToast.show(
                   "Added To " +
-                    _.startCase(_.toLower($scope.requestedData.type)),
+                  _.startCase(_.toLower($scope.requestedData.type)),
                   "middle"
                 );
               }
@@ -187,7 +185,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
                 $scope.sampleRequestSent = true;
                 ionicToast.show(
                   "Sample Request sent for product " +
-                    $scope.requestedData.product.name
+                  $scope.requestedData.product.name
                 );
               }
             }
@@ -197,7 +195,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
         $scope.acceptNotificationDeclinePromise = Navigation.commonAPICall(
           "User/removeFormFavArray",
           $scope.requestedData,
-          function(data) {
+          function (data) {
             console.log("Data::>>", data);
             if (data.data.value) {
               $scope.added = true;
@@ -205,7 +203,7 @@ myApp.controller("BuyerProductDetailCtrl", function(
               if ($scope.requestedData.type != "sampleRequest") {
                 ionicToast.show(
                   "Removed From " +
-                    _.startCase(_.toLower($scope.requestedData.type)),
+                  _.startCase(_.toLower($scope.requestedData.type)),
                   "middle"
                 );
               }
@@ -220,26 +218,25 @@ myApp.controller("BuyerProductDetailCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.modal = modal;
     });
 
-  $scope.openModal = function(value, image) {
+  $scope.openModal = function (value, image) {
     $scope.singleImage = image;
     console.log("$scope.singleImage /////////////", $scope.singleImage);
     $ionicSlideBoxDelegate.slide(value);
     $scope.modal.show();
   };
 
-  $scope.closeModal = function() {
+  $scope.closeModal = function () {
     $scope.modal.hide();
   };
 
-  $scope.showActionsheet = function() {
+  $scope.showActionsheet = function () {
     // Show the action sheet
     var hideSheet = $ionicActionSheet.show({
-      buttons: [
-        {
+      buttons: [{
           text: " Edit"
         },
         {
@@ -248,10 +245,10 @@ myApp.controller("BuyerProductDetailCtrl", function(
       ],
       // destructiveText: "Delete",
       cancelText: "Cancel",
-      cancel: function() {
+      cancel: function () {
         // add cancel code..
       },
-      buttonClicked: function(index) {
+      buttonClicked: function (index) {
         return true;
       }
     });
@@ -261,10 +258,10 @@ myApp.controller("BuyerProductDetailCtrl", function(
       scope: $scope,
       animation: "slide-in-up"
     })
-    .then(function(modal) {
+    .then(function (modal) {
       $scope.buyerProfileModal = modal;
     });
-  $scope.openSellerProfileModal = function() {
+  $scope.openSellerProfileModal = function () {
     if ($scope.userBlocked) {
       $scope.blockPopup();
     } else {
@@ -272,17 +269,28 @@ myApp.controller("BuyerProductDetailCtrl", function(
     }
   };
 
-  $scope.blockPopup = function() {
+  $scope.blockPopup = function () {
     var alertPopup = $ionicPopup.show({
       title: "Blocked",
       template: "You Have Been Blocked",
       cssClass: "logoutPopup"
     });
-    $timeout(function() {
+    $timeout(function () {
       alertPopup.close();
     }, 1000);
   };
-  $scope.closeSellerProfileModal = function() {
+  $scope.closeSellerProfileModal = function () {
     $scope.buyerProfileModal.hide();
   };
+  $rootScope.$on("$stateChangeSuccess", function (
+    event,
+    toState,
+    toParams,
+    fromState,
+    fromParams
+  ) {
+    if (toState.name == "buyer-product-detail") {
+      $scope.getProduct();
+    }
+  });
 });

@@ -14,14 +14,13 @@ myApp.controller("AppCtrl", function (
   $scope.userInfo = $.jStorage.get("userInfo");
 
   if (!_.isEmpty($.jStorage.get("userInfo"))) {
-    var mySocket = io.sails.connect(adminSocket);
+    // var mySocket = io.sails.connect(adminSocket);
     mySocket.on("Notification_" + $.jStorage.get("userInfo")._id, function onConnect(data) {
       console.log("Notification_", data);
       // if (data == "done") {
       $scope.notificationFun();
       // }
     });
-
     $scope.menuDirective = "templates/menu-directive.html";
     $scope.notificationFun = function () {
       if (!_.isEmpty($.jStorage.get("userInfo"))) {
