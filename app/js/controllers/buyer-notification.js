@@ -160,7 +160,7 @@ myApp.controller("BuyerNotificationCtrl", function (
     $scope.pullToRefreshWorking = true;
     $timeout(function () {
       $scope.notificationList = [];
-      $scope.notificationData.page = 0;
+      $scope.currentPage = 1;
       $scope.notificationLoaded = false;
       $scope.notificationLoading = false;
       $scope.isRefreshing = true;

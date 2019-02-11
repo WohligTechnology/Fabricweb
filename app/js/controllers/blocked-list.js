@@ -53,7 +53,7 @@ myApp.controller("BlockedListCtrl", function ($scope, $state, Navigation, $timeo
     $scope.pullToRefreshWorking = true;
     $timeout(function () {
       $scope.BlockedList = [];
-      $scope.BlockedListData.page = 0;
+      $scope.currentPage = 1;
       $scope.BlockedListLoaded = false;
       $scope.BlockedListLoading = false;
       $scope.isRefreshing = true;

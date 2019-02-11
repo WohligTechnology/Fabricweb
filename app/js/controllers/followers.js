@@ -57,7 +57,7 @@ myApp.controller("FollowersCtrl", function ($scope, $state, Navigation, $timeout
     $timeout(function () {
       $scope.followersList = [];
       $scope.followChunk = [];
-      $scope.followersData.page = 0;
+      $scope.currentPage = 1;
       $scope.followersLoaded = false;
       $scope.followersLoading = false;
       $scope.isRefreshing = true;
