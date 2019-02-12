@@ -158,21 +158,8 @@ myApp.controller("SubscriptionCtrl", function (
       clearcache: "yes",
       toolbar: "no"
     };
-    document.addEventListener(
-      "deviceready",
-      function () {
-        $cordovaInAppBrowser
-          .open(url, "_self", options)
-          .then(function (event) {
-            // success
-          })
-          .catch(function (event) {
-            // error
-          });
-        // $cordovaInAppBrowser.close();
-      },
-      false
-    );
+    window.open(url, "_blank")
+
   };
   // Default handlers
   var successCallback = function (data) {};
@@ -187,20 +174,7 @@ myApp.controller("SubscriptionCtrl", function (
       clearcache: "yes",
       toolbar: "no"
     };
-    document.addEventListener(
-      "deviceready",
-      function () {
-        $cordovaInAppBrowser
-          .open(url, "_self", options)
-          .then(function (event) {
-            // success
-          })
-          .catch(function (event) {
-            // error
-          });
-        // $cordovaInAppBrowser.close();
-      },
-      false
-    );
+    window.open(url, "_blank")
+
   };
 });

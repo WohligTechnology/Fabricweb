@@ -43,21 +43,23 @@ myApp.controller('PlansubscriptionCtrl', function ($scope, Navigation, $cordovaI
       clearcache: "yes",
       toolbar: "no"
     };
-    document.addEventListener(
-      "deviceready",
-      function () {
-        $cordovaInAppBrowser
-          .open(url, "_self", options)
-          .then(function (event) {
-            // success
-          })
-          .catch(function (event) {
-            // error
-          });
-        // $cordovaInAppBrowser.close();
-      },
-      false
-    );
+    window.open(url, "_blank")
+
+    // document.addEventListener(
+    //   "deviceready",
+    //   function () {
+    //     $cordovaInAppBrowser
+    //       .open(url, "_self", options)
+    //       .then(function (event) {
+    //         // success
+    //       })
+    //       .catch(function (event) {
+    //         // error
+    //       });
+    //     // $cordovaInAppBrowser.close();
+    //   },
+    //   false
+    // );
   };
   // Default handlers
   var successCallback = function (data) {};
