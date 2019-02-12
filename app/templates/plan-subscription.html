@@ -2,7 +2,7 @@
   <ion-header-bar>
     <div class="header-title">
       <div class="bar bar-header" side="left">
-        <button class="button button-icon icon-Back1" menu-toggle="left" ui-sref="tab.myshop"></button>
+        <button class="button button-icon icon-Back1" menu-toggle="left" ng-click="goBackHandler()" ng-if="!expiry"></button>
         <h1 class="title white">Subscription</h1>
         <!-- <button class="button button-icon icon ion-android-mixer" ng-click="gridListView('grid')">
         </button> -->

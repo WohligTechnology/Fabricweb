@@ -102,7 +102,7 @@
       <div class="col-33 label-col">Rate :</div>
       <div class="col-66">
         <div class="rel">
-          <ui-select ng-model="formData.rate" required="true">
+          <ui-select ng-model="formData.rate">
             <ui-select-match placeholder="Rate">
               <span>{{ $select.selected.rate || $select.search }}</span>
             </ui-select-match>
@@ -123,7 +123,7 @@
       <div class="col-33 label-col">Unit :</div>
       <div class="col-66">
         <div class="rel">
-          <ui-select ng-model="formData.unit" required="true">
+          <ui-select ng-model="formData.unit">
             <ui-select-match placeholder="Unit">
               <span>{{ $select.selected.unit || $select.search }}</span>
             </ui-select-match>
@@ -140,7 +140,7 @@
       <div class="col-33 label-col">Width/Size :</div>
       <div class="col-66">
         <div class="rel">
-          <ui-select ng-model="formData.size" required="true">
+          <ui-select ng-model="formData.size">
             <ui-select-match placeholder="Size">
               <span>{{ $select.selected.size || $select.search }}</span>
             </ui-select-match>
@@ -160,7 +160,7 @@
       <div class="col-33 label-col">Minimum <br />Order :</div>
       <div class="col-66">
         <div class="rel">
-          <ui-select ng-model="formData.minimumOrder" required="true">
+          <ui-select ng-model="formData.minimumOrder">
             <ui-select-match placeholder="Minimum Order">
               <span>{{ $select.selected.minimumOrder || $select.search }}</span>
             </ui-select-match>
@@ -219,13 +219,13 @@
     <div class="post-your-prod">
       <small class="errors" ng-show="showValidationSelectize && !formData.images">Image is needed</small>
       <button ng-if="user.isTextile" class="button button-block text-uppercase" promise-btn="addNewProductPromise"
-        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.subCategory || !formData.designNumber || !formData.qualityType || !formData.unit || !formData.size || !formData.minimumOrder"
+        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.subCategory || !formData.designNumber || !formData.qualityType "
         ng-click="submit()">
         Post your product
       </button>
       <!-- <pre>{{ formData }}</pre> -->
       <button ng-if="user.isAccessories" class="button button-block text-uppercase" promise-btn="addNewProductPromise"
-        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.designNumber || !formData.qualityType || !formData.unit || !formData.size || !formData.minimumOrder"
+        ng-disabled="!formData.images || !formData.name || !formData.category || !formData.designNumber || !formData.qualityType "
         ng-click="submit()">
         Post your product
       </button>

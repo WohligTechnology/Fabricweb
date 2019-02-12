@@ -78,7 +78,9 @@ angular
         return $http.post(adminUrl + url, data).then(
           function (data) {
             if (data.data.error == 'Expired') {
-              $state.go("plan-subscription");
+              $state.go("plan-subscription", {
+                expiry: true
+              });
             }
             if (data.data.error == 'Inactive') {
               $state.go('login');
@@ -117,7 +119,9 @@ angular
         return $http.post("http://payment.fabricterminal.com/api/" + url, data).then(
           function (data) {
             if (data.data.error == 'Expired') {
-              $state.go("plan-subscription");
+              $state.go("plan-subscription", {
+                expiry: true
+              });
             }
             if (data.data.error == 'Inactive') {
               $state.go('login');
@@ -143,7 +147,9 @@ angular
         data.expiryCheck = $.jStorage.get('UserId');
         return $http.post(adminUrl + url, data).then(function (data) {
           if (data.data.error == 'Expired') {
-            $state.go("plan-subscription");
+            $state.go("plan-subscription", {
+              expiry: true
+            });
           }
           if (data.data.error == 'Inactive') {
             $state.go('login');
@@ -221,6 +227,8 @@ angular
       showActionsheet: function (showActionsheet, index, maxImage, callback) {
         console.log("In Here");
         var actionsheet = [];
+        // callback(['5c617f61955c724e80075331']);
+        // return true;
 
         function getPictures(index) {
           console.log("BUTTON CLICKED", index);

@@ -13,7 +13,7 @@
         <div class="col-90">
           <div class="product-name">
             <h4 class="mar0">{{ product.name }}</h4>
-            <label >Design # </label>
+            <label>Design # </label>
             <span> {{ product.designNumber }}</span>
           </div>
         </div>
@@ -36,7 +36,7 @@
               <div class="ribbon-wrap">
                 <div class="ribbon" ng-if="product.offer"><a>OFFER</a></div>
               </div>
-              <label  class="manual-quality">{{
+              <label class="manual-quality">{{
                 product.qualityType
                 }}</label>
               <!--
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div  class="product-detail-text marrl10">
+      <div class="product-detail-text marrl10">
         {{ product.description }}
       </div>
       <div class="padlr-5">
@@ -139,7 +139,7 @@
             Width/size :
           </div>
           <div class="col col-50 ptb20 text-right app-color lato-bold">
-            {{ product.size }}"{{ product.unit }}
+            {{ product.size }} <span ng-if="product.unit">"</span> {{ product.unit }}
           </div>
         </div>
         <div class="row bbgrey">

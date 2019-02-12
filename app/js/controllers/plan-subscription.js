@@ -1,5 +1,10 @@
-myApp.controller('PlansubscriptionCtrl', function ($scope, Navigation, $cordovaInAppBrowser,
-  $cordovaSocialSharing) {
+myApp.controller('PlansubscriptionCtrl', function ($scope, Navigation, $cordovaInAppBrowser, $stateParams, $cordovaSocialSharing, $state) {
+  $scope.expiry = $stateParams.expiry;
+  console.log($stateParams.expiry);
+  $scope.goBackHandler = function () {
+    Navigation.gobackHandler(); //This works
+  };
+
   var getPlans = function () {
     var userType = ''
     if ($.jStorage.get('userInfo').isBuyer == true) {

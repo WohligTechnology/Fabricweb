@@ -29,7 +29,8 @@ var myApp = angular
     $rootScope,
     Navigation,
     $cordovaNetwork,
-    $ionicHistory
+    $ionicHistory,
+    $stateParams
   ) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -44,6 +45,9 @@ var myApp = angular
 
       $ionicPlatform.registerBackButtonAction(function (event) {
         event.preventDefault();
+        if ($state.current.name == "plan-subscription" && $stateParams.expiry == true) {
+          navigator.app.exitApp();
+        } else
         if (
           $state.current.name == "network-error" ||
           $state.current.name == "otp"
@@ -424,7 +428,7 @@ var myApp = angular
       })
       .state("plan-subscription", {
         cache: false,
-        url: "/plan-subscription",
+        url: "/plan-subscription/:expiry",
         templateUrl: "templates/plan-subscription.html",
         controller: "PlansubscriptionCtrl"
       })

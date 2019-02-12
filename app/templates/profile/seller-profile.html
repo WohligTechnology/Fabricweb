@@ -119,7 +119,7 @@
         <div class="row mtb-10" ng-repeat="product in seller.endProductChunk">
           <div class=" col-50" ng-repeat="p in product">
             <label class="shirt-design-name">{{ p.name }}</label>
-            <a fancybox-box data-fancybox="gallery" href="{{ p.image | serverimage }}" rel="gal">
+            <a fancybox-box data-fancybox="gallery" href="{{ p.image | serverimage:300 :300 :'cover' }}" rel="gal">
               <div class="buyers-detail-img rel">
                 <img ng-src="{{ p.image | serverimage }}" alt="" />
               </div>
